@@ -1,5 +1,9 @@
 /* eslint-disable no-console */
 const app = require('./app');
+//  Connect database
+const db = require('./config/db');
+
+db();
 
 //  Connection to a port
 const PORT = process.env.PORT || 3000;
