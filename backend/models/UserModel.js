@@ -41,6 +41,27 @@ const UserSchema = new mongoose.Schema({
       type: String,
     },
   },
+  reviews: [
+    {
+      restaurant: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'restaurant',
+        required: true,
+      },
+      rating: {
+        type: Number,
+        required: true,
+      },
+      text: {
+        type: String,
+        required: true,
+      },
+      date: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   date: { type: Date, default: Date.now() },
 });
 
