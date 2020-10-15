@@ -62,6 +62,15 @@ const UserSchema = new mongoose.Schema({
       },
     },
   ],
+  events: [
+    {
+      event: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'event',
+        required: true,
+      },
+    },
+  ],
   date: { type: Date, default: Date.now() },
 });
 

@@ -173,7 +173,7 @@ router.post(
 
     try {
       const customer = await User.findById(customerId).select('-password');
-      //   Check if restaurant ID is invalid
+      //   Check if restaurant ID is invalid***
       const newReview = {
         restaurant,
         rating,
@@ -192,5 +192,34 @@ router.post(
     }
   },
 );
+
+// @route  Update yelp/customer/profile/events/:event_id
+// @desc   Add a review to a restaurant
+// @access Private
+router.post('/events/:event_id', checkAuth, async (req, res) => {
+  const customerId = req.user.id;
+  const eventId = req.params.event_id;
+
+  try {
+    const customer = await User.findById(customerId).select('-password');
+    //   Check if already registered***
+    if (
+      customer.events.filter((event) => event.toString() === eventId).length > 0
+    ) {
+      return res.status(400).json({ msg: 'Event already registered' });
+    }
+
+    const newEvent = { eventId };
+
+    customer.events.unshift(newEvent);
+
+    await customer.save();
+
+    res.json(customer);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;
