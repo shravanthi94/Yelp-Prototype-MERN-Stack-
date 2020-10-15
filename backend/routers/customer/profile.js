@@ -14,7 +14,7 @@ router.get('/', checkAuth, async (req, res) => {
     const customer = await User.findById(req.user.id).select('-password');
 
     if (!customer) {
-      return res.status(400).json({ msg: 'User not found.' });
+      return res.status(400).json({ errors: [{ msg: 'User not found' }] });
     }
 
     res.status(200).json(customer);
@@ -34,7 +34,7 @@ router.get('/display/:customer_id', async (req, res) => {
     const customer = await User.findById(customerId).select('-password');
 
     if (!customer) {
-      return res.status(400).json({ msg: 'User not found.' });
+      return res.status(400).json({ errors: [{ msg: 'User not found' }] });
     }
 
     res.status(200).json(customer);
@@ -206,7 +206,9 @@ router.post('/events/:event_id', checkAuth, async (req, res) => {
     if (
       customer.events.filter((event) => event.toString() === eventId).length > 0
     ) {
-      return res.status(400).json({ msg: 'Event already registered' });
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'Event already registered' }] });
     }
 
     const newEvent = { eventId };

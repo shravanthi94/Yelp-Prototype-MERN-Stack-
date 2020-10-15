@@ -4,11 +4,14 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const { auth } = require('../../middleware/auth');
 
 const router = express.Router();
 
 //  Get the User mongoose model
 const User = require('../../models/UserModel');
+
+auth();
 
 // @route  POST yelp/customer/login
 // @desc   Customer Login route

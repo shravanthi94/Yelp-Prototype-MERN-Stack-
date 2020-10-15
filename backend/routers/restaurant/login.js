@@ -5,11 +5,14 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const { auth } = require('../../middleware/resAuth');
 
 const router = express.Router();
 
 //  Get the Restaurant mongoose model
 const Restaurant = require('../../models/RestaurantModel');
+
+auth();
 
 // @route  POST yelp/restaurant/register
 // @desc   Restaurant SIGNUP route
@@ -53,7 +56,7 @@ router.post(
 
       // 3. return jsonWebToken
       const payload = {
-        restaurant: {
+        user: {
           id: restaurant.id,
           name: restaurant.name,
           email: restaurant.email,

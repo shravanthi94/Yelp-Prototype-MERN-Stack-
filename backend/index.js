@@ -8,6 +8,7 @@ const loginCustomer = require('./routers/customer/login');
 const profileCustomer = require('./routers/customer/profile');
 const registerRestaurant = require('./routers/restaurant/register');
 const loginRestaurant = require('./routers/restaurant/login');
+const profileRestaurant = require('./routers/restaurant/profile');
 
 db();
 
@@ -24,6 +25,8 @@ app.use('/customer/profile', profileCustomer);
 app.use('/restaurant/register', registerRestaurant);
 //  Restaurant - LOGIN
 app.use('/restaurant/login', loginRestaurant);
+//  Restaurant - PROFILE
+app.use('/restaurant/profile', profileRestaurant);
 
 //  Connection to a port
 const PORT = process.env.PORT || 3000;
