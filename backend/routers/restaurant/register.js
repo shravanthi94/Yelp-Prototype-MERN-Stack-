@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 const express = require('express');
 
 const { check, validationResult } = require('express-validator');
@@ -8,7 +9,7 @@ const config = require('config');
 const router = express.Router();
 
 //  Get the User mongoose model
-const User = require('../../models/UserModel');
+const Restaurant = require('../../models/RestaurantModel');
 
 // @route  POST yelp/customer/register
 // @desc   Customer SIGNUP route
@@ -17,10 +18,11 @@ router.post(
   '/',
   [
     check('name', 'Name is required.').notEmpty(),
-    check('email', 'Please include a valid email.').isEmail(),
+    check('email', 'Please include a valid email.').isEmail().notEmpty(),
     check('password', 'Password must be 8 characters long.').isLength({
       min: 4,
     }),
+    check('location', 'Please include restaurant location.').notEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -28,39 +30,40 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password } = req.body;
+    const { name, email, password, location } = req.body;
 
     try {
       //  1. Query to check if customer exists
-      let user = await User.findOne({ email });
+      let restaurant = await Restaurant.findOne({ email });
 
-      if (user) {
+      if (restaurant) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'User already exits' }] });
+          .json({ errors: [{ msg: 'restaurant already exits' }] });
       }
 
-      //  3. Create user
-      user = new User({
+      //  3. Create restaurant
+      restaurant = new Restaurant({
         name,
         email,
         password,
+        location,
       });
 
-      //  2. If customer does not exist, hash the password
+      //  2. If restaurant does not exist, hash the password
       const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
+      restaurant.password = await bcrypt.hash(password, salt);
 
       //  4. save to database
-      await user.save();
+      await restaurant.save();
 
-      //  5. Pass the jsonwebtoken for that customer
+      //  5. Pass the jsonwebtoken for that restaurant
       const payload = {
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          usertype: 'customer',
+        restaurant: {
+          id: restaurant.id,
+          name: restaurant.name,
+          email: restaurant.email,
+          usertype: 'restaurant',
         },
       };
 
@@ -72,9 +75,9 @@ router.post(
           if (err) throw err;
           res.json({
             token,
-            id: user.id,
-            name: user.name,
-            email: user.email,
+            id: restaurant.id,
+            name: restaurant.name,
+            email: restaurant.email,
           });
         },
       );

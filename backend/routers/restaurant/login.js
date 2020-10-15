@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 const express = require('express');
 
 const { check, validationResult } = require('express-validator');
@@ -7,17 +8,21 @@ const config = require('config');
 
 const router = express.Router();
 
-//  Get the User mongoose model
-const User = require('../../models/UserModel');
+//  Get the Restaurant mongoose model
+const Restaurant = require('../../models/RestaurantModel');
 
-// @route  POST yelp/customer/login
-// @desc   Customer Login route
+// @route  POST yelp/restaurant/register
+// @desc   Restaurant SIGNUP route
 // @access Public
 router.post(
   '/',
   [
     check('email', 'Please include a valid email.').isEmail().notEmpty(),
-    check('password', 'Password is required.').notEmpty(),
+    check('password', 'Password must be 8 characters long.')
+      .isLength({
+        min: 4,
+      })
+      .notEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -28,17 +33,17 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      // 1. See if user exists
-      const user = await User.findOne({ email });
+      // 1. See if Restaurant exists
+      const restaurant = await Restaurant.findOne({ email });
 
-      if (!user) {
+      if (!restaurant) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'Invalid Credentials' }] });
       }
 
-      // 2. Match user's password matches
-      const isMatch = await bcrypt.compare(password, user.password);
+      // 2. Match restaurant's password matches
+      const isMatch = await bcrypt.compare(password, restaurant.password);
 
       if (!isMatch) {
         return res
@@ -48,11 +53,11 @@ router.post(
 
       // 3. return jsonWebToken
       const payload = {
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          usertype: 'customer',
+        restaurant: {
+          id: restaurant.id,
+          name: restaurant.name,
+          email: restaurant.email,
+          usertype: 'restaurant',
         },
       };
 
@@ -64,9 +69,9 @@ router.post(
           if (err) throw err;
           res.json({
             token,
-            id: user.id,
-            name: user.name,
-            email: user.email,
+            id: restaurant.id,
+            name: restaurant.name,
+            email: restaurant.email,
           });
         },
       );
