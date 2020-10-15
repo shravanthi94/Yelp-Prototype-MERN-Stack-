@@ -2,6 +2,7 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const config = require('config');
 const Users = require('../models/UserModel');
 
@@ -28,5 +29,27 @@ function auth() {
   );
 }
 
+function checkAuth(req, res, next) {
+  //  Get the requested web token from user
+  const token = req.header('x-auth-token');
+
+  //  If no token, deny access
+  if (!token) {
+    res.status(401).json({ msg: 'No token. Authorization denied.' });
+  }
+
+  //  Decode the web token and verify
+  try {
+    passport.authenticate('jwt', { session: false });
+    const decoded = jwt.verify(token, config.get('jwtSecret'));
+    req.user = decoded.user;
+    next();
+  } catch (err) {
+    console.log(err);
+    res.status(401).json({ msg: 'Token is invalid' });
+  }
+}
+
 exports.auth = auth;
-exports.checkAuth = passport.authenticate('jwt', { session: false });
+// exports.checkAuth = passport.authenticate('jwt', { session: false });
+exports.checkAuth = checkAuth;

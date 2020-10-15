@@ -22,9 +22,6 @@ const UserSchema = new mongoose.Schema({
     nickname: {
       type: String,
     },
-    yelpingScince: {
-      type: Date,
-    },
     thingsILove: {
       type: String,
     },
