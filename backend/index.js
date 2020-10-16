@@ -9,6 +9,8 @@ const profileCustomer = require('./routers/customer/profile');
 const registerRestaurant = require('./routers/restaurant/register');
 const loginRestaurant = require('./routers/restaurant/login');
 const profileRestaurant = require('./routers/restaurant/profile');
+const resEvent = require('./routers/restaurant/event');
+const cusEvent = require('./routers/customer/event');
 
 db();
 
@@ -19,6 +21,8 @@ app.use('/customer/register', registerCustomer);
 app.use('/customer/login', loginCustomer);
 //  Customer - PROFILE
 app.use('/customer/profile', profileCustomer);
+//  Restaurant - Event
+app.use('/customer/event', cusEvent);
 
 /* Routes for Restaurant */
 //  Restaurant SIGNUP
@@ -27,6 +31,8 @@ app.use('/restaurant/register', registerRestaurant);
 app.use('/restaurant/login', loginRestaurant);
 //  Restaurant - PROFILE
 app.use('/restaurant/profile', profileRestaurant);
+//  Restaurant - Event
+app.use('/restaurant/event', resEvent);
 
 //  Connection to a port
 const PORT = process.env.PORT || 3000;

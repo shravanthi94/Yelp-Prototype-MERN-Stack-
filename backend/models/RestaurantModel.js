@@ -21,6 +21,7 @@ const RestaurantSchema = new mongoose.Schema({
       category: { type: String },
     },
   ],
+  date: { type: Date, default: Date.now() },
 });
 
 const Restaurant = mongoose.model('restaurant', RestaurantSchema);
