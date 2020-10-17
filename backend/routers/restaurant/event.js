@@ -6,6 +6,7 @@ const { check, validationResult } = require('express-validator');
 const { checkAuth } = require('../../middleware/resAuth');
 
 const Event = require('../../models/EventModel');
+const User = require('../../models/UserModel');
 
 // @route  GET yelp/events
 // @desc   Get all list of events sorted by date
@@ -91,7 +92,11 @@ router.post(
 // @access Public
 router.get('/created', checkAuth, async (req, res) => {
   try {
-    const events = await Event.find({ restaurant: req.user.id });
+    const events = await Event.find({ restaurant: req.user.id }).populate({
+      path: 'customer',
+      select: 'name',
+      model: User,
+    });
 
     if (!events) {
       return res.status(400).json({ errors: [{ msg: 'No events found.' }] });

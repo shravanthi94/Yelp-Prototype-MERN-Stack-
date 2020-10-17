@@ -57,20 +57,11 @@ const UserSchema = new mongoose.Schema({
         required: true,
       },
       date: {
-        type: String,
-        required: true,
+        type: Date,
+        default: Date.now(),
       },
     },
   ],
-  // events: [
-  //   {
-  //     event: {
-  //       type: mongoose.Schema.Types.ObjectId,
-  //       ref: 'event',
-  //       required: true,
-  //     },
-  //   },
-  // ],
   date: { type: Date, default: Date.now() },
 });
 

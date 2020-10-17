@@ -8,6 +8,7 @@ const { checkAuth } = require('../../middleware/resAuth');
 const checkObjectId = require('../../middleware/checkParams');
 
 const Restaurant = require('../../models/RestaurantModel');
+const User = require('../../models/UserModel');
 
 // @route  GET yelp/restaurant/profile/all
 // @desc   Get all restaurant profile details
@@ -272,5 +273,21 @@ router.get(
     }
   },
 );
+
+// @route  GET yelp/reviews/restaurant
+// @desc   Get all reviews for a restaurant
+// @access Private
+router.get('/reviews/all/:res_id', async (req, res) => {
+  const resId = req.params.res_id;
+  try {
+    const customers = await User.find({ 'reviews.restaurant': resId }).select(
+      'name reviews',
+    );
+    res.status(200).json(customers);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;

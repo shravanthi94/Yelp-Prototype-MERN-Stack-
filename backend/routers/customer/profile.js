@@ -6,6 +6,22 @@ const { checkAuth } = require('../../middleware/auth');
 
 const User = require('../../models/UserModel');
 
+// @route  GET yelp/customer/profile/all
+// @desc   Get all customer profile details
+// @access Public
+router.get('/all', (req, res) => {
+  try {
+    const customers = User.find();
+    if (!customers) {
+      return res.status(400).json({ errors: [{ msg: 'User not found' }] });
+    }
+    res.status(200).json(customers);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
+  }
+});
+
 // @route  GET yelp/customer/profile
 // @desc   Get current customer profile details
 // @access Private
@@ -169,7 +185,6 @@ router.post(
     const customerId = req.user.id;
     const restaurant = req.params.res_id;
     const { rating, text } = req.body;
-    const date = new Date();
 
     try {
       const customer = await User.findById(customerId).select('-password');
@@ -178,7 +193,6 @@ router.post(
         restaurant,
         rating,
         text,
-        date,
       };
 
       customer.reviews.unshift(newReview);
@@ -194,7 +208,7 @@ router.post(
 );
 
 // @route  Update yelp/customer/profile/events/:event_id
-// @desc   Add a review to a restaurant
+// @desc   Register for an event
 // @access Private
 router.post('/events/:event_id', checkAuth, async (req, res) => {
   const customerId = req.user.id;
