@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const app = require('./app');
 //  Connect database
-const db = require('./config/db');
+// const db = require('./config/db');
 
 const registerCustomer = require('./routers/customer/register');
 const loginCustomer = require('./routers/customer/login');
@@ -12,7 +12,7 @@ const profileRestaurant = require('./routers/restaurant/profile');
 const resEvent = require('./routers/restaurant/event');
 const cusEvent = require('./routers/customer/event');
 
-db();
+// db();
 
 /*  Routes for Customers */
 //  Customer - SIGNUP
