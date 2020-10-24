@@ -69,9 +69,9 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           </Fragment>
         )}
       </div>
-      {/* {!loading && ( */}
-      <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
-      {/* )} */}
+      {!loading && (
+        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+      )}
     </div>
   );
 };

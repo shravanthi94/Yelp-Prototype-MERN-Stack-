@@ -9,36 +9,47 @@ const UserSchema = new mongoose.Schema({
   about: {
     dob: {
       type: Date,
+      default: '',
     },
     city: {
       type: String,
+      default: '',
     },
     state: {
       type: String,
+      default: '',
     },
     country: {
       type: String,
+      default: '',
     },
     nickname: {
       type: String,
+      default: '',
     },
     thingsILove: {
       type: String,
+      default: '',
     },
     findMeIn: {
       type: String,
+      default: '',
     },
     myBlog: {
       type: String,
+      default: '',
     },
     notYelping: {
       type: String,
+      default: '',
     },
     whyMyReviews: {
       type: String,
+      default: '',
     },
     discovery: {
       type: String,
+      default: '',
     },
   },
   reviews: [
