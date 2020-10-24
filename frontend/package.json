@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
     "bulma": "^0.9.1",
+    "jwt-decode": "^3.0.0",
     "moment": "^2.29.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -41,5 +42,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3002"
 }

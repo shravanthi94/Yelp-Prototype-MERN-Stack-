@@ -10,20 +10,17 @@ const cors = require('cors/lib');
 //  Generate app for using express
 const app = express();
 //  Use json output format - middleware
-app.use(bodyParser.json());
+app.use(bodyParser.json({ extended: false }));
 //  Allow cross origin resourse sharing
 app.use(
   cors({
-    origin: 'http://54.183.239.208:3000',
+    origin: 'http://localhost:3000',
     credentials: true,
   }),
 );
 
 app.use((request, response, next) => {
-  response.setHeader(
-    'Access-Control-Allow-Origin',
-    'http://54.183.239.208:3000',
-  );
+  response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   response.setHeader('Access-Control-Allow-Credentials', 'true');
   response.setHeader(
     'Access-Control-Allow-Methods',

@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
+    "server": "nodemon index",
+    "dev": "concurrently \"npm run server\" \"cd ../frontend && npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

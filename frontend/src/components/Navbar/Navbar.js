@@ -1,9 +1,12 @@
 import React, { Fragment } from 'react';
 import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import '../css/navbar.css';
+import { logout } from '../../actions/auth';
 
-const Navbar = () => {
+const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <div className='right'>
       {localStorage.restaurant ? (
@@ -15,9 +18,9 @@ const Navbar = () => {
           <i className='fas fa-user'></i> Profile
         </Link>
       )}
-      {/* <a href='/' onClick={logout} className='header_nav_link'>
+      <a href='/' onClick={logout} className='header_nav_link'>
         Logout
-      </a> */}
+      </a>
     </div>
   );
 
@@ -58,17 +61,28 @@ const Navbar = () => {
         <Link to='/event' className='header_nav_link'>
           Events
         </Link>
-        {/* {!loading && ( */}
-        {/* <Fragment>
-            {isAuthenticated && restaurant ? restLinks : custLinks}
-          </Fragment> */}
-        {/* )} */}
+        {!loading && (
+          <Fragment>
+            {isAuthenticated && localStorage.usertype === 'restaurant'
+              ? restLinks
+              : custLinks}
+          </Fragment>
+        )}
       </div>
       {/* {!loading && ( */}
-      {/* <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment> */}
+      <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
       {/* )} */}
     </div>
   );
 };
 
-export default Navbar;
+Navbar.propTypes = {
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);
