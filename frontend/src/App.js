@@ -5,6 +5,7 @@ import Landing from './components/LandingPage/Landing';
 
 //  Customer - Authorization
 import Login from './components/Customer/Login';
+import Signup from './components/Customer/Signup';
 
 //  Utils
 import Alert from './components/layout/Alert';
@@ -38,6 +39,7 @@ const App = () => {
             <Alert />
             <Switch>
               <Route exact path='/login' component={Login} />
+              <Route exact path='/signup' component={Signup} />
             </Switch>
           </section>
         </Fragment>
