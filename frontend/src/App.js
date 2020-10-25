@@ -9,6 +9,9 @@ import Signup from './components/Customer/Signup';
 
 //  Customer - Profile
 import Profile from './components/Customer/Profile';
+import UpdateProfile from './components/Customer/profile-forms/UpdateProfile';
+import EditAbout from './components/Customer/profile-forms/EditAbout';
+import EditContact from './components/Customer/profile-forms/EditContact';
 
 //  Utils
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -44,7 +47,18 @@ const App = () => {
             <Switch>
               <Route exact path='/login' component={Login} />
               <Route exact path='/signup' component={Signup} />
-              <Route exact path='/profile' component={Profile} />
+              <PrivateRoute exact path='/profile' component={Profile} />
+              <PrivateRoute
+                exact
+                path='/update/basic'
+                component={UpdateProfile}
+              />
+              <PrivateRoute exact path='/update/about' component={EditAbout} />
+              <PrivateRoute
+                exact
+                path='/update/contact'
+                component={EditContact}
+              />
             </Switch>
           </section>
         </Fragment>

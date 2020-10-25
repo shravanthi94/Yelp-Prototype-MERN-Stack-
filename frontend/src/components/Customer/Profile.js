@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
 import spinner from '../layout/Spinner';
+import Date from '../../utils/Date';
 import '../css/profile.css';
 // import { getRegisteredEvents } from '../../actions/event';
 
@@ -14,7 +15,7 @@ const Profile = ({
   //   event: { registered, loading: loading_event },
 }) => {
   useEffect(() => {
-    console.log('profile page');
+    // console.log('profile page');
     getCurrentProfile();
     // getRegisteredEvents();
   }, []);
@@ -108,7 +109,8 @@ const Profile = ({
             <Fragment>
               <h2 className='activity'>Don't forget to wish me on</h2>
               <h4 className='profile-title'>
-                <i class='fas fa-birthday-cake'></i> {profile.about.dob}
+                <i class='fas fa-birthday-cake'></i>{' '}
+                <Date date={profile.about.dob} />
               </h4>
               <br />
             </Fragment>
@@ -132,12 +134,12 @@ const Profile = ({
             <h3 className='subheading'>About {profile.name}</h3>
             <h4 className='profile-title'>Location</h4>
             <p>
-              <i class='fas fa-home'></i> {profile.city}, {profile.state},{' '}
-              {profile.country}
+              <i class='fas fa-home'></i> {profile.about.city},{' '}
+              {profile.about.state}, {profile.about.country}
             </p>
             <h4 className='profile-title'>Yelping Since</h4>
             <p>
-              <i class='fas fa-calendar-day'></i> {profile.date}
+              <i class='fas fa-calendar-day'></i> <Date date={profile.date} />
             </p>
             <h4 className='profile-title'>Things I Love</h4>
             {!profile.about.thingsILove ? (
