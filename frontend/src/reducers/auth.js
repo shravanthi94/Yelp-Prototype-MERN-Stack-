@@ -1,5 +1,6 @@
 import {
   USER_LOADED,
+  RESTAURANT_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -20,6 +21,7 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case USER_LOADED:
+    case RESTAURANT_LOADED:
       return {
         ...state,
         isAuthenticated: true,

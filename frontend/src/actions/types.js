@@ -21,3 +21,7 @@ export const GET_PROFILE = 'GET_PROFILE';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const UPDATE_DETAILS = 'UPDATE_DETAILS';
+
+//  Dashboard - Restaurant
+export const GET_DASHBOARD = 'GET_DASHBOARD';
+export const DASHBOARD_ERROR = 'DASHBOARD_ERROR';

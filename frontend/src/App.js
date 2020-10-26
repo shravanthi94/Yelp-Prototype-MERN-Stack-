@@ -17,6 +17,9 @@ import UpdateProfile from './components/Customer/profile-forms/UpdateProfile';
 import EditAbout from './components/Customer/profile-forms/EditAbout';
 import EditContact from './components/Customer/profile-forms/EditContact';
 
+//  Restaurant - Profile
+import Dashboard from './components/Restaurant/Dashboard';
+
 //  Utils
 import PrivateRoute from './components/routing/PrivateRoute';
 import Alert from './components/layout/Alert';
@@ -48,6 +51,11 @@ const App = () => {
         <Fragment>
           <Navbar />
           <Route exact path='/' component={Landing} />
+          <PrivateRoute
+            exact
+            path='/restaurant/profile'
+            component={Dashboard}
+          />
           <section className='container'>
             <Alert />
             <Switch>
