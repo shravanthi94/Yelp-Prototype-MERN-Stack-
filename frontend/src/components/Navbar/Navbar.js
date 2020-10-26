@@ -9,7 +9,7 @@ import { logout } from '../../actions/auth';
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <div className='right'>
-      {localStorage.restaurant ? (
+      {localStorage.usertype === 'restaurant' ? (
         <Link to='/restaurant/profile' className='header_nav_link'>
           <i className='fas fa-user'></i> Dashboard
         </Link>

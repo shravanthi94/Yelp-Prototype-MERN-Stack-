@@ -7,6 +7,10 @@ import Landing from './components/LandingPage/Landing';
 import Login from './components/Customer/Login';
 import Signup from './components/Customer/Signup';
 
+//  Restaurant - Authorization
+import ResLogin from './components/Restaurant/Login';
+import ResSignup from './components/Restaurant/Signup';
+
 //  Customer - Profile
 import Profile from './components/Customer/Profile';
 import UpdateProfile from './components/Customer/profile-forms/UpdateProfile';
@@ -16,7 +20,7 @@ import EditContact from './components/Customer/profile-forms/EditContact';
 //  Utils
 import PrivateRoute from './components/routing/PrivateRoute';
 import Alert from './components/layout/Alert';
-import { loadUser } from './actions/auth';
+import { loadUser, loadRestaurant } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
 // Redux
@@ -31,9 +35,11 @@ if (localStorage.token) {
 const App = () => {
   //  Component did mount
   useEffect(() => {
-    // if (localStorage.usertype === 'customer') {
-    store.dispatch(loadUser());
-    // }
+    if (localStorage.usertype === 'customer') {
+      store.dispatch(loadUser());
+    } else {
+      store.dispatch(loadRestaurant());
+    }
   });
 
   return (
@@ -47,6 +53,8 @@ const App = () => {
             <Switch>
               <Route exact path='/login' component={Login} />
               <Route exact path='/signup' component={Signup} />
+              <Route exact path='/restaurant/login' component={ResLogin} />
+              <Route exact path='/restaurant/signup' component={ResSignup} />
               <PrivateRoute exact path='/profile' component={Profile} />
               <PrivateRoute
                 exact

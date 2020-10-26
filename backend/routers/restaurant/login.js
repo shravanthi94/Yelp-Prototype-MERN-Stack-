@@ -21,7 +21,7 @@ router.post(
   '/',
   [
     check('email', 'Please include a valid email.').isEmail().notEmpty(),
-    check('password', 'Password must be 8 characters long.')
+    check('password', 'Password must be 4 characters long.')
       .isLength({
         min: 4,
       })
