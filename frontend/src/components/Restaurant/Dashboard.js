@@ -104,6 +104,7 @@ const Dashboard = ({
             <Link to='/restaurant/update/basic' className='btn'>
               <i class='fas fa-address-card'></i> Update Profile
             </Link>
+            <br />
             <Link to='/restaurant/add/dish' className='btn'>
               <i class='fas fa-utensils'></i> Add Dishes
             </Link>

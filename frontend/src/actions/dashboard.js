@@ -96,6 +96,46 @@ export const addDish = (formData, history) => async (dispatch) => {
   }
 };
 
+// Update a dish
+export const updateDish = (formData, history, itemId, edit = false) => async (
+  dispatch,
+) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const res = await axios.put(
+      `/restaurant/profile/menu/${itemId}`,
+      formData,
+      config,
+    );
+    console.log(res);
+    dispatch({
+      type: ADD_DISH_SUCCESS,
+    });
+
+    dispatch(setAlert('Dish item updated', 'success'));
+
+    if (!edit) {
+      history.push('/restaurant/profile');
+    }
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: ADD_DISH_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 //  Get all reviews
 export const getRestaurantReviews = (resId) => async (dispatch) => {
   try {

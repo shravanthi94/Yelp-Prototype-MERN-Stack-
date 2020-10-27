@@ -125,3 +125,16 @@ input {
   margin-top: 2%;
   color: rgb(53, 52, 52);
 }
+
+.update-btn {
+  display: inline-block;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 13px;
+  background: #d32323;
+  padding: 6px 15px;
+  text-decoration: none;
+  margin-top: 25px;
+  font-weight: bold;
+}

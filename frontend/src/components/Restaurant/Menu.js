@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Dashboard-forms/form.module.css';
 
 const Menu = ({ location }) => {
@@ -25,6 +26,15 @@ const Menu = ({ location }) => {
                     <p class={styles['item-description']}>{item.description}</p>
                   </div>
                 </div>
+                <Link
+                  className={styles['update-btn']}
+                  to={{
+                    pathname: '/restaurant/item/update',
+                    state: { itemId: item._id },
+                  }}
+                >
+                  Update item
+                </Link>
               </article>
             </div>
           </div>
@@ -50,6 +60,10 @@ const Menu = ({ location }) => {
       <h2 className={styles['menu-subheading']}>Desserts</h2>
       <hr />
       {displayCategory('Desserts')}
+      <br />
+      <Link className={styles.btn} to='/restaurant/profile'>
+        Back
+      </Link>
     </div>
   );
 };
