@@ -21,6 +21,7 @@ import EditContact from './components/Customer/profile-forms/EditContact';
 import Dashboard from './components/Restaurant/Dashboard';
 import ResUpdateProfile from './components/Restaurant/Dashboard-forms/UpdateProfile';
 import AddDish from './components/Restaurant/Dashboard-forms/AddDish';
+import Menu from './components/Restaurant/Menu';
 
 //  Utils
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -87,6 +88,7 @@ const App = () => {
                 path='/restaurant/add/dish'
                 component={AddDish}
               />
+              <Route exact path='/restaurant/view/menu' component={Menu} />
             </Switch>
           </section>
         </Fragment>

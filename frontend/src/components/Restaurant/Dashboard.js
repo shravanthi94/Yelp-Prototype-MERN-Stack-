@@ -108,9 +108,19 @@ const Dashboard = ({
               <i class='fas fa-utensils'></i> Add Dishes
             </Link>
             <h3 className='right-heading'>Full Menu</h3>
-            <Link to='/restaurant/view/menu' className='btn'>
-              <i class='fas fa-user-friends'></i> View Menu
-            </Link>
+            {profile.menu ? (
+              <Link
+                className='btn'
+                to={{
+                  pathname: '/restaurant/view/menu',
+                  state: { menu: profile.menu },
+                }}
+              >
+                View Menu
+              </Link>
+            ) : (
+              <p>Please add menu items</p>
+            )}
           </div>
         </div>
       </div>

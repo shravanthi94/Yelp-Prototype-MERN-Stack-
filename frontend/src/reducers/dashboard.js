@@ -12,7 +12,7 @@ const initialState = {
   profiles: [],
   dish: '',
   images: '',
-  menu: [],
+  //   menu: [],
   reviews: [],
   loading: true,
   error: {},

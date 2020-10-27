@@ -96,3 +96,32 @@ input {
   font-weight: bold;
   color: black;
 }
+
+.menu-subheading {
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 27px;
+  line-height: 1.28571em;
+  color: #d32323;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.item-title {
+  font: bold 25px Georgia, serif;
+  color: #d32323;
+  margin-bottom: 1%;
+}
+
+.item-ingredients {
+  font: italic bold 15px Georgia, serif;
+  color: black;
+}
+
+.item-description {
+  font: 15px Georgia, serif;
+  margin-top: 2%;
+  color: rgb(53, 52, 52);
+}
