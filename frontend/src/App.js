@@ -24,6 +24,10 @@ import AddDish from './components/Restaurant/Dashboard-forms/AddDish';
 import UpdateDish from './components/Restaurant/Dashboard-forms/UpdateItem';
 import Menu from './components/Restaurant/Menu';
 
+// Events
+import Event from './components/Events/Event';
+import EventDetails from './components/Events/EventDetails';
+
 //  Utils
 import PrivateRoute from './components/routing/PrivateRoute';
 import Alert from './components/layout/Alert';
@@ -95,6 +99,12 @@ const App = () => {
                 component={UpdateDish}
               />
               <Route exact path='/restaurant/view/menu' component={Menu} />
+              <Route exact path='/event' component={Event} />
+              <Route
+                exact
+                path='/event/details/:event_name'
+                component={EventDetails}
+              />
             </Switch>
           </section>
         </Fragment>

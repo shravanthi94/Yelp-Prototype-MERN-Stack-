@@ -85,3 +85,10 @@
   margin-left: 500px;
   position: fixed;
 }
+
+.event-red {
+  color: #d32323;
+  font-weight: bolder;
+  font-size: 25px;
+  height: 50px;
+}

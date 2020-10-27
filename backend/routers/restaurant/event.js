@@ -8,7 +8,7 @@ const { checkAuth } = require('../../middleware/resAuth');
 const Event = require('../../models/EventModel');
 const User = require('../../models/UserModel');
 
-// @route  GET yelp/events
+// @route  GET yelp/restaurant/events
 // @desc   Get all list of events sorted by date
 // @access Public
 router.get('/', async (req, res) => {
