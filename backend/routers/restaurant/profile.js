@@ -103,10 +103,12 @@ router.post(
       restaurant.phone = phone;
       restaurant.description = description;
       restaurant.timings = timings;
-      restaurant.deliveryMethod = delivery
-        .split(',')
-        .map((each) => each.trim());
-      restaurant.cuisine = cuisine.split(',').map((each) => each.trim());
+      restaurant.deliveryMethod = delivery;
+      restaurant.cuisine = cuisine;
+      // restaurant.deliveryMethod = delivery
+      //   .split(',')
+      //   .map((each) => each.trim());
+      // restaurant.cuisine = cuisine.split(',').map((each) => each.trim());
 
       await restaurant.save();
 

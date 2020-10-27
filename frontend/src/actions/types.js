@@ -25,3 +25,7 @@ export const UPDATE_DETAILS = 'UPDATE_DETAILS';
 //  Dashboard - Restaurant
 export const GET_DASHBOARD = 'GET_DASHBOARD';
 export const DASHBOARD_ERROR = 'DASHBOARD_ERROR';
+
+//  Menu - Restaurant
+export const ADD_DISH_SUCCESS = 'ADD_DISH_SUCCESS';
+export const ADD_DISH_ERROR = 'ADD_DISH_ERROR';

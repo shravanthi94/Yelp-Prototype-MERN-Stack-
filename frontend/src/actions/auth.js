@@ -171,7 +171,7 @@ export const loginRestaurant = (email, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-    console.log(res.data);
+    // console.log(res.data);
     dispatch(loadRestaurant());
   } catch (err) {
     console.log(err.response.data.errors);
