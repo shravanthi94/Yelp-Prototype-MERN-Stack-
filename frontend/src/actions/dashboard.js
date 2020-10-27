@@ -5,6 +5,8 @@ import {
   DASHBOARD_ERROR,
   ADD_DISH_SUCCESS,
   ADD_DISH_ERROR,
+  GET_REVIEWS,
+  GET_REVIEWS_ERROR,
 } from './types';
 
 //Get current users profile
@@ -89,6 +91,29 @@ export const addDish = (formData, history) => async (dispatch) => {
 
     dispatch({
       type: ADD_DISH_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//  Get all reviews
+export const getRestaurantReviews = (resId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/restaurant/profile/reviews/all/${resId}`);
+    console.log(res.data);
+    dispatch({
+      type: GET_REVIEWS,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: GET_REVIEWS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

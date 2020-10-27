@@ -1,4 +1,11 @@
-import { GET_DASHBOARD, DASHBOARD_ERROR } from '../actions/types';
+import {
+  GET_DASHBOARD,
+  DASHBOARD_ERROR,
+  ADD_DISH_SUCCESS,
+  ADD_DISH_ERROR,
+  GET_REVIEWS,
+  GET_REVIEWS_ERROR,
+} from '../actions/types';
 
 const initialState = {
   profile: '',
@@ -27,27 +34,27 @@ export default function (state = initialState, action) {
     //     images: payload,
     //     loading: false,
     //   };
-    // case ADD_DISH_SUCCESS:
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //   };
+    case ADD_DISH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
     // case GET_MENU:
     //   return {
     //     ...state,
     //     menu: payload,
     //     loading: false,
     //   };
-    // case GET_REVIEWS:
-    //   return {
-    //     ...state,
-    //     reviews: payload,
-    //     loading: false,
-    //   };
+    case GET_REVIEWS:
+      return {
+        ...state,
+        reviews: payload,
+        loading: false,
+      };
     case DASHBOARD_ERROR:
-      // case ADD_DISH_ERROR:
-      // case GET_MENU_ERROR:
-      // case GET_REVIEWS_ERROR:
+    case ADD_DISH_ERROR:
+    // case GET_MENU_ERROR:
+    case GET_REVIEWS_ERROR:
       // case RES_IMAGE_ERROR:
       return {
         ...state,

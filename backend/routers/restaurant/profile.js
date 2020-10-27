@@ -33,7 +33,6 @@ router.get('/all', async (req, res) => {
 // @desc   Get current restaurant profile details
 // @access Private
 router.get('/', checkAuth, async (req, res) => {
-  console.log(req.user);
   try {
     const restaurant = await Restaurant.findById(req.user.id).select(
       '-password',
@@ -277,7 +276,7 @@ router.get(
   },
 );
 
-// @route  GET yelp/reviews/restaurant
+// @route  GET yelp/reviews/restaurant/profile/reviews/all/:resId
 // @desc   Get all reviews for a restaurant
 // @access Private
 router.get('/reviews/all/:res_id', async (req, res) => {
@@ -286,6 +285,9 @@ router.get('/reviews/all/:res_id', async (req, res) => {
     const customers = await User.find({ 'reviews.restaurant': resId }).select(
       'name reviews',
     );
+    if (customers.length === 0) {
+      return res.status(400).json({ errors: [{ msg: 'No reviews added' }] });
+    }
     res.status(200).json(customers);
   } catch (err) {
     console.log(err);

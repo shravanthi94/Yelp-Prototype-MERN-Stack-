@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentDashboard } from '../../actions/dashboard';
+import Reviews from './Reviews';
 import spinner from '../layout/Spinner';
 import '../css/dashboard.css';
 
@@ -49,53 +50,6 @@ const Dashboard = ({
   //     });
   //   };
 
-  const displayMenuItems = () => {
-    if (!profile.menu) {
-      return '';
-    }
-    return profile.menu.map((item) => {
-      return (
-        <Fragment>
-          <tr>
-            <td>
-              <div className='bold'>
-                {item.item_name} <br /> <br />
-                <i>({item.item_description})</i> <br />
-                <br />
-                <Link
-                  className='update-btn'
-                  to={{
-                    pathname: '/restaurant/item/update',
-                    state: { itemId: item.item_id },
-                  }}
-                >
-                  Update item/Add Images
-                </Link>
-                <br />
-                {item.item_image === '1' || !item.item_image ? (
-                  ''
-                ) : (
-                  <Link
-                    className='update-btn'
-                    to={{
-                      pathname: '/restaurant/item/images',
-                      state: { images: item.item_image },
-                    }}
-                  >
-                    View images
-                  </Link>
-                )}
-              </div>
-            </td>
-            <td className='bold'>{item.item_ingredients}</td>
-            <td className='bold'>{item.item_category}</td>
-            <td className='bold'>${item.item_price}</td>
-          </tr>
-        </Fragment>
-      );
-    });
-  };
-
   //   let imgSrc;
   //   if (profile) {
   //     imgSrc = `http://54.183.239.208:3001/images/restaurant/${profile.restaurant_image}`;
@@ -141,17 +95,8 @@ const Dashboard = ({
             </Fragment>
           )}
           <hr />
-          <h2 className='activity'>Your Menu</h2>
-          {/* {displayImages()} */}
-          <table>
-            <tr>
-              <th>Dish Name</th>
-              <th>Ingredients</th>
-              <th>Category</th>
-              <th>Price</th>
-            </tr>
-            {displayMenuItems()}
-          </table>
+          <h2 className='activity'>Popular Reviews</h2>
+          {profile._id && <Reviews restaurantId={profile._id} />}
         </div>
         <div className='right-dash'>
           <h3 className='right-heading'>Updates</h3>
@@ -162,9 +107,9 @@ const Dashboard = ({
             <Link to='/restaurant/add/dish' className='btn'>
               <i class='fas fa-utensils'></i> Add Dishes
             </Link>
-            <h3 className='right-heading'>Reviews</h3>
-            <Link to='/restaurant/view/reviews' className='btn'>
-              <i class='fas fa-user-friends'></i> View Reviews
+            <h3 className='right-heading'>Full Menu</h3>
+            <Link to='/restaurant/view/menu' className='btn'>
+              <i class='fas fa-user-friends'></i> View Menu
             </Link>
           </div>
         </div>

@@ -29,3 +29,7 @@ export const DASHBOARD_ERROR = 'DASHBOARD_ERROR';
 //  Menu - Restaurant
 export const ADD_DISH_SUCCESS = 'ADD_DISH_SUCCESS';
 export const ADD_DISH_ERROR = 'ADD_DISH_ERROR';
+
+// Reviews - Restaurant
+export const GET_REVIEWS = 'GET_REVIEWS';
+export const GET_REVIEWS_ERROR = 'GET_REVIEWS_ERROR';
