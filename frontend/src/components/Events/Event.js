@@ -21,8 +21,11 @@ const Event = ({
 
   const [eventSearch, seteventSearch] = useState('');
 
-  const listAllEvents = (list, button) => {
+  const listAllEvents = (list) => {
     return list.map((event) => {
+      if (!event) {
+        return '';
+      }
       return (
         <div className={styles.event_card}>
           <Link to={`/event/details/${event.name}`} className={styles.title}>
@@ -48,7 +51,6 @@ const Event = ({
   if (registered.length > 3) {
     miniList = registered.splice(0, 3);
   }
-  console.log(miniList);
 
   return loading ? (
     spinner
@@ -92,15 +94,16 @@ const Event = ({
         </div>
         <br /> <br />
         <div>
-          {localStorage.usertype == 'restaurant' ? (
+          {localStorage.usertype == 'restaurant' && registered.length === 0 ? (
             ''
           ) : (
             <Fragment>
               {' '}
               <h1 className={styles.heading}>Your Registered Events</h1>
+              <hr />
               {miniList.length > 0 ? (
                 <Fragment>
-                  {listAllEvents(miniList, false)}{' '}
+                  {listAllEvents(miniList)}{' '}
                   <Link to='/event/registered' className={styles.view_all}>
                     View all
                   </Link>
@@ -109,13 +112,13 @@ const Event = ({
                   <br /> <hr />
                 </Fragment>
               ) : (
-                listAllEvents(registered, false)
+                listAllEvents(registered)
               )}
             </Fragment>
           )}
           <hr />
           <h1 className={styles.heading}>Popular Events</h1>
-          {listAllEvents(events, true)}
+          {listAllEvents(events)}
         </div>
       </div>
     </Fragment>

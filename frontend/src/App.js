@@ -67,7 +67,7 @@ const App = () => {
             path='/restaurant/profile'
             component={Dashboard}
           />
-          <section className='container'>
+          <section className='max-container'>
             <Alert />
             <Switch>
               <Route exact path='/login' component={Login} />
@@ -101,8 +101,12 @@ const App = () => {
                 path='/restaurant/item/update'
                 component={UpdateDish}
               />
-              <Route exact path='/restaurant/view/menu' component={Menu} />
-              <Route exact path='/event' component={Event} />
+              <PrivateRoute
+                exact
+                path='/restaurant/view/menu'
+                component={Menu}
+              />
+              <PrivateRoute exact path='/event' component={Event} />
               <Route
                 exact
                 path='/event/details/:event_name'

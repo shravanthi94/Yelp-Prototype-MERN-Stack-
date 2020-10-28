@@ -7,6 +7,7 @@ import { setAlert } from '../../actions/alert';
 
 const AttendeeList = ({ location, setAlert }) => {
   const customers = location.state.customers;
+  const name = location.state.name;
 
   const listCustomers = () => {
     if (customers.length === 0) {
@@ -14,16 +15,18 @@ const AttendeeList = ({ location, setAlert }) => {
     }
     return customers.map((customer) => {
       return (
-        <div className={styles.event_card}>
-          <h1 className={styles.title}>
-            <Link
-              className={styles.cust_name}
-              to={`/customer/details/${customer._id}`}
-            >
-              {customer.name}
-            </Link>
-          </h1>
-        </div>
+        <td>
+          <div>
+            <h1>
+              <Link
+                className={styles.cust_name}
+                to={`/customer/details/${customer._id}`}
+              >
+                {customer.name}
+              </Link>
+            </h1>
+          </div>
+        </td>
       );
     });
   };
@@ -31,9 +34,17 @@ const AttendeeList = ({ location, setAlert }) => {
     <Fragment>
       <div className={styles.container}>
         <h1 className={styles.heading}>Attendee List</h1>
-        <div className={styles.left}>{listCustomers()}</div>
+        <h2 className='subtitle is-4'>Customers attending {name}:</h2>
+        <br />
+        <table id='attendee'>
+          <tr>
+            <th>Customer Names</th>
+          </tr>
+          <tr>{listCustomers()}</tr>
+        </table>
+        {/* <div className={styles.left}>{listCustomers()}</div> */}
       </div>
-      <Link to='/event/submitted' className={styles.btn}>
+      <Link to='/event/submitted' className='btn'>
         Go Back
       </Link>
     </Fragment>

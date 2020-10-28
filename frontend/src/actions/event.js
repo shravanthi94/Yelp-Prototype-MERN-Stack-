@@ -40,7 +40,7 @@ export const getAllEvents = () => async (dispatch) => {
 // Get registered events
 export const getRegisteredEvents = () => async (dispatch) => {
   try {
-    const res = await axios.get('/events/myevent/me');
+    const res = await axios.get('/customer/event');
     dispatch({
       type: REGISTERED_EVENTS,
       payload: res.data,
@@ -62,7 +62,7 @@ export const getRegisteredEvents = () => async (dispatch) => {
 // Register for an event
 export const registerEvent = (eventId, history) => async (dispatch) => {
   try {
-    const res = await axios.post(`customer/event/${eventId}`);
+    const res = await axios.post(`/customer/event/${eventId}`);
 
     dispatch(setAlert('Successfully registered for the event', 'success'));
 
@@ -71,7 +71,7 @@ export const registerEvent = (eventId, history) => async (dispatch) => {
       payload: res.data,
     });
 
-    history.push('/event/registered');
+    history.push('/event');
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
