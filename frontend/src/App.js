@@ -27,6 +27,8 @@ import Menu from './components/Restaurant/Menu';
 // Events
 import Event from './components/Events/Event';
 import EventDetails from './components/Events/EventDetails';
+import CreateEvent from './components/Events/CreateEvent';
+import SubmittedEvent from './components/Events/SubmittedEvent';
 
 //  Utils
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -104,6 +106,16 @@ const App = () => {
                 exact
                 path='/event/details/:event_name'
                 component={EventDetails}
+              />
+              <PrivateRoute
+                exact
+                path='/event/create'
+                component={CreateEvent}
+              />
+              <PrivateRoute
+                exact
+                path='/event/submitted'
+                component={SubmittedEvent}
               />
             </Switch>
           </section>

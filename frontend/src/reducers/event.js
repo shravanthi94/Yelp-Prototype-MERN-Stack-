@@ -9,9 +9,9 @@ import {
   // LIST_ERROR,
   // CLEAR_EVENT,
   REGISTERED_EVENTS,
-  // SUBMITTED_EVENTS,
+  SUBMITTED_EVENTS,
   REGISTERED_EVENTS_ERROR,
-  // SUBMITTED_EVENTS_ERROR,
+  SUBMITTED_EVENTS_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -62,19 +62,19 @@ export default function (state = initialState, action) {
         loading: false,
       };
 
-    //   case SUBMITTED_EVENTS:
-    //     return {
-    //       ...state,
-    //       submitted: payload,
-    //       loading: false,
-    //     };
+    case SUBMITTED_EVENTS:
+      return {
+        ...state,
+        submitted: payload,
+        loading: false,
+      };
 
-    //   case SUBMITTED_EVENTS_ERROR:
-    //     return {
-    //       ...state,
-    //       submitted: [],
-    //       loading: false,
-    //     };
+    case SUBMITTED_EVENTS_ERROR:
+      return {
+        ...state,
+        submitted: [],
+        loading: false,
+      };
 
     //   case CUSTOMER_LIST_SUCCESS:
     //     return {

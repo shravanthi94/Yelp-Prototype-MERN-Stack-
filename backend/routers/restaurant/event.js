@@ -62,7 +62,6 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     const restaurant = req.user.id;
-    console.log(restaurant);
 
     const { name, description, time, date, location, hashtags } = req.body;
 
