@@ -29,6 +29,7 @@ import Event from './components/Events/Event';
 import EventDetails from './components/Events/EventDetails';
 import CreateEvent from './components/Events/CreateEvent';
 import SubmittedEvent from './components/Events/SubmittedEvent';
+import AttendeeList from './components/Events/AttendeeList';
 
 //  Utils
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -116,6 +117,11 @@ const App = () => {
                 exact
                 path='/event/submitted'
                 component={SubmittedEvent}
+              />
+              <PrivateRoute
+                exact
+                path='/event/attendeelist'
+                component={AttendeeList}
               />
             </Switch>
           </section>

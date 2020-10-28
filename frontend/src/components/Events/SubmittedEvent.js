@@ -35,7 +35,7 @@ const SubmittedEvent = ({
             className={styles.color_white}
             to={{
               pathname: '/event/attendeelist',
-              state: { eventId: event._id },
+              state: { customers: event.customer },
             }}
           >
             View Attendees
