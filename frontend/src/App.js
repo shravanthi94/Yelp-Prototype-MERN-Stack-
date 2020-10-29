@@ -17,6 +17,10 @@ import UpdateProfile from './components/Customer/profile-forms/UpdateProfile';
 import EditAbout from './components/Customer/profile-forms/EditAbout';
 import EditContact from './components/Customer/profile-forms/EditContact';
 
+//  Customer - Orders
+import OrdersCus from './components/Customer/orders/Orders';
+import FilterOrders from './components/Customer/orders/FilterOrders';
+
 //  Restaurant - Profile
 import Dashboard from './components/Restaurant/Dashboard';
 import ResUpdateProfile from './components/Restaurant/Dashboard-forms/UpdateProfile';
@@ -126,6 +130,16 @@ const App = () => {
                 exact
                 path='/event/attendeelist'
                 component={AttendeeList}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/orders'
+                component={OrdersCus}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/orders/filter/:data'
+                component={FilterOrders}
               />
             </Switch>
           </section>

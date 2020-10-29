@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-const auth = require('../../middleware/resAuth');
+const { checkAuth } = require('../../middleware/resAuth');
 
 // const Restaurant = require('../../models/RestaurantModel');
 const Order = require('../../models/OrdersModel');
@@ -10,10 +10,10 @@ const Order = require('../../models/OrdersModel');
 // @route  Get yelp/restaurant/orders
 // @desc   restaurant get all orders route
 // @access Private
-router.get('/', auth, (req, res) => {
+router.get('/', checkAuth, async (req, res) => {
   const resId = req.user.id;
   try {
-    const orders = Order.find({ restaurant: resId }).sort({ date: -1 });
+    const orders = await Order.find({ restaurant: resId }).sort({ date: -1 });
     if (!orders) {
       return res
         .status(400)
@@ -31,7 +31,7 @@ router.get('/', auth, (req, res) => {
 // @access Private
 router.post(
   '/status/:order_id',
-  [auth, [check('status', 'Order status is required').notEmpty()]],
+  [checkAuth, [check('status', 'Order status is required').notEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -60,7 +60,7 @@ router.post(
 // @route  Get yelp/restaurant/orders/cancelorder
 // @desc   restaurant update to recieved route
 // @access Private
-router.post('/cancelorder/:order_id', auth, async (req, res) => {
+router.post('/cancelorder/:order_id', checkAuth, async (req, res) => {
   const orderId = req.params.order_id;
   try {
     const order = await Order.findById(orderId);

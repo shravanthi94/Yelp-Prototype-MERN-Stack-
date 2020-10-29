@@ -11,6 +11,8 @@ const loginRestaurant = require('./routers/restaurant/login');
 const profileRestaurant = require('./routers/restaurant/profile');
 const resEvent = require('./routers/restaurant/event');
 const cusEvent = require('./routers/customer/event');
+const resOrders = require('./routers/restaurant/order');
+const cusOrders = require('./routers/customer/order');
 
 db();
 
@@ -23,6 +25,8 @@ app.use('/customer/login', loginCustomer);
 app.use('/customer/profile', profileCustomer);
 //  Restaurant - Event
 app.use('/customer/event', cusEvent);
+//  Customer - ORDERS
+app.use('/customer/order', cusOrders);
 
 /* Routes for Restaurant */
 //  Restaurant SIGNUP
@@ -33,6 +37,8 @@ app.use('/restaurant/login', loginRestaurant);
 app.use('/restaurant/profile', profileRestaurant);
 //  Restaurant - Event
 app.use('/restaurant/event', resEvent);
+//  Restaurant - ORDERS
+app.use('/restaurant/order', resOrders);
 
 app.get('/', (req, res) => {
   res.send('hello');

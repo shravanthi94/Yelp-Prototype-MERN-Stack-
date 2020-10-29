@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-const auth = require('../../middleware/auth');
+const { checkAuth } = require('../../middleware/auth');
 
 const User = require('../../models/UserModel');
 const Order = require('../../models/OrdersModel');
@@ -10,10 +10,16 @@ const Order = require('../../models/OrdersModel');
 // @route  GET yelp/customer/orders/all
 // @desc   Get all customer orders placed
 // @access Private
-router.get('/all', auth, async (req, res) => {
+router.get('/all', checkAuth, async (req, res) => {
   const userId = req.user.id;
   try {
-    const orders = await User.find({ customer: userId }).sort({ date: -1 });
+    const orders = await User.find({ customer: userId })
+      .sort({ date: -1 })
+      .populate({
+        path: 'restaurant',
+        select: 'name',
+        model: User,
+      });
     if (!orders) {
       return res.status(400).json({ errors: [{ msg: 'No orders placed' }] });
     }
@@ -30,7 +36,7 @@ router.get('/all', auth, async (req, res) => {
 router.post(
   '/placeorder',
   [
-    auth,
+    checkAuth,
     [
       check('restaurantId', 'Restaurant ID is required').notEmpty(),
       check('option', 'Select the delivery option').notEmpty(),

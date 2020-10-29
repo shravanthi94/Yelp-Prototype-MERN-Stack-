@@ -9,9 +9,9 @@ const User = require('../../models/UserModel');
 // @route  GET yelp/customer/profile/all
 // @desc   Get all customer profile details
 // @access Public
-router.get('/all', (req, res) => {
+router.get('/all', async (req, res) => {
   try {
-    const customers = User.find();
+    const customers = await User.find();
     if (!customers) {
       return res.status(400).json({ errors: [{ msg: 'User not found' }] });
     }

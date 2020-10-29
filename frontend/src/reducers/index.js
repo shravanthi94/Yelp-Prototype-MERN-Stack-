@@ -4,6 +4,7 @@ import auth from './auth';
 import profile from './profile';
 import dashboard from './dashboard';
 import event from './event';
+import cusOrder from './cusOrder';
 
 export default combineReducers({
   alert,
@@ -11,4 +12,5 @@ export default combineReducers({
   profile,
   dashboard,
   event,
+  cusOrder,
 });
