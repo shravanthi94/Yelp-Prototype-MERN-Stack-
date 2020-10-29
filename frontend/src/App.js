@@ -28,6 +28,9 @@ import AddDish from './components/Restaurant/Dashboard-forms/AddDish';
 import UpdateDish from './components/Restaurant/Dashboard-forms/UpdateItem';
 import Menu from './components/Restaurant/Menu';
 
+//  Restaurant - Orders
+import OrdersRes from './components/Restaurant/Orders/Order';
+import ResFilterOrders from './components/Restaurant/Orders/FilterOrders';
 // Events
 import Event from './components/Events/Event';
 import EventDetails from './components/Events/EventDetails';
@@ -140,6 +143,16 @@ const App = () => {
                 exact
                 path='/customer/orders/filter/:data'
                 component={FilterOrders}
+              />
+              <PrivateRoute
+                exact
+                path='/restaurant/orders'
+                component={OrdersRes}
+              />
+              <PrivateRoute
+                exact
+                path='/restaurant/orders/:data'
+                component={ResFilterOrders}
               />
             </Switch>
           </section>

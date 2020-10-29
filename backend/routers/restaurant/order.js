@@ -4,7 +4,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const { checkAuth } = require('../../middleware/resAuth');
 
-// const Restaurant = require('../../models/RestaurantModel');
+const User = require('../../models/UserModel');
 const Order = require('../../models/OrdersModel');
 
 // @route  Get yelp/restaurant/orders
@@ -13,7 +13,13 @@ const Order = require('../../models/OrdersModel');
 router.get('/', checkAuth, async (req, res) => {
   const resId = req.user.id;
   try {
-    const orders = await Order.find({ restaurant: resId }).sort({ date: -1 });
+    const orders = await Order.find({ restaurant: resId })
+      .sort({ date: -1 })
+      .populate({
+        path: 'customer',
+        select: 'name',
+        model: User,
+      });
     if (!orders) {
       return res
         .status(400)
@@ -30,7 +36,7 @@ router.get('/', checkAuth, async (req, res) => {
 // @desc   restaurant update to the status route
 // @access Private
 router.post(
-  '/status/:order_id',
+  '/status/:orderId',
   [checkAuth, [check('status', 'Order status is required').notEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
@@ -41,7 +47,7 @@ router.post(
     const { status } = req.body;
     try {
       let orderType = '';
-      if (status === 'Picked up' || status === 'Delivered') {
+      if (status === 'Pickedup' || status === 'Delivered') {
         orderType = 'Completed';
       }
       const order = await Order.findById(orderId);

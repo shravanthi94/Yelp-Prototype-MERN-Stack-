@@ -138,3 +138,56 @@ input {
   margin-top: 25px;
   font-weight: bold;
 }
+
+/* Orders */
+.order_title {
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 40px;
+  line-height: 1.28571em;
+  color: #d32323;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.submit_btn {
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 10px;
+  background: #d32323;
+  padding: 5px 20px;
+  text-decoration: none;
+  line-height: 1.3125em;
+  margin: 25px 20px 10px 0;
+}
+
+.top_btn {
+  font-weight: bolder;
+  display: inline-block;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  background: #d32323;
+  padding: 8px 20px;
+  text-decoration: none;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.orders_data {
+  margin-top: 5%;
+  padding: 2%;
+}
+
+.display_name {
+  font-weight: bolder;
+  color: #d32323;
+  font-size: 25px;
+}
