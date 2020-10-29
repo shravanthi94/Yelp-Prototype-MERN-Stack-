@@ -127,3 +127,10 @@
   margin-left: 500px;
   position: fixed;
 }
+
+.date-order {
+  font-weight: 700;
+  color: rgb(48, 47, 47);
+  /* font-style: italic; */
+  font-family: Lucida Console, Courier, monospace;
+}

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import styles from '../profile-forms/form.module.css';
 import spinner from '../../layout/Spinner';
 import { getAllOrders } from '../../../actions/cusOrder';
+import Date from '../../../utils/Date';
 
 const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
   useEffect(() => {
@@ -14,13 +15,20 @@ const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
   const displayOrders = (orders) => {
     return orders.map((order) => {
       return (
-        <tr>
-          <td>{order.restaurant.name}</td>
-          <td>{order.item}</td>
-          <td>{order.date.substring(0, 10)}</td>
-          <td>{order.deliveryOption}</td>
-          <td>{order.status}</td>
-        </tr>
+        <div className='tile is-ancestor'>
+          <div class='tile is-parent is-4'>
+            <article class='tile is-child box has-background-link-light'>
+              <p class='title is-4 has-text-black'>{order.item}</p>
+              <p class='title is-5 has-text-danger-dark'>
+                {order.restaurant.name} [{order.deliveryOption}]
+              </p>
+              <p class='subtitle'>{order.status}</p>
+              <p class='date-order'>
+                Order placed on: <Date date={order.date.substring(0, 10)} />
+              </p>
+            </article>
+          </div>
+        </div>
       );
     });
   };
@@ -49,16 +57,7 @@ const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
         <br />
         <hr />
         <h1 className={styles.title}>All Orders</h1>
-        <table>
-          <tr>
-            <th>Restaurant Name</th>
-            <th>Item Name</th>
-            <th>Order Date</th>
-            <th>Delivery Option</th>
-            <th>Order Status</th>
-          </tr>
-          {displayOrders(allorders)}
-        </table>
+        {displayOrders(allorders)}
       </div>
     </Fragment>
   );
