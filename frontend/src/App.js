@@ -31,6 +31,7 @@ import Menu from './components/Restaurant/Menu';
 //  Customer - Restaurant Tab
 import AllRest from './components/RestaurantTab/AllRestaurants';
 import Restaurant from './components/RestaurantTab/Restaurant';
+import AddReview from './components/RestaurantTab/AddReview';
 
 //  Restaurant - Orders
 import OrdersRes from './components/Restaurant/Orders/Order';
@@ -168,6 +169,11 @@ const App = () => {
                 exact
                 path='/restaurant/orders/:data'
                 component={ResFilterOrders}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/restaurant/review/:res_id'
+                component={AddReview}
               />
             </Switch>
           </section>

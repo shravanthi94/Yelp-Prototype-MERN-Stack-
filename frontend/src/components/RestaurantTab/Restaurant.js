@@ -7,22 +7,21 @@ import styles from './restaurant.module.css';
 import Rating from 'react-rating';
 import {
   getRestaurant,
-  getCustReviewByRestId,
   //   getImages,
 } from '../../actions/restaurants';
+import Date from '../../utils/Date';
 
 const Restaurant = ({
   match,
   getRestaurant,
-  getCustReviewByRestId,
   //   getImages,
-  restaurant: { restaurant, review, images, loading },
+  restaurant: { restaurant, images, loading },
+  profile: { profile },
 }) => {
   const resId = match.params.res_id;
 
   useEffect(() => {
     getRestaurant(resId);
-    localStorage.usertype === 'customer' && getCustReviewByRestId(resId);
   }, []);
 
   /*  useEffect(() => {
@@ -69,6 +68,7 @@ const Restaurant = ({
     timings,
     deliveryMethod,
     cuisine,
+    menu,
   } = restaurant;
 
   //   const displayMenuItems = () => {
@@ -106,26 +106,33 @@ const Restaurant = ({
   //   };
 
   const displayReview = () => {
-    return (
-      <Fragment>
-        <div className='box'>
-          <div className='rating'>
-            <Rating
-              emptySymbol='far fa-star'
-              fullSymbol='fas fa-star'
-              fractions={2}
-              readonly
-              initialRating={review[0].rating}
-            />
-            {'  '}
-            <small>Review on {review[0].date.substring(0, 10)}</small>
-          </div>
-          <p className={styles.headers}>
-            <strong>{review[0].comment}</strong>
-          </p>
-        </div>
-      </Fragment>
-    );
+    return profile.reviews.map((review) => {
+      if (review.restaurant === _id) {
+        console.log('Hee');
+        return (
+          <Fragment>
+            <div className='box has-background-warning-light'>
+              <div className='rating'>
+                <Rating
+                  emptySymbol='far fa-star'
+                  fullSymbol='fas fa-star'
+                  fractions={2}
+                  readonly
+                  initialRating={review.rating}
+                />
+                {'  '}
+                <small>
+                  Review on <Date date={review.date.substring(0, 10)} />
+                </small>
+              </div>
+              <p className={styles.headers}>
+                <strong>{review.text}</strong>
+              </p>
+            </div>
+          </Fragment>
+        );
+      }
+    });
   };
 
   let imgSrc;
@@ -203,36 +210,33 @@ const Restaurant = ({
               </div> */}
             </div>
             <h1 className={styles.form_title}>Description</h1>
+            {menu && (
+              <Link
+                className={styles.top_btn}
+                to={{
+                  pathname: '/restaurant/view/menu',
+                  state: { menu: menu },
+                }}
+              >
+                View Full Menu
+              </Link>
+            )}
             <hr />
             <p className={styles.headers}>{description}</p>
-            <hr />
             {localStorage.usertype === 'customer' ? (
               <Fragment>
-                {' '}
-                <h1 className={styles.form_title}>Your Review</h1>
-                <hr />
-                {review ? displayReview() : ''}
-                <hr />
+                {profile && profile.reviews && (
+                  <Fragment>
+                    <h1 className={styles.form_title}>Your Review</h1>
+                    <hr />
+                    {displayReview()}
+                  </Fragment>
+                )}
               </Fragment>
             ) : (
               ''
             )}
-            <h1 className={styles.form_title}>Menu</h1>
-            <hr />
-            {/* {menu ? (
-              <table>
-                <tr>
-                  <th>Dish Name</th>
-                  <th>Ingredients</th>
-                  <th>Item Category</th>
-                  <th>Price</th>
-                </tr>
-                {displayMenuItems()}
-              </table>
-            ) : (
-              ''
-            )} */}
-            <hr />
+            <br />
             <Link to='/customer/restaurants' className={styles.top_btn}>
               Back to Restaurants
             </Link>
@@ -246,17 +250,16 @@ const Restaurant = ({
 
 Restaurant.propTypes = {
   getRestaurant: PropTypes.func.isRequired,
-  getCustReviewByRestId: PropTypes.func.isRequired,
   //   getImages: PropTypes.func.isRequired,
   restaurant: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   restaurant: state.restaurant,
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, {
   getRestaurant,
-  getCustReviewByRestId,
   //   getImages,
 })(Restaurant);

@@ -7,8 +7,8 @@ import {
   RESTAURANT_ERROR,
   //   PLACEORDER,
   //   PLACEORDER_ERROR,
-  //   ADD_REVIEW,
-  //   ADD_REVIEW_ERROR,
+  ADD_REVIEW,
+  ADD_REVIEW_ERROR,
   //   GET_RES_MENU,
   //   GET_RES_MENU_ERROR,
   GET_CUSTOMER_REVIEW,
@@ -117,35 +117,39 @@ export const getRestaurant = (id) => async (dispatch) => {
 //   }
 // };
 
-// export const writeReview = (resId, formData, history) => async (dispatch) => {
-//   try {
-//     const config = {
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     };
-//     const res = await axios.post(`/reviews/insert/${resId}`, formData, config);
+export const writeReview = (resId, formData, history) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await axios.post(
+      `/customer/profile/reviews/${resId}`,
+      formData,
+      config,
+    );
 
-//     dispatch(setAlert('Review added', 'success'));
+    dispatch(setAlert('Review added', 'success'));
 
-//     dispatch({
-//       type: ADD_REVIEW,
-//     });
+    dispatch({
+      type: ADD_REVIEW,
+    });
 
-//     history.push(`/restaurant/details/${resId}`);
-//   } catch (err) {
-//     const errors = err.response.data.errors;
+    history.push(`/restaurant/details/${resId}`);
+  } catch (err) {
+    const errors = err.response.data.errors;
 
-//     if (errors) {
-//       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-//     }
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
 
-//     dispatch({
-//       type: ADD_REVIEW_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status },
-//     });
-//   }
-// };
+    dispatch({
+      type: ADD_REVIEW_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 
 //  Get restaurant review given by  current customer
 export const getCustReviewByRestId = (id) => async (dispatch) => {

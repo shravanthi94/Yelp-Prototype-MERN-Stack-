@@ -5,11 +5,11 @@ import {
   RESTAURANT_ERROR,
   // PLACEORDER,
   // PLACEORDER_ERROR,
-  // ADD_REVIEW_ERROR,
+  ADD_REVIEW_ERROR,
   // GET_RES_MENU,
   // GET_RES_MENU_ERROR,
-  // GET_CUSTOMER_REVIEW,
-  // CUSTOMER_REVIEW_ERROR,
+  GET_CUSTOMER_REVIEW,
+  CUSTOMER_REVIEW_ERROR,
   // RES_IMAGE_ERROR,
   // GET_IMAGES,
 } from '../actions/types';
@@ -56,12 +56,12 @@ export default function (state = initialState, action) {
     //       menu: payload,
     //       loading: false,
     //     };
-    //   case GET_CUSTOMER_REVIEW:
-    //     return {
-    //       ...state,
-    //       review: payload,
-    //       loading: false,
-    //     };
+    case GET_CUSTOMER_REVIEW:
+      return {
+        ...state,
+        review: payload,
+        loading: false,
+      };
     //   case PLACEORDER:
     //     return {
     //       ...state,
@@ -69,10 +69,10 @@ export default function (state = initialState, action) {
     //     };
     case ALL_RESTAURANTS_ERROR:
     case RESTAURANT_ERROR:
-      //   case PLACEORDER_ERROR:
-      //   case ADD_REVIEW_ERROR:
-      //   case GET_RES_MENU_ERROR:
-      //   case CUSTOMER_REVIEW_ERROR:
+    //   case PLACEORDER_ERROR:
+    case ADD_REVIEW_ERROR:
+    //   case GET_RES_MENU_ERROR:
+    case CUSTOMER_REVIEW_ERROR:
       //   case RES_IMAGE_ERROR:
       return {
         ...state,

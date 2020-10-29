@@ -3,6 +3,7 @@ import {
   PROFILE_ERROR,
   UPDATE_DETAILS,
   CLEAR_PROFILE,
+  USER_LOADED,
 } from '../actions/types';
 
 const initialState = {
@@ -17,6 +18,7 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case GET_PROFILE:
+    case USER_LOADED:
     case UPDATE_DETAILS:
       return {
         ...state,
