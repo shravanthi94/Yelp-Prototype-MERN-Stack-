@@ -58,6 +58,7 @@ router.post(
         customer: customerId,
         item,
         deliveryOption,
+        status: 'New',
       });
 
       await order.save();

@@ -35,6 +35,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: null,
+        profiles: [],
         loading: false,
       };
 

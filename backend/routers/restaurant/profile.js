@@ -16,7 +16,6 @@ const User = require('../../models/UserModel');
 router.get('/all', async (req, res) => {
   try {
     const restaurants = await Restaurant.find().select('-password');
-    console.log(restaurants);
     if (!restaurants) {
       return res
         .status(400)

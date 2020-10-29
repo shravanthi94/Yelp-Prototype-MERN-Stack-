@@ -28,6 +28,9 @@ import AddDish from './components/Restaurant/Dashboard-forms/AddDish';
 import UpdateDish from './components/Restaurant/Dashboard-forms/UpdateItem';
 import Menu from './components/Restaurant/Menu';
 
+//  Customer - Restaurant Tab
+import AllRest from './components/RestaurantTab/AllRestaurants';
+
 //  Restaurant - Orders
 import OrdersRes from './components/Restaurant/Orders/Order';
 import ResFilterOrders from './components/Restaurant/Orders/FilterOrders';
@@ -73,6 +76,11 @@ const App = () => {
             exact
             path='/restaurant/profile'
             component={Dashboard}
+          />
+          <PrivateRoute
+            exact
+            path='/customer/restaurants'
+            component={AllRest}
           />
           <section className='max-container'>
             <Alert />

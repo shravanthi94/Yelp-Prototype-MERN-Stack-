@@ -73,6 +73,36 @@
   border: #ccc solid 1px;
 }
 
+/* Padding */
+.p {
+  padding: 0.5rem;
+}
+.p-1 {
+  padding: 1rem;
+}
+.p-2 {
+  padding: 2rem;
+}
+.p-3 {
+  padding: 3rem;
+}
+.py {
+  padding: 0.5rem 0;
+}
+.py-1 {
+  padding: 1rem 0;
+}
+.py-2 {
+  padding: 2rem 0;
+}
+.py-3 {
+  padding: 3rem 0;
+}
+
+.pdx-5 {
+  margin-left: 2rem;
+}
+
 .login-pics {
   height: 1000px;
   width: 1200px;
@@ -133,4 +163,13 @@
   color: rgb(48, 47, 47);
   /* font-style: italic; */
   font-family: Lucida Console, Courier, monospace;
+}
+
+.main-map {
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+  z-index: -1;
+  margin-top: -100px;
+  position: fixed;
 }

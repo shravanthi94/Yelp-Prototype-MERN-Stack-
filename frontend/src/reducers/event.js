@@ -7,7 +7,7 @@ import {
   EVENT_REGISTER_ERROR,
   // CUSTOMER_LIST_SUCCESS,
   // LIST_ERROR,
-  // CLEAR_EVENT,
+  CLEAR_EVENT,
   REGISTERED_EVENTS,
   SUBMITTED_EVENTS,
   REGISTERED_EVENTS_ERROR,
@@ -97,16 +97,16 @@ export default function (state = initialState, action) {
         loading: false,
       };
 
-    //   case CLEAR_EVENT:
-    //     return {
-    //       ...state,
-    //       event: '',
-    //       events: [],
-    //       customers: [],
-    //       registered: [],
-    //       submitted: [],
-    //       loading: false,
-    //     };
+    case CLEAR_EVENT:
+      return {
+        ...state,
+        event: '',
+        events: [],
+        customers: [],
+        registered: [],
+        submitted: [],
+        loading: false,
+      };
 
     default:
       return state;

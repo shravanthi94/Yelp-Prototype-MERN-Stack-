@@ -7,6 +7,7 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
   CLEAR_PROFILE,
+  CLEAR_EVENT,
   LOGOUT,
 } from './types';
 import { setAlert } from './alert';
@@ -189,6 +190,9 @@ export const loginRestaurant = (email, password) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT,
+  });
+  dispatch({
+    type: CLEAR_EVENT,
   });
   dispatch({
     type: CLEAR_PROFILE,

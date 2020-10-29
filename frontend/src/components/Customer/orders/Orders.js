@@ -22,7 +22,9 @@ const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
               <p class='title is-5 has-text-danger-dark'>
                 {order.restaurant.name} [{order.deliveryOption}]
               </p>
-              <p class='subtitle'>{order.status}</p>
+              <p class='subtitle has-text-black'>
+                Current order status: {order.status}
+              </p>
               <p class='date-order'>
                 Order placed on: <Date date={order.date.substring(0, 10)} />
               </p>
