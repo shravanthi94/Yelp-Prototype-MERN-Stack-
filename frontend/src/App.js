@@ -30,10 +30,12 @@ import Menu from './components/Restaurant/Menu';
 
 //  Customer - Restaurant Tab
 import AllRest from './components/RestaurantTab/AllRestaurants';
+import Restaurant from './components/RestaurantTab/Restaurant';
 
 //  Restaurant - Orders
 import OrdersRes from './components/Restaurant/Orders/Order';
 import ResFilterOrders from './components/Restaurant/Orders/FilterOrders';
+
 // Events
 import Event from './components/Events/Event';
 import EventDetails from './components/Events/EventDetails';
@@ -81,6 +83,11 @@ const App = () => {
             exact
             path='/customer/restaurants'
             component={AllRest}
+          />
+          <PrivateRoute
+            exact
+            path='/restaurant/details/:res_id'
+            component={Restaurant}
           />
           <section className='max-container'>
             <Alert />

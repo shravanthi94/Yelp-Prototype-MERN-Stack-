@@ -90,7 +90,7 @@ const AllRestaurants = ({
   ) : (
     <Fragment>
       <div className='columns'>
-        <div className='column is-7 pdx-5'>
+        <div className='column is-7' style={{ padding: '2%' }}>
           {' '}
           <h1 className={styles.form_title}>All Restaurants</h1>
           {displayRestaurants()}

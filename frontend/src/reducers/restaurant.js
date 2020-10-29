@@ -1,8 +1,8 @@
 import {
   ALL_RESTAURANTS,
   ALL_RESTAURANTS_ERROR,
-  // GET_RESTAURANT,
-  // RESTAURANT_ERROR,
+  GET_RESTAURANT,
+  RESTAURANT_ERROR,
   // PLACEORDER,
   // PLACEORDER_ERROR,
   // ADD_REVIEW_ERROR,
@@ -38,12 +38,12 @@ export default function (state = initialState, action) {
         restaurants: payload,
         loading: false,
       };
-    //   case GET_RESTAURANT:
-    //     return {
-    //       ...state,
-    //       restaurant: payload,
-    //       loading: false,
-    //     };
+    case GET_RESTAURANT:
+      return {
+        ...state,
+        restaurant: payload,
+        loading: false,
+      };
     //   case GET_IMAGES:
     //     return {
     //       ...state,
@@ -68,7 +68,7 @@ export default function (state = initialState, action) {
     //       loading: false,
     //     };
     case ALL_RESTAURANTS_ERROR:
-      //   case RESTAURANT_ERROR:
+    case RESTAURANT_ERROR:
       //   case PLACEORDER_ERROR:
       //   case ADD_REVIEW_ERROR:
       //   case GET_RES_MENU_ERROR:
