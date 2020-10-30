@@ -8,6 +8,7 @@ import cusOrder from './cusOrder';
 import resOrder from './resOrder';
 import restaurant from './restaurant';
 import customer from './customer';
+import search from './search';
 
 export default combineReducers({
   alert,
@@ -19,4 +20,5 @@ export default combineReducers({
   resOrder,
   restaurant,
   customer,
+  search,
 });

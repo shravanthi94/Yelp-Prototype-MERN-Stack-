@@ -9,7 +9,7 @@ const User = require('../../models/UserModel');
 // @route  GET yelp/customer/profile/all
 // @desc   Get all customer profile details
 // @access Public
-router.get('/all', async (req, res) => {
+router.get('/all', checkAuth, async (req, res) => {
   try {
     const customers = await User.find();
     if (!customers) {

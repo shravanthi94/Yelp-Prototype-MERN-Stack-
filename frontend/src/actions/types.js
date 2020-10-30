@@ -76,3 +76,8 @@ export const CUSTOMER_REVIEW_ERROR = 'CUSTOMER_REVIEW_ERROR';
 //  Display - Customer profile
 export const GET_CUSTOMER = 'GET_CUSTOMER';
 export const CUSTOMER_ERROR = 'CUSTOMER_ERROR';
+
+//  Restaurant Search bar
+export const RESULTS = 'RESULTS';
+export const RESULTS_ERROR = 'RESULTS_ERROR';
+export const CLEAR_RESULTS = 'CLEAR_RESULTS';

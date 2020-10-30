@@ -73,6 +73,16 @@ const UserSchema = new mongoose.Schema({
       },
     },
   ],
+  following: {
+    // {
+    //   customer: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'user',
+    //     required: true,
+    //   },
+    // },
+    type: [mongoose.Schema.Types.ObjectId],
+  },
   date: { type: Date, default: Date.now() },
 });
 
