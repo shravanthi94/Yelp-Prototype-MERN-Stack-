@@ -173,3 +173,18 @@
   margin-top: -100px;
   position: fixed;
 }
+
+.search-button {
+  display: inline-block;
+  width: 63px;
+  height: 45px;
+  box-sizing: border-box;
+  background-color: #d32323;
+  background-image: url(./assets/search.png);
+  background-repeat: no-repeat;
+  background-position: 17px 8px;
+  color: #fff;
+  font-size: 0;
+  vertical-align: top;
+  border-radius: 0 4px 4px 0;
+}

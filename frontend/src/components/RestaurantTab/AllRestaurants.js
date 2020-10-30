@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
 import styles from './restaurant.module.css';
 import { getAllRestaurants } from '../../actions/restaurants';
+import DisplayAll from './DisplayRestaurants';
 
 const AllRestaurants = ({
   getAllRestaurants,
@@ -13,62 +14,6 @@ const AllRestaurants = ({
   useEffect(() => {
     getAllRestaurants();
   }, []);
-
-  const displayRestaurants = () => {
-    return restaurants.map((res) => {
-      return (
-        <Fragment>
-          <div class='box border' style={{ color: 'black' }}>
-            <article class='media'>
-              <div class='media-content'>
-                <div class='content'>
-                  <div className='columns'>
-                    <div className='column is-5'>
-                      {/* <img
-                        className={styles.img}
-                        src={`http://54.183.239.208:3001/images/restaurant/${res.restaurant_image}`}
-                        alt='Restaurant_image'
-                      /> */}
-                    </div>
-                    <div className='column is-7'>
-                      <p>
-                        <strong>
-                          <Link
-                            className={styles.rest_name}
-                            to={`/restaurant/details/${res._id}`}
-                          >
-                            {res.name}
-                          </Link>
-                        </strong>
-                        <br />
-                      </p>
-                      <p>
-                        <i class='fas fa-check' style={{ color: 'green' }}></i>{' '}
-                        {res.deliveryMethod}
-                      </p>
-                      <p>
-                        <i class='far fa-envelope-open'></i> {res.email}
-                      </p>
-                      <p>
-                        <i class='fas fa-phone'></i> {res.phone}
-                      </p>
-                      <p>
-                        <i class='fas fa-map-marker-alt'></i> {res.location}
-                      </p>
-                      <p>
-                        <i class='fas fa-clock'></i> {res.timings}
-                      </p>
-                      <p>{res.description}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </Fragment>
-      );
-    });
-  };
 
   let mapsInput = '';
   console.log(mapsInput);
@@ -93,7 +38,7 @@ const AllRestaurants = ({
         <div className='column is-7' style={{ padding: '2%' }}>
           {' '}
           <h1 className={styles.form_title}>All Restaurants</h1>
-          {displayRestaurants()}
+          <DisplayAll restaurants={restaurants} filters='' />
         </div>
         <div className='column is-5'>{displayMaps()}</div>
       </div>

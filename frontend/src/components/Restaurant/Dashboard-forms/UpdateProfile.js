@@ -207,9 +207,9 @@ const UpdateProfile = ({
             onChange={(e) => onChange(e)}
           >
             <option>Select option</option>
-            <option value='DINEIN'>Dine In</option>
-            <option value='DELIVERY'>Yelp Delivery</option>
-            <option value='CURBSIDE'>Curbside Pick Up</option>
+            <option value='Dine In'>Dine In</option>
+            <option value='Delivery'>Yelp Delivery</option>
+            <option value='Curbside Pick Up'>Curbside Pick Up</option>
           </select>
           <div className={styles.form_group}>
             <label className={styles.form_label}>Select Cuisine</label>

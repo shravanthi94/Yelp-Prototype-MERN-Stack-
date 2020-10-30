@@ -13,6 +13,7 @@ const resEvent = require('./routers/restaurant/event');
 const cusEvent = require('./routers/customer/event');
 const resOrders = require('./routers/restaurant/order');
 const cusOrders = require('./routers/customer/order');
+const search = require('./routers/search');
 
 db();
 
@@ -39,6 +40,9 @@ app.use('/restaurant/profile', profileRestaurant);
 app.use('/restaurant/event', resEvent);
 //  Restaurant - ORDERS
 app.use('/restaurant/order', resOrders);
+
+//  Search data
+app.use('/restaurants/search', search);
 
 app.get('/', (req, res) => {
   res.send('hello');
