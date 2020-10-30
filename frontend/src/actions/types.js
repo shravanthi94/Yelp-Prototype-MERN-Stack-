@@ -72,3 +72,7 @@ export const GET_RES_MENU = 'GET_RES_MENU';
 export const GET_RES_MENU_ERROR = 'GET_RES_MENU_ERROR';
 export const GET_CUSTOMER_REVIEW = 'GET_CUSTOMER_REVIEW';
 export const CUSTOMER_REVIEW_ERROR = 'CUSTOMER_REVIEW_ERROR';
+
+//  Display - Customer profile
+export const GET_CUSTOMER = 'GET_CUSTOMER';
+export const CUSTOMER_ERROR = 'CUSTOMER_ERROR';

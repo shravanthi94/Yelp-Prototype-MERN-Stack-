@@ -16,25 +16,63 @@ const Reviews = ({
     getRestaurantReviews(restaurantId);
   }, []);
 
+  //   const displayReviews = () => {
+  //     return reviews.map((allreviews) => {
+  //       return allreviews.reviews.map((review) => {
+  //         return (
+  //           <Fragment>
+  //             <div className='box review'>
+  //               <div className='rating'>
+  //                 <Rating
+  //                   emptySymbol='far fa-star'
+  //                   fullSymbol='fas fa-star'
+  //                   fractions={2}
+  //                   readonly
+  //                   initialRating={review.rating}
+  //                 />
+  //                 {'  '}
+  //                 {/* <small>Review on {review.date.substring(0, 10)}</small> */}
+  //               </div>
+  //               <p className={styles.headers}>
+  //                 <strong>{review.text}</strong>
+  //               </p>
+  //             </div>
+  //           </Fragment>
+  //         );
+  //       });
+  //     });
+  //   };
   const displayReviews = () => {
-    return reviews.map((review) => {
+    return reviews.map((each) => {
       return (
         <Fragment>
           <div className='box review'>
             <div className='rating'>
-              <Rating
-                emptySymbol='far fa-star'
-                fullSymbol='fas fa-star'
-                fractions={2}
-                readonly
-                initialRating={review.rating}
-              />
-              {'  '}
-              <small>Review on {review.date.substring(0, 10)}</small>
+              <p>Review(s) given by {each.name}</p>
+              <br />
+              {each.reviews.map((review) => {
+                return (
+                  <Fragment>
+                    <div className='rating'>
+                      <Rating
+                        emptySymbol='far fa-star'
+                        fullSymbol='fas fa-star'
+                        fractions={2}
+                        readonly
+                        initialRating={review.rating}
+                      />
+                      {'  '}
+                      <small>Review on {review.date.substring(0, 10)}</small>
+                    </div>
+                    <p className={styles.headers}>
+                      <strong>{review.text}</strong>
+                    </p>
+                    <br />
+                  </Fragment>
+                );
+              })}
+              <hr />
             </div>
-            <p className={styles.headers}>
-              <strong>{review.comment}</strong>
-            </p>
           </div>
         </Fragment>
       );

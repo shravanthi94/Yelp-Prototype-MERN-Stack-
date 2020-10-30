@@ -16,6 +16,7 @@ import Profile from './components/Customer/Profile';
 import UpdateProfile from './components/Customer/profile-forms/UpdateProfile';
 import EditAbout from './components/Customer/profile-forms/EditAbout';
 import EditContact from './components/Customer/profile-forms/EditContact';
+import DisplayCustomer from './components/Customer/Customer';
 
 //  Customer - Orders
 import OrdersCus from './components/Customer/orders/Orders';
@@ -180,6 +181,11 @@ const App = () => {
                 exact
                 path='/customer/restaurant/review/:res_id'
                 component={AddReview}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/details/:customerId'
+                component={DisplayCustomer}
               />
             </Switch>
           </section>

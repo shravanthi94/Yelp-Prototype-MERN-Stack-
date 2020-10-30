@@ -7,6 +7,7 @@ import event from './event';
 import cusOrder from './cusOrder';
 import resOrder from './resOrder';
 import restaurant from './restaurant';
+import customer from './customer';
 
 export default combineReducers({
   alert,
@@ -17,4 +18,5 @@ export default combineReducers({
   cusOrder,
   resOrder,
   restaurant,
+  customer,
 });
