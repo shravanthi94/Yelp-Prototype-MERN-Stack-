@@ -3,8 +3,8 @@ import {
   ALL_RESTAURANTS_ERROR,
   GET_RESTAURANT,
   RESTAURANT_ERROR,
-  // PLACEORDER,
-  // PLACEORDER_ERROR,
+  PLACEORDER,
+  PLACEORDER_ERROR,
   ADD_REVIEW_ERROR,
   // GET_RES_MENU,
   // GET_RES_MENU_ERROR,
@@ -16,7 +16,6 @@ import {
 
 const initialState = {
   restaurant: '',
-  menu: '',
   review: '',
   images: '',
   restaurants: [],
@@ -32,7 +31,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         restaurant: '',
-        menu: '',
         review: '',
         images: '',
         restaurants: payload,
@@ -62,14 +60,14 @@ export default function (state = initialState, action) {
         review: payload,
         loading: false,
       };
-    //   case PLACEORDER:
-    //     return {
-    //       ...state,
-    //       loading: false,
-    //     };
+    case PLACEORDER:
+      return {
+        ...state,
+        loading: false,
+      };
     case ALL_RESTAURANTS_ERROR:
     case RESTAURANT_ERROR:
-    //   case PLACEORDER_ERROR:
+    case PLACEORDER_ERROR:
     case ADD_REVIEW_ERROR:
     //   case GET_RES_MENU_ERROR:
     case CUSTOMER_REVIEW_ERROR:

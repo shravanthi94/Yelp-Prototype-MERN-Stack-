@@ -5,8 +5,8 @@ import {
   ALL_RESTAURANTS_ERROR,
   GET_RESTAURANT,
   RESTAURANT_ERROR,
-  //   PLACEORDER,
-  //   PLACEORDER_ERROR,
+  PLACEORDER,
+  PLACEORDER_ERROR,
   ADD_REVIEW,
   ADD_REVIEW_ERROR,
   //   GET_RES_MENU,
@@ -82,40 +82,41 @@ export const getRestaurant = (id) => async (dispatch) => {
 //   }
 // };
 
-// export const placeorder = (resId, deliveryOpt, item, history) => async (
-//   dispatch,
-// ) => {
-//   try {
-//     const config = {
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     };
-//     const restaurant_id = resId,
-//       delivery_option = deliveryOpt;
+export const placeorder = (
+  restaurantId,
+  deliveryOption,
+  item,
+  history,
+) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
-//     const body = JSON.stringify({ restaurant_id, delivery_option, item });
-//     const res = await axios.post(`/customer/orders/placeorder`, body, config);
+    const body = JSON.stringify({ restaurantId, deliveryOption, item });
+    const res = await axios.post(`/customer/order/placeorder`, body, config);
 
-//     dispatch(setAlert('Order placed', 'success'));
+    dispatch(setAlert('Order placed', 'success'));
 
-//     dispatch({
-//       type: PLACEORDER,
-//       payload: res.data,
-//     });
+    dispatch({
+      type: PLACEORDER,
+      payload: res.data,
+    });
 
-//     history.push(`/restaurant/details/${resId}`);
-//   } catch (err) {
-//     const errors = err.response.data.errors;
-//     if (errors) {
-//       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-//     }
-//     dispatch({
-//       type: PLACEORDER_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status },
-//     });
-//   }
-// };
+    history.push(`/restaurant/details/${restaurantId}`);
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: PLACEORDER_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 
 export const writeReview = (resId, formData, history) => async (dispatch) => {
   try {

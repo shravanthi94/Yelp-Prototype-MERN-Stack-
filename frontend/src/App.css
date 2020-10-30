@@ -99,6 +99,10 @@
   padding: 3rem 0;
 }
 
+.inline {
+  display: inline-block;
+}
+
 .login-pics {
   height: 1000px;
   width: 1200px;
