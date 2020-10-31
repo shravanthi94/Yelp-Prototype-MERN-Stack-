@@ -10,8 +10,9 @@ const User = require('../../models/UserModel');
 // @desc   Get all customer profile details
 // @access Public
 router.get('/all', checkAuth, async (req, res) => {
+  const customerId = req.user.id;
   try {
-    const customers = await User.find();
+    const customers = await User.find({ _id: { $ne: customerId } });
     if (!customers) {
       return res.status(400).json({ errors: [{ msg: 'User not found' }] });
     }

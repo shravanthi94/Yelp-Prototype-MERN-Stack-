@@ -1,7 +1,7 @@
-import { GET_CUSTOMER, CUSTOMER_ERROR, CLEAR_CUSTOMER } from '../actions/types';
+import { ALL_CUSTOMERS, ALL_CUSTOMERS_ERROR } from '../actions/types';
 
 const initialState = {
-  customer: '',
+  customers: [],
   loading: true,
   error: {},
 };
@@ -10,24 +10,25 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_CUSTOMER:
+    case ALL_CUSTOMERS:
       return {
         ...state,
-        customer: payload,
+        customers: payload,
         loading: false,
       };
-    case CUSTOMER_ERROR:
+    //   case GET_IMAGES:
+    //     return {
+    //       ...state,
+    //       images: payload,
+    //       loading: false,
+    //     };
+    case ALL_CUSTOMERS_ERROR:
+      //   case RES_IMAGE_ERROR:
       return {
         ...state,
         error: payload,
         loading: false,
       };
-    // case CLEAR_CUSTOMER:
-    //   return {
-    //     ...state,
-    //     customer: '',
-    //     loading: false,
-    //   };
     default:
       return state;
   }

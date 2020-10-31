@@ -81,3 +81,10 @@ export const CUSTOMER_ERROR = 'CUSTOMER_ERROR';
 export const RESULTS = 'RESULTS';
 export const RESULTS_ERROR = 'RESULTS_ERROR';
 export const CLEAR_RESULTS = 'CLEAR_RESULTS';
+
+//  Users Tab - Customers
+export const ALL_CUSTOMERS = 'ALL_CUSTOMERS';
+export const ALL_CUSTOMERS_ERROR = 'ALL_CUSTOMERS_ERROR';
+export const FOLLOW_SUCCESS = 'FOLLOW_SUCCESS';
+export const FOLLOW_ERROR = 'FOLLOW_ERROR';
+export const CLEAR_CUSTOMER = 'CLEAR_CUSTOMER';

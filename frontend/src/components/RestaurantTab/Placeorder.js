@@ -55,6 +55,7 @@ const Placeorder = ({
                       <input
                         type='checkbox'
                         name='item'
+                        value={item}
                         id='forItem'
                         onClick={(e) => setitem(item.name)}
                       />

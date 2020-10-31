@@ -47,6 +47,9 @@ import CreateEvent from './components/Events/CreateEvent';
 import SubmittedEvent from './components/Events/SubmittedEvent';
 import AttendeeList from './components/Events/AttendeeList';
 
+//  Users tab
+import Users from './components/Customer/users/Users';
+
 //  Utils
 import PrivateRoute from './components/routing/PrivateRoute';
 import Alert from './components/layout/Alert';
@@ -193,6 +196,7 @@ const App = () => {
                 path='/customer/details/:customerId'
                 component={DisplayCustomer}
               />
+              <PrivateRoute exact path='/customer/users' component={Users} />
             </Switch>
           </section>
         </Fragment>

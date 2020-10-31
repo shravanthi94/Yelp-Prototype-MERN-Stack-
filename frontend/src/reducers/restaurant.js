@@ -6,8 +6,6 @@ import {
   PLACEORDER,
   PLACEORDER_ERROR,
   ADD_REVIEW_ERROR,
-  // GET_RES_MENU,
-  // GET_RES_MENU_ERROR,
   GET_CUSTOMER_REVIEW,
   CUSTOMER_REVIEW_ERROR,
   // RES_IMAGE_ERROR,
@@ -48,12 +46,6 @@ export default function (state = initialState, action) {
     //       images: payload,
     //       loading: false,
     //     };
-    //   case GET_RES_MENU:
-    //     return {
-    //       ...state,
-    //       menu: payload,
-    //       loading: false,
-    //     };
     case GET_CUSTOMER_REVIEW:
       return {
         ...state,
@@ -69,7 +61,6 @@ export default function (state = initialState, action) {
     case RESTAURANT_ERROR:
     case PLACEORDER_ERROR:
     case ADD_REVIEW_ERROR:
-    //   case GET_RES_MENU_ERROR:
     case CUSTOMER_REVIEW_ERROR:
       //   case RES_IMAGE_ERROR:
       return {

@@ -62,8 +62,9 @@ router.post('/:id', checkAuth, async (req, res) => {
 router.get('/following/all', checkAuth, async (req, res) => {
   const customerId = req.user.id;
   try {
-    const following = await User.find(customerId).select('following');
-    const users = await User.find({ _id: { $in: following } });
+    const data = await User.findById(customerId).select('following');
+    console.log(data);
+    const users = await User.find({ _id: { $in: data.following } });
     if (!users) {
       return res
         .status(400)

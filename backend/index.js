@@ -13,6 +13,7 @@ const resEvent = require('./routers/restaurant/event');
 const cusEvent = require('./routers/customer/event');
 const resOrders = require('./routers/restaurant/order');
 const cusOrders = require('./routers/customer/order');
+const users = require('./routers/customer/users');
 const search = require('./routers/search');
 
 db();
@@ -28,6 +29,8 @@ app.use('/customer/profile', profileCustomer);
 app.use('/customer/event', cusEvent);
 //  Customer - ORDERS
 app.use('/customer/order', cusOrders);
+//  Customer - USERS TAB
+app.use('/customer/users', users);
 
 /* Routes for Restaurant */
 //  Restaurant SIGNUP

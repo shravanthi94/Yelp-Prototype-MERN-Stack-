@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCustomerDetails } from '../../actions/customer';
+import { followUser } from '../../actions/users';
 import spinner from '../layout/Spinner';
 import Date from '../../utils/Date';
 import '../css/profile.css';
 
 const Customer = ({
   getCustomerDetails,
+  followUser,
   customer: { customer, loading },
   match,
 }) => {
@@ -20,6 +22,10 @@ const Customer = ({
   //   if (profile) {
   //     imgSrc = `http://54.183.239.208:3001/images/customer/${profile.customer_image}`;
   //   }
+
+  const handleFollow = (e) => {
+    followUser(customer._id);
+  };
 
   return loading && !customer ? (
     spinner
@@ -79,6 +85,14 @@ const Customer = ({
           {/* {displayEvents()} */}
         </div>
         <div className='right-profile'>
+          <div>
+            {localStorage.usertype === 'customer' && (
+              <button className='btn' onClick={(e) => handleFollow(e)}>
+                Follow
+              </button>
+            )}
+          </div>
+          <hr />
           <div>
             <h3 className='subheading'>About {customer.name}</h3>
             <h4 className='profile-title'>Location</h4>
@@ -140,6 +154,7 @@ const Customer = ({
 
 Customer.propTypes = {
   getCustomerDetails: PropTypes.func.isRequired,
+  followUser: PropTypes.func.isRequired,
   customer: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
@@ -148,4 +163,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getCustomerDetails,
+  followUser,
 })(Customer);
