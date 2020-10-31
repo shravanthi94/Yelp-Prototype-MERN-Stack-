@@ -9,6 +9,7 @@ import {
   getFollowers,
 } from '../../../actions/users';
 import styles from '../../Events/event.module.css';
+import Date from '../../../utils/Date';
 
 const Users = ({
   getAllCustomers,
@@ -38,23 +39,42 @@ const Users = ({
     return customers.map((customer) => {
       return (
         <Fragment>
-          <div className={styles.event_card}>
+          {/* <div className={styles.event_card}>
             <Link
               to={`/customer/details/${customer._id}`}
               className={styles.title}
             >
               {customer.name}
             </Link>
-            <br /> <br />
+            <br />
             <p>
               <i class='fas fa-calendar-day'></i>{' '}
-              {/* {customer.date && customer.date.substring(0, 10)}, {customer.time} */}
+              <Date date={customer.date.substring(0, 10)} />
             </p>
             <p>
               <i class='fas fa-map-marker-alt'></i> {customer.location}
             </p>
-            {/* <p className={styles.event_description}>{event.description}</p> */}
-            {/* <p className={styles.event_hashtags}>{event.hashtags}</p> */}
+          </div> */}
+          <div class='tile is-ancestor'>
+            <div class='tile is-4 is-parent'>
+              <article class='tile is-child box has-background-warning'>
+                <Link
+                  to={`/customer/details/${customer._id}`}
+                  className={styles.title}
+                >
+                  {customer.name}
+                </Link>
+                <p>
+                  <i class='fas fa-calendar-day'></i> Yelping since{' '}
+                  <Date date={customer.date.substring(0, 10)} />
+                </p>
+                {customer.location && (
+                  <p>
+                    <i class='fas fa-map-marker-alt'></i> {customer.location}
+                  </p>
+                )}
+              </article>
+            </div>
           </div>
         </Fragment>
       );
@@ -77,12 +97,6 @@ const Users = ({
                 value={searchData}
                 onChange={(e) => setsearchData(e.target.value)}
               />
-              {/* <Link
-                to={`/customer/search/${searchData}`}
-                className={styles.btn_update}
-              >
-                Search
-              </Link> */}
               <button
                 className={styles.btn_update}
                 onClick={(e) => handleSearch(e)}

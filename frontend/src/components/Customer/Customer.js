@@ -27,7 +27,7 @@ const Customer = ({
     followUser(customer._id);
   };
 
-  return loading && !customer ? (
+  return loading || !customer ? (
     spinner
   ) : (
     <Fragment>

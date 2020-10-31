@@ -15,10 +15,6 @@ export const getAllCustomers = () => async (dispatch) => {
       type: ALL_CUSTOMERS,
       payload: res.data,
     });
-
-    dispatch({
-      type: CLEAR_CUSTOMER,
-    });
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -39,10 +35,6 @@ export const getSearchResutls = (data) => async (dispatch) => {
     dispatch({
       type: ALL_CUSTOMERS,
       payload: res.data,
-    });
-
-    dispatch({
-      type: CLEAR_CUSTOMER,
     });
   } catch (err) {
     const errors = err.response.data.errors;
@@ -86,10 +78,6 @@ export const getFollowers = () => async (dispatch) => {
     dispatch({
       type: ALL_CUSTOMERS,
       payload: res.data,
-    });
-
-    dispatch({
-      type: CLEAR_CUSTOMER,
     });
   } catch (err) {
     const errors = err.response.data.errors;

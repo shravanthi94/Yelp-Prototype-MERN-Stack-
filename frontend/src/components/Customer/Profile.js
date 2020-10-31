@@ -61,7 +61,7 @@ const Profile = ({
   //       );
   //     });
   //   };
-  return loading && profile === null ? (
+  return loading || profile === null ? (
     spinner
   ) : (
     <Fragment>

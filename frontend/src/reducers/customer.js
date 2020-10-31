@@ -22,12 +22,12 @@ export default function (state = initialState, action) {
         error: payload,
         loading: false,
       };
-    // case CLEAR_CUSTOMER:
-    //   return {
-    //     ...state,
-    //     customer: '',
-    //     loading: false,
-    //   };
+    case CLEAR_CUSTOMER:
+      return {
+        ...state,
+        customer: '',
+        loading: false,
+      };
     default:
       return state;
   }

@@ -96,29 +96,7 @@ const Placeorder = ({
         <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
           {/* <h1 className={styles.form_label}>Select an item</h1> */}
           <br />
-          {/* <select
-            className='select-css'
-            name='item'
-            onChange={(e) => setitem(e.target.value)}
-          >
-            <option>Select option</option>
-            {displayItems()}
-          </select> */}
           {displayItems()}
-          {/* <hr /> */}
-          {/* <h1 className={styles.form_label}>Select mode of delivery</h1> */}
-          {/* <br /> */}
-          {/* <select
-            className='select-css'
-            name='deliveryOption'
-            onChange={(e) => setdeliveryOption(e.target.value)}
-          >
-            <option>Select option</option>
-            <option value='Delivery'>Delivery</option>
-            <option value='Pickup'>Pick up</option>
-          </select> */}
-          {/* <br /> */}
-          {/* <input type='submit' value='Place Order' className={styles.btn} /> */}
           <Link
             className={styles.btn}
             to={`/restaurant/details/${restaurantId}`}
