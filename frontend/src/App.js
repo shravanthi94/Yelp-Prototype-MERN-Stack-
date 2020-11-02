@@ -50,6 +50,9 @@ import AttendeeList from './components/Events/AttendeeList';
 //  Users tab
 import Users from './components/Customer/users/Users';
 
+//  Message tab
+import SendMessage from './components/Message/SendMessage';
+
 //  Utils
 import PrivateRoute from './components/routing/PrivateRoute';
 import Alert from './components/layout/Alert';
@@ -197,6 +200,11 @@ const App = () => {
                 component={DisplayCustomer}
               />
               <PrivateRoute exact path='/customer/users' component={Users} />
+              <PrivateRoute
+                exact
+                path='/restaurant/message/:id'
+                component={SendMessage}
+              />
             </Switch>
           </section>
         </Fragment>

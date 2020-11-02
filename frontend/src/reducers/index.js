@@ -10,6 +10,7 @@ import restaurant from './restaurant';
 import customer from './customer';
 import search from './search';
 import users from './users';
+import message from './message';
 
 export default combineReducers({
   alert,
@@ -23,4 +24,5 @@ export default combineReducers({
   customer,
   search,
   users,
+  message,
 });

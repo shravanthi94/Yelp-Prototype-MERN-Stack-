@@ -4,9 +4,9 @@ import { GET_CUSTOMER, CUSTOMER_ERROR, CLEAR_CUSTOMER } from './types';
 
 // Get customer profile using ID
 export const getCustomerDetails = (id) => async (dispatch) => {
-  dispatch({
-    type: CLEAR_CUSTOMER,
-  });
+  //   dispatch({
+  //     type: CLEAR_CUSTOMER,
+  //   });
   try {
     const res = await axios.get(`/customer/profile/display/${id}`);
     dispatch({

@@ -13,6 +13,8 @@ const resEvent = require('./routers/restaurant/event');
 const cusEvent = require('./routers/customer/event');
 const resOrders = require('./routers/restaurant/order');
 const cusOrders = require('./routers/customer/order');
+const resMessage = require('./routers/restaurant/message');
+const cusMessage = require('./routers/customer/message');
 const users = require('./routers/customer/users');
 const search = require('./routers/search');
 
@@ -31,6 +33,8 @@ app.use('/customer/event', cusEvent);
 app.use('/customer/order', cusOrders);
 //  Customer - USERS TAB
 app.use('/customer/users', users);
+//  Customer - MESSAGE TAB
+app.use('/customer/message', cusMessage);
 
 /* Routes for Restaurant */
 //  Restaurant SIGNUP
@@ -43,6 +47,8 @@ app.use('/restaurant/profile', profileRestaurant);
 app.use('/restaurant/event', resEvent);
 //  Restaurant - ORDERS
 app.use('/restaurant/order', resOrders);
+//  Restaurant - MESSAGE TAB
+app.use('/restaurant/message', resMessage);
 
 //  Search data
 app.use('/restaurants/search', search);

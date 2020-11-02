@@ -5,7 +5,6 @@ import {
   ALL_CUSTOMERS_ERROR,
   FOLLOW_SUCCESS,
   FOLLOW_ERROR,
-  CLEAR_CUSTOMER,
 } from './types';
 
 export const getAllCustomers = () => async (dispatch) => {

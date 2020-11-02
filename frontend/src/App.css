@@ -103,6 +103,10 @@
   display: inline-block;
 }
 
+.red {
+  background-color: #d32323;
+}
+
 .login-pics {
   height: 1000px;
   width: 1200px;
@@ -187,4 +191,8 @@
   font-size: 0;
   vertical-align: top;
   border-radius: 0 4px 4px 0;
+}
+
+.message-container {
+  width: 500px;
 }

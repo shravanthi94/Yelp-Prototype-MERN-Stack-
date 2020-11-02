@@ -91,6 +91,11 @@ const Customer = ({
                 Follow
               </button>
             )}
+            {localStorage.usertype === 'restaurant' && (
+              <Link to={`/restaurant/message/${customer._id}`} className='btn'>
+                Message {customer.name}
+              </Link>
+            )}
           </div>
           <hr />
           <div>
