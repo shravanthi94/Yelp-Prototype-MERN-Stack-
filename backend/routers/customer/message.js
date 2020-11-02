@@ -5,6 +5,8 @@ const { check, validationResult } = require('express-validator');
 const { checkAuth } = require('../../middleware/auth');
 
 const Message = require('../../models/MessageModel');
+const User = require('../../models/UserModel');
+const Restaurant = require('../../models/RestaurantModel');
 
 // @route  POST yelp/customer/message
 // @desc   Customer reply message route
@@ -39,12 +41,22 @@ router.post(
 );
 
 // @route  GET yelp/customer/message/all
-// @desc   Get all customer messages
+// @desc   Get all customer conversations
 // @access Private
 router.get('/all', checkAuth, async (req, res) => {
   const customerId = req.user.id;
   try {
-    const conversations = await Message.find({ customer: customerId });
+    const conversations = await Message.find({ customer: customerId })
+      .populate({
+        path: 'customer',
+        select: 'name',
+        model: User,
+      })
+      .populate({
+        path: 'restaurant',
+        select: 'name',
+        model: Restaurant,
+      });
     if (!conversations) {
       return res
         .status(400)

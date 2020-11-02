@@ -52,6 +52,9 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       <Link to='/customer/users' className='header_nav_link'>
         Users
       </Link>
+      <Link to='/customer/messages' className='header_nav_link'>
+        Message
+      </Link>
     </Fragment>
   );
 

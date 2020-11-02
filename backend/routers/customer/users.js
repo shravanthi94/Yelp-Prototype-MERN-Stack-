@@ -10,7 +10,7 @@ router.get('/:data', checkAuth, async (req, res) => {
   const { data } = req.params;
   try {
     const users = await User.find({
-      $or: [{ name: data }, { 'about.nickname': data }],
+      $or: [{ name: data }, { 'about.nickname': data }, { 'about.city': data }],
     }).select('-password');
 
     if (!users) {

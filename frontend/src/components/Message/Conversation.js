@@ -21,7 +21,7 @@ const Conversation = ({ data }) => {
               ) : (
                 <p>{custName}</p>
               )}
-              <div className='is-italic is-size-7'>
+              <div className='is-italic is-small'>
                 <Date date={each.date} />
               </div>
             </div>

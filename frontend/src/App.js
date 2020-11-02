@@ -52,6 +52,7 @@ import Users from './components/Customer/users/Users';
 
 //  Message tab
 import SendMessage from './components/Message/SendMessage';
+import AllConversations from './components/Message/AllConversations';
 
 //  Utils
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -204,6 +205,11 @@ const App = () => {
                 exact
                 path='/restaurant/message/:id'
                 component={SendMessage}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/messages'
+                component={AllConversations}
               />
             </Switch>
           </section>

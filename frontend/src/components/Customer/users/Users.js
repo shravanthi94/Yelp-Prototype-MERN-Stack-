@@ -39,22 +39,6 @@ const Users = ({
     return customers.map((customer) => {
       return (
         <Fragment>
-          {/* <div className={styles.event_card}>
-            <Link
-              to={`/customer/details/${customer._id}`}
-              className={styles.title}
-            >
-              {customer.name}
-            </Link>
-            <br />
-            <p>
-              <i class='fas fa-calendar-day'></i>{' '}
-              <Date date={customer.date.substring(0, 10)} />
-            </p>
-            <p>
-              <i class='fas fa-map-marker-alt'></i> {customer.location}
-            </p>
-          </div> */}
           <div class='tile is-ancestor'>
             <div class='tile is-4 is-parent'>
               <article class='tile is-child box has-background-warning'>
@@ -92,7 +76,7 @@ const Users = ({
               <input
                 className='field request search_bar'
                 type='text'
-                placeholder='Search by User Name/Nickname'
+                placeholder='Search by User Name/Nickname/City'
                 name='searchData'
                 value={searchData}
                 onChange={(e) => setsearchData(e.target.value)}
