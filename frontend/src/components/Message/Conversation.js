@@ -8,8 +8,11 @@ const Conversation = ({ data }) => {
     return data.messages.map((each) => {
       return (
         <Fragment>
-          <article class='message'>
-            <div className='message-header has-background-link-dark'>
+          <article class='message is-medium'>
+            <div
+              className='message-header is-size-7'
+              style={{ backgroundColor: '#d32323' }}
+            >
               {each.usertype === 'restaurant' ? (
                 localStorage.usertype === 'restaurant' ? (
                   <p>You</p>
@@ -21,7 +24,7 @@ const Conversation = ({ data }) => {
               ) : (
                 <p>{custName}</p>
               )}
-              <div className='is-italic is-small'>
+              <div className='is-italic is-size-7'>
                 <Date date={each.date} />
               </div>
             </div>

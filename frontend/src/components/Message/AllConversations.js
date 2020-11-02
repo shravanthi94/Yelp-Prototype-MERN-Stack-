@@ -32,7 +32,7 @@ const AllConversations = ({
               <br />
               <Link
                 className='button is-link is-small'
-                to={`/customer/message/${each._id}`}
+                to={`/customer/messages/${each._id}`}
               >
                 View full conversation
               </Link>

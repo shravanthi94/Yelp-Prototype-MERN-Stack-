@@ -53,6 +53,7 @@ import Users from './components/Customer/users/Users';
 //  Message tab
 import SendMessage from './components/Message/SendMessage';
 import AllConversations from './components/Message/AllConversations';
+import CustomerMessage from './components/Message/CustomerConv';
 
 //  Utils
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -210,6 +211,11 @@ const App = () => {
                 exact
                 path='/customer/messages'
                 component={AllConversations}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/messages/:id'
+                component={CustomerMessage}
               />
             </Switch>
           </section>

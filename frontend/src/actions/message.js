@@ -86,3 +86,50 @@ export const getAllConversations = () => async (dispatch) => {
     });
   }
 };
+
+export const getCustomerConversation = (messageId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/customer/message/view/${messageId}`);
+    dispatch({
+      type: CONVERSATION_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: CONVERSATION_SUCCESS,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const CustomerSendMessage = (text, id, history) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const body = JSON.stringify({ text });
+    const res = await axios.post(`/customer/message/${id}`, body, config);
+
+    dispatch(setAlert('Message sent', 'success'));
+
+    // history.push(`/customer/details/${customerId}`);
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: SEND_MESSAGE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};

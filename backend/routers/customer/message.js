@@ -25,7 +25,7 @@ router.post(
       const messageId = req.params.id;
 
       const conversation = await Message.findById(messageId);
-      conversation.messages.unshift({
+      conversation.messages.push({
         usertype: 'customer',
         text,
       });
@@ -69,13 +69,23 @@ router.get('/all', checkAuth, async (req, res) => {
   }
 });
 
-// @route  GET yelp/customer/message/all
+// @route  GET yelp/customer/message/view/:id
 // @desc   View each message conversation with a restaurant
 // @access Private
 router.get('/view/:id', checkAuth, async (req, res) => {
   const messageId = req.params.id;
   try {
-    const conversation = await Message.findById(messageId);
+    const conversation = await Message.findById(messageId)
+      .populate({
+        path: 'customer',
+        select: 'name',
+        model: User,
+      })
+      .populate({
+        path: 'restaurant',
+        select: 'name',
+        model: Restaurant,
+      });
     if (!conversation) {
       return res
         .status(400)
