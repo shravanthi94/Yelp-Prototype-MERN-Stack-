@@ -191,3 +191,13 @@ input {
   color: #d32323;
   font-size: 25px;
 }
+
+.heading {
+  font-weight: bold;
+  margin-bottom: 6px;
+  line-height: 1.28571em;
+  margin-top: 30px;
+  height: 50px;
+  font-size: 40px;
+  color: #d32323;
+}

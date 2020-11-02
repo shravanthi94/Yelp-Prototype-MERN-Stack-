@@ -7,7 +7,7 @@ import spinner from '../../layout/Spinner';
 import {
   updateDish,
   getCurrentDashboard,
-  //   uploadDishImage,
+  uploadDishImage,
 } from '../../../actions/dashboard';
 
 const UpdateItem = ({
@@ -15,7 +15,7 @@ const UpdateItem = ({
   updateDish,
   history,
   getCurrentDashboard,
-  //   uploadDishImage,
+  uploadDishImage,
   location,
 }) => {
   const [formData, setformData] = useState({
@@ -26,10 +26,10 @@ const UpdateItem = ({
     category: '',
   });
 
-  //   const [image, setimage] = useState({
-  //     file: '',
-  //     fileText: 'Choose image...',
-  //   });
+  const [image, setimage] = useState({
+    file: '',
+    fileText: 'Choose image...',
+  });
 
   //   console.log('here profile', profile);
   let item = [];
@@ -53,19 +53,19 @@ const UpdateItem = ({
 
   const { name, ingredients, price, description, category } = formData;
 
-  //   const onImageChange = (e) => {
-  //     setimage({
-  //       file: e.target.files[0],
-  //       fileText: e.target.files[0].name,
-  //     });
-  //   };
+  const onImageChange = (e) => {
+    setimage({
+      file: e.target.files[0],
+      fileText: e.target.files[0].name,
+    });
+  };
 
-  //   const onUpload = (e) => {
-  //     e.preventDefault();
-  //     const formData = new FormData();
-  //     formData.append('image', image.file);
-  //     uploadDishImage(formData, location.state.itemId);
-  //   };
+  const onUpload = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', image.file);
+    uploadDishImage(formData, location.state.itemId);
+  };
 
   const onChange = (e) =>
     setformData({ ...formData, [e.target.name]: e.target.value });
@@ -82,10 +82,10 @@ const UpdateItem = ({
       <div className='container profile-title'>
         {' '}
         <h1 className={styles.form_title}>Update Dish</h1>
-        {/* <form onSubmit={(e) => onUpload(e)}>
+        <form onSubmit={(e) => onUpload(e)}>
           <br />
           <div className={styles.form_group}>
-            <label className={styles.form_label}>Item pictures</label>
+            <label className={styles.form_label}>Upload dish images</label>
             <br /> <br />
             <input
               type='file'
@@ -99,7 +99,7 @@ const UpdateItem = ({
           <button type='submit' className={styles.btn}>
             Upload
           </button>
-        </form> */}
+        </form>
         <hr />
         <p className='lead'>
           <i class='fas fa-utensils'></i> List your amazing dishes here...
@@ -186,7 +186,7 @@ const UpdateItem = ({
 UpdateItem.propTypes = {
   updateDish: PropTypes.func.isRequired,
   getCurrentDashboard: PropTypes.func.isRequired,
-  //   uploadDishImage: PropTypes.func.isRequired,
+  uploadDishImage: PropTypes.func.isRequired,
   dashboard: PropTypes.object.isRequired,
 };
 
@@ -197,5 +197,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   updateDish,
   getCurrentDashboard,
-  //   uploadDishImage,
+  uploadDishImage,
 })(withRouter(UpdateItem));

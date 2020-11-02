@@ -73,7 +73,11 @@ export const uploadRestaurantImage = (formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.post('/restaurant/images/restaurant', formData, config);
+    const res = await axios.post(
+      '/restaurant/images/restaurant',
+      formData,
+      config,
+    );
     console.log(res);
 
     dispatch(setAlert('Image Uploaded', 'success'));
@@ -158,6 +162,36 @@ export const updateDish = (formData, history, itemId, edit = false) => async (
 
     dispatch({
       type: ADD_DISH_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const uploadDishImage = (formData, dishId) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
+
+    const res = await axios.post(
+      `/restaurant/images/dish/${dishId}`,
+      formData,
+      config,
+    );
+    console.log(res);
+
+    dispatch(setAlert('Item Image Uploaded', 'success'));
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: RES_IMAGE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

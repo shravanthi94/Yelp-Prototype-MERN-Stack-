@@ -196,3 +196,11 @@
 .message-container {
   width: 400px;
 }
+
+.dish-img {
+  height: 300px;
+  width: 300px;
+  margin: 2%;
+  border: 2px solid black;
+  border-radius: 10px;
+}

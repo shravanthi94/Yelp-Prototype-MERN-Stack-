@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Dashboard-forms/form.module.css';
+import ImageCard from './ImageCard';
 
 const Menu = ({ location }) => {
   const menu = location.state.menu;
@@ -17,7 +18,10 @@ const Menu = ({ location }) => {
             <div class='tile is-parent is-7'>
               <article class='tile is-child box'>
                 <div className='columns'>
-                  <div className='column is-3'>Display item image here</div>
+                  <div className='column is-3'>
+                    {item.image && <ImageCard images={item.image} />}
+                    {/* <ImageCard images={item.image} /> */}
+                  </div>
                   <div className='column is-9'>
                     <p class={styles['item-title']}>{item.name}</p>
                     <p class={styles['item-ingredients']}>
@@ -35,6 +39,18 @@ const Menu = ({ location }) => {
                     }}
                   >
                     Update item
+                  </Link>
+                )}
+                {item.image && (
+                  <Link
+                    className={styles['update-btn']}
+                    style={{ marginLeft: '2%' }}
+                    to={{
+                      pathname: '/restaurant/item/images',
+                      state: { images: item.image },
+                    }}
+                  >
+                    View images
                   </Link>
                 )}
               </article>

@@ -29,6 +29,7 @@ import ResUpdateProfile from './components/Restaurant/Dashboard-forms/UpdateProf
 import AddDish from './components/Restaurant/Dashboard-forms/AddDish';
 import UpdateDish from './components/Restaurant/Dashboard-forms/UpdateItem';
 import Menu from './components/Restaurant/Menu';
+import DishImages from './components/Restaurant/DishImages';
 
 //  Customer - Restaurant Tab
 import AllRest from './components/RestaurantTab/AllRestaurants';
@@ -144,6 +145,11 @@ const App = () => {
                 exact
                 path='/restaurant/view/menu'
                 component={Menu}
+              />
+              <PrivateRoute
+                exact
+                path='/restaurant/item/images'
+                component={DishImages}
               />
               <PrivateRoute exact path='/event' component={Event} />
               <Route

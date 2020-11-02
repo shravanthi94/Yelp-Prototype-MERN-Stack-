@@ -9,7 +9,7 @@ const { checkAuth } = require('../../middleware/auth');
 const User = require('../../models/UserModel');
 
 const customerstorage = multer.diskStorage({
-  destination: `${path.join(__dirname, '..')}/public/uploads/customers`,
+  destination: `${path.join(__dirname, '../..')}/public/uploads/customers`,
   filename: (req, file, cb) => {
     cb(
       null,
