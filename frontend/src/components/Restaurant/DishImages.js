@@ -8,13 +8,9 @@ import { BACKEND_URL } from '../../utils/constants';
 
 const Images = ({ location, setAlert }) => {
   const images = location.state.images;
-  //   if (images === '1' || !images) {
-  //     // setAlert('No images added', 'danger');
-  //     return;
-  //   }
+
   let files = images.split(',');
   console.log(files);
-  //   files.shift();
 
   const displayImages = () => {
     return files.map((file) => {

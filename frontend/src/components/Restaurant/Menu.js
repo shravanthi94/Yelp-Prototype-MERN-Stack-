@@ -18,10 +18,11 @@ const Menu = ({ location }) => {
             <div class='tile is-parent is-7'>
               <article class='tile is-child box'>
                 <div className='columns'>
-                  <div className='column is-3'>
-                    {item.image && <ImageCard images={item.image} />}
-                    {/* <ImageCard images={item.image} /> */}
-                  </div>
+                  {item.image && (
+                    <div className='column is-3'>
+                      <ImageCard images={item.image} />
+                    </div>
+                  )}
                   <div className='column is-9'>
                     <p class={styles['item-title']}>{item.name}</p>
                     <p class={styles['item-ingredients']}>
@@ -50,7 +51,7 @@ const Menu = ({ location }) => {
                       state: { images: item.image },
                     }}
                   >
-                    View images
+                    View Images
                   </Link>
                 )}
               </article>

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import styles from '../Restaurant/Dashboard-forms/form.module.css';
 import { setAlert } from '../../actions/alert';
 import { placeorder, getRestaurant } from '../../actions/restaurants';
+import ImageCard from '../Restaurant/ImageCard';
 
 const Placeorder = ({
   match,
@@ -40,7 +41,11 @@ const Placeorder = ({
             <div class='tile is-parent is-7'>
               <article class='tile is-child box'>
                 <div className='columns'>
-                  <div className='column is-3'>Display item image here</div>
+                  {item.image && (
+                    <div className='column is-3'>
+                      <ImageCard images={item.image} />
+                    </div>
+                  )}
                   <div className='column is-9'>
                     <p class={styles['item-title']}>{item.name}</p>
                     <p class={styles['item-ingredients']}>
