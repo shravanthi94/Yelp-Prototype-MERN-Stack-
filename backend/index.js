@@ -17,7 +17,8 @@ const resMessage = require('./routers/restaurant/message');
 const cusMessage = require('./routers/customer/message');
 const users = require('./routers/customer/users');
 const search = require('./routers/search');
-const image = require('./routers/images');
+const cusImages = require('./routers/customer/images');
+const resImages = require('./routers/restaurant/images');
 
 db();
 
@@ -36,6 +37,8 @@ app.use('/customer/order', cusOrders);
 app.use('/customer/users', users);
 //  Customer - MESSAGE TAB
 app.use('/customer/message', cusMessage);
+//  Customer - Image uploads
+app.use('/customer/images', cusImages);
 
 /* Routes for Restaurant */
 //  Restaurant SIGNUP
@@ -50,11 +53,11 @@ app.use('/restaurant/event', resEvent);
 app.use('/restaurant/order', resOrders);
 //  Restaurant - MESSAGE TAB
 app.use('/restaurant/message', resMessage);
+//  Restaurant - Image uploads
+app.use('/restaurant/images', resImages);
 
 //  Search data
 app.use('/restaurants/search', search);
-//  Image uploads
-app.use('/images', image);
 
 app.get('/', (req, res) => {
   res.send('hello');

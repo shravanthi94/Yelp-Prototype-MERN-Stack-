@@ -5,6 +5,7 @@ import {
   ADD_DISH_ERROR,
   GET_REVIEWS,
   GET_REVIEWS_ERROR,
+  RES_IMAGE_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -12,7 +13,6 @@ const initialState = {
   profiles: [],
   dish: '',
   images: '',
-  //   menu: [],
   reviews: [],
   loading: true,
   error: {},
@@ -39,12 +39,6 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
       };
-    // case GET_MENU:
-    //   return {
-    //     ...state,
-    //     menu: payload,
-    //     loading: false,
-    //   };
     case GET_REVIEWS:
       return {
         ...state,
@@ -53,9 +47,8 @@ export default function (state = initialState, action) {
       };
     case DASHBOARD_ERROR:
     case ADD_DISH_ERROR:
-    // case GET_MENU_ERROR:
     case GET_REVIEWS_ERROR:
-      // case RES_IMAGE_ERROR:
+    case RES_IMAGE_ERROR:
       return {
         ...state,
         error: payload,

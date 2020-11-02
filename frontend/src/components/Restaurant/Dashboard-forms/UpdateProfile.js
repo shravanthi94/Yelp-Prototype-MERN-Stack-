@@ -6,7 +6,7 @@ import styles from './form.module.css';
 import {
   updateRestaurantProfile,
   getCurrentDashboard,
-  //   uploadRestaurantImage,
+  uploadRestaurantImage,
 } from '../../../actions/dashboard';
 
 const UpdateProfile = ({
@@ -14,7 +14,7 @@ const UpdateProfile = ({
   updateRestaurantProfile,
   history,
   getCurrentDashboard,
-  //   uploadRestaurantImage,
+  uploadRestaurantImage,
 }) => {
   const [formData, setformData] = useState({
     name: '',
@@ -26,10 +26,10 @@ const UpdateProfile = ({
     delivery: '',
     cuisine: '',
   });
-  //   const [image, setimage] = useState({
-  //     file: '',
-  //     fileText: 'Choose image...',
-  //   });
+  const [image, setimage] = useState({
+    file: '',
+    fileText: 'Choose image...',
+  });
 
   useEffect(() => {
     getCurrentDashboard();
@@ -46,25 +46,25 @@ const UpdateProfile = ({
       cuisine: loading || !profile.cuisine ? '' : profile.cuisine,
     });
 
-    // setimage({
-    //   file: loading || !profile.customer_image ? '' : profile.customer_image,
-    //   fileText: 'Choose new image...',
-    // });
+    setimage({
+      file: loading || !profile.customer_image ? '' : profile.customer_image,
+      fileText: 'Choose new image...',
+    });
   }, [loading]);
 
-  //   const onImageChange = (e) => {
-  //     setimage({
-  //       file: e.target.files[0],
-  //       fileText: e.target.files[0].name,
-  //     });
-  //   };
+  const onImageChange = (e) => {
+    setimage({
+      file: e.target.files[0],
+      fileText: e.target.files[0].name,
+    });
+  };
 
-  //   const onUpload = (e) => {
-  //     e.preventDefault();
-  //     const formData = new FormData();
-  //     formData.append('image', image.file);
-  //     // uploadRestaurantImage(formData);
-  //   };
+  const onUpload = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', image.file);
+    uploadRestaurantImage(formData);
+  };
 
   const {
     name,
@@ -94,7 +94,7 @@ const UpdateProfile = ({
           <i className='fas fa-user'></i> Let's get some information to make
           your profile stand out
         </p>
-        {/* <form onSubmit={(e) => onUpload(e)}>
+        <form onSubmit={(e) => onUpload(e)}>
           <br />
           <div className={styles.form_group}>
             <label className={styles.form_label}>Display picture</label>
@@ -111,7 +111,7 @@ const UpdateProfile = ({
           <button type='submit' className={styles.btn}>
             Upload
           </button>
-        </form> */}
+        </form>
         <hr />
         <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
           <div className={styles.form_group}>
@@ -239,7 +239,7 @@ const UpdateProfile = ({
 UpdateProfile.propTypes = {
   updateRestaurantProfile: PropTypes.func.isRequired,
   getCurrentDashboard: PropTypes.func.isRequired,
-  //   uploadRestaurantImage: PropTypes.func.isRequired,
+  uploadRestaurantImage: PropTypes.func.isRequired,
   dashboard: PropTypes.object.isRequired,
 };
 
@@ -250,5 +250,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   updateRestaurantProfile,
   getCurrentDashboard,
-  //   uploadRestaurantImage,
+  uploadRestaurantImage,
 })(withRouter(UpdateProfile));

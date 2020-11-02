@@ -22,7 +22,7 @@ const Profile = ({
 
   let imgSrc;
   if (profile) {
-    imgSrc = `${BACKEND_URL}/customer/${profile.image}`;
+    imgSrc = `${BACKEND_URL}/customer/images/${profile.image}`;
   }
 
   //   const displayEvents = () => {

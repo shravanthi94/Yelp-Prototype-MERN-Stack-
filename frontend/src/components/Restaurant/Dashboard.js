@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getCurrentDashboard } from '../../actions/dashboard';
 import Reviews from './Reviews';
 import spinner from '../layout/Spinner';
+import { BACKEND_URL } from '../../utils/constants';
 import '../css/dashboard.css';
 
 const Dashboard = ({
@@ -50,10 +51,10 @@ const Dashboard = ({
   //     });
   //   };
 
-  //   let imgSrc;
-  //   if (profile) {
-  //     imgSrc = `http://54.183.239.208:3001/images/restaurant/${profile.restaurant_image}`;
-  //   }
+  let imgSrc;
+  if (profile) {
+    imgSrc = `${BACKEND_URL}/restaurant/images/restaurant/${profile.image}`;
+  }
 
   return loading && profile === null ? (
     spinner
@@ -63,7 +64,7 @@ const Dashboard = ({
       <div className='container-dash'>
         <div className='left-dash'>
           {/* <h3>{profile.restaurant_name}</h3> */}
-          {/* <img src={imgSrc} alt='Profile_pic' /> */}
+          <img src={imgSrc} alt='Profile_pic' />
           <h3 className='title-dash'>{profile.name}</h3>
           <h3 className='sub-heading'>Contact information</h3>
           <h4 className='title-dash'>

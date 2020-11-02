@@ -4,9 +4,9 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const { checkAuth } = require('../middleware/auth');
+const { checkAuth } = require('../../middleware/auth');
 
-const User = require('../models/UserModel');
+const User = require('../../models/UserModel');
 
 const customerstorage = multer.diskStorage({
   destination: `${path.join(__dirname, '..')}/public/uploads/customers`,
@@ -26,7 +26,7 @@ const customeruploads = multer({
 // @route  POST yelp/images/customer
 // @desc   Upload profile picture of the customer
 // @access Private
-router.post('/customer', checkAuth, async (req, res) => {
+router.post('/', checkAuth, async (req, res) => {
   customeruploads(req, res, async (err) => {
     if (!err) {
       try {
@@ -46,11 +46,12 @@ router.post('/customer', checkAuth, async (req, res) => {
   });
 });
 
-// @route  GET yelp/images/customer/:customer_image
+// @route  GET yelp/customer/images/:customer_image
 // @desc   View the customer profile picture
 // @access Public
-router.get('/customer/:customer_image', (req, res) => {
-  const image = `${path.join(__dirname, '..')}/public/uploads/customers/${
+router.get('/:customer_image', (req, res) => {
+  console.log('backend: ', req.params.customer_image);
+  const image = `${path.join(__dirname, '../..')}/public/uploads/customers/${
     req.params.customer_image
   }`;
   if (fs.existsSync(image)) {
@@ -59,7 +60,7 @@ router.get('/customer/:customer_image', (req, res) => {
     res.sendFile(
       `${path.join(
         __dirname,
-        '..',
+        '../..',
       )}/public/uploads/customers/placeholderimg.jpg`,
     );
   }

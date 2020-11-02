@@ -4,6 +4,7 @@ import {
   UPDATE_DETAILS,
   CLEAR_PROFILE,
   USER_LOADED,
+  IMAGE_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +28,7 @@ export default function (state = initialState, action) {
       };
 
     case PROFILE_ERROR:
+    case IMAGE_ERROR:
       return {
         ...state,
         error: payload,

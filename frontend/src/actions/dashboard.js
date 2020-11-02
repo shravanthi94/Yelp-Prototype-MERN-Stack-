@@ -7,6 +7,7 @@ import {
   ADD_DISH_ERROR,
   GET_REVIEWS,
   GET_REVIEWS_ERROR,
+  RES_IMAGE_ERROR,
 } from './types';
 
 //Get current users profile
@@ -59,6 +60,32 @@ export const updateRestaurantProfile = (
 
     dispatch({
       type: DASHBOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const uploadRestaurantImage = (formData) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
+
+    const res = await axios.post('/restaurant/images/restaurant', formData, config);
+    console.log(res);
+
+    dispatch(setAlert('Image Uploaded', 'success'));
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: RES_IMAGE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

@@ -1,2 +1,2 @@
 // Backend route to get image
-export const BACKEND_URL = 'http://localhost:3002/images';
+export const BACKEND_URL = 'http://localhost:3002';

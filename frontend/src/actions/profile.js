@@ -70,7 +70,7 @@ export const uploadCustomerImage = (formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.post('/images/customer', formData, config);
+    const res = await axios.post('/customer/images', formData, config);
     console.log(res);
 
     dispatch(setAlert('Image Uploaded', 'success'));

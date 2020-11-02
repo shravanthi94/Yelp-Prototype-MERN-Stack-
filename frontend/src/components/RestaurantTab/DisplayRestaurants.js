@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './restaurant.module.css';
+import { BACKEND_URL } from '../../utils/constants';
 
 const DisplayRestaurants = ({ restaurants, filters }) => {
   return (
@@ -14,11 +15,11 @@ const DisplayRestaurants = ({ restaurants, filters }) => {
                   <div class='content'>
                     <div className='columns'>
                       <div className='column is-5'>
-                        {/* <img
-                        className={styles.img}
-                        src={`http://54.183.239.208:3001/images/restaurant/${res.restaurant_image}`}
-                        alt='Restaurant_image'
-                      /> */}
+                        <img
+                          className={styles.img}
+                          src={`${BACKEND_URL}/restaurant/images/restaurant/${res.image}`}
+                          alt='Restaurant_image'
+                        />
                       </div>
                       <div className='column is-7'>
                         <p>
