@@ -6,7 +6,7 @@ import styles from './form.module.css';
 import {
   updateBasicsProfile,
   getCurrentProfile,
-  //   uploadCustomerImage,
+  uploadCustomerImage,
 } from '../../../actions/profile';
 
 const UpdateProfile = ({
@@ -14,7 +14,7 @@ const UpdateProfile = ({
   updateBasicsProfile,
   history,
   getCurrentProfile,
-  //   uploadCustomerImage,
+  uploadCustomerImage,
 }) => {
   const [formData, setformData] = useState({
     name: '',
@@ -46,25 +46,25 @@ const UpdateProfile = ({
         loading || !profile.about.headline ? '' : profile.about.headline,
     });
 
-    // setimage({
-    //   file: loading || !profile.customer_image ? '' : profile.customer_image,
-    //   fileText: 'Choose new image...',
-    // });
+    setimage({
+      file: loading || !profile.customer_image ? '' : profile.customer_image,
+      fileText: 'Choose new image...',
+    });
   }, [loading]);
 
-  //   const onImageChange = (e) => {
-  //     setimage({
-  //       file: e.target.files[0],
-  //       fileText: e.target.files[0].name,
-  //     });
-  //   };
+  const onImageChange = (e) => {
+    setimage({
+      file: e.target.files[0],
+      fileText: e.target.files[0].name,
+    });
+  };
 
-  //   const onUpload = (e) => {
-  //     e.preventDefault();
-  //     const formData = new FormData();
-  //     formData.append('image', image.file);
-  //     uploadCustomerImage(formData);
-  //   };
+  const onUpload = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', image.file);
+    uploadCustomerImage(formData);
+  };
 
   const {
     name,
@@ -93,7 +93,7 @@ const UpdateProfile = ({
           <i className='fas fa-user'></i> Let's get some information to make
           your profile stand out
         </p>
-        {/* <form onSubmit={(e) => onUpload(e)}>
+        <form onSubmit={(e) => onUpload(e)}>
           <br />
           <div className={styles.form_group}>
             <label className={styles.form_label}>Profile picture</label>
@@ -110,7 +110,7 @@ const UpdateProfile = ({
           <button type='submit' className={styles.btn}>
             Upload
           </button>
-        </form> */}
+        </form>
         <hr />
         <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
           <div className={styles.form_group}>
@@ -216,7 +216,7 @@ const UpdateProfile = ({
 UpdateProfile.propTypes = {
   updateBasicsProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-  //   uploadCustomerImage: PropTypes.func.isRequired,
+  uploadCustomerImage: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
 };
 
@@ -227,5 +227,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   updateBasicsProfile,
   getCurrentProfile,
-  //   uploadCustomerImage,
+  uploadCustomerImage,
 })(withRouter(UpdateProfile));

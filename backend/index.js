@@ -17,6 +17,7 @@ const resMessage = require('./routers/restaurant/message');
 const cusMessage = require('./routers/customer/message');
 const users = require('./routers/customer/users');
 const search = require('./routers/search');
+const image = require('./routers/images');
 
 db();
 
@@ -52,6 +53,8 @@ app.use('/restaurant/message', resMessage);
 
 //  Search data
 app.use('/restaurants/search', search);
+//  Image uploads
+app.use('/images', image);
 
 app.get('/', (req, res) => {
   res.send('hello');

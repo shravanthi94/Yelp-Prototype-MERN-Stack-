@@ -6,6 +6,7 @@ import { getCurrentProfile } from '../../actions/profile';
 import spinner from '../layout/Spinner';
 import Date from '../../utils/Date';
 import '../css/profile.css';
+import { BACKEND_URL } from '../../utils/constants';
 // import { getRegisteredEvents } from '../../actions/event';
 
 const Profile = ({
@@ -15,15 +16,14 @@ const Profile = ({
   //   event: { registered, loading: loading_event },
 }) => {
   useEffect(() => {
-    // console.log('profile page');
     getCurrentProfile();
     // getRegisteredEvents();
   }, []);
 
-  //   let imgSrc;
-  //   if (profile) {
-  //     imgSrc = `http://54.183.239.208:3001/images/customer/${profile.customer_image}`;
-  //   }
+  let imgSrc;
+  if (profile) {
+    imgSrc = `${BACKEND_URL}/customer/${profile.image}`;
+  }
 
   //   const displayEvents = () => {
   //     return registered.map((event) => {
@@ -67,7 +67,7 @@ const Profile = ({
     <Fragment>
       <div className='profile-container'>
         <div className='left-profile'>
-          {/* <img src={imgSrc} alt='Profile-pic' /> */}
+          <img src={imgSrc} alt='Profile-pic' />
           <h3 className='profile-title'>{profile.name}'s Profile</h3>
           <h3 className='subheading'>Contact information</h3>
           <h4 className='profile-title'>Email</h4>

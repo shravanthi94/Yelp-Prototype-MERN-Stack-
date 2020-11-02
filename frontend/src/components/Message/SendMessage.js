@@ -40,6 +40,7 @@ const SendMessage = ({
       <div className='container profile-title'>
         {' '}
         <h1 className={styles.form_title}>Your Conversation</h1>
+        <hr />
         {conversation && <Conversation data={conversation} />}
         <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
           <div className={styles.form_group}>

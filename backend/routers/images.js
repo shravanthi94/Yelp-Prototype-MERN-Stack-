@@ -1,0 +1,68 @@
+const express = require('express');
+
+const router = express.Router();
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const { checkAuth } = require('../middleware/auth');
+
+const User = require('../models/UserModel');
+
+const customerstorage = multer.diskStorage({
+  destination: `${path.join(__dirname, '..')}/public/uploads/customers`,
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      `customer${req.user.id}-${Date.now()}${path.extname(file.originalname)}`,
+    );
+  },
+});
+
+const customeruploads = multer({
+  storage: customerstorage,
+  limits: { fileSize: 100000000 },
+}).single('image');
+
+// @route  POST yelp/images/customer
+// @desc   Upload profile picture of the customer
+// @access Private
+router.post('/customer', checkAuth, async (req, res) => {
+  customeruploads(req, res, async (err) => {
+    if (!err) {
+      try {
+        const customer = await User.findById(req.user.id);
+        customer.image = req.file.filename;
+
+        await customer.save();
+
+        res.status(200).json(customer);
+      } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+      }
+    } else {
+      console.log('Error!', err);
+    }
+  });
+});
+
+// @route  GET yelp/images/customer/:customer_image
+// @desc   View the customer profile picture
+// @access Public
+router.get('/customer/:customer_image', (req, res) => {
+  const image = `${path.join(__dirname, '..')}/public/uploads/customers/${
+    req.params.customer_image
+  }`;
+  if (fs.existsSync(image)) {
+    res.sendFile(image);
+  } else {
+    res.sendFile(
+      `${path.join(
+        __dirname,
+        '..',
+      )}/public/uploads/customers/placeholderimg.jpg`,
+    );
+  }
+});
+
+module.exports = router;
