@@ -10,22 +10,36 @@ const checkObjectId = require('../../middleware/checkParams');
 const Restaurant = require('../../models/RestaurantModel');
 const User = require('../../models/UserModel');
 
+// Connect to kafka
+const kafka = require('../../kafka/client');
+
 // @route  GET yelp/restaurant/profile/all
 // @desc   Get all restaurant profile details
 // @access Public
 router.get('/all', async (req, res) => {
-  try {
-    const restaurants = await Restaurant.find().select('-password');
-    if (!restaurants) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'No restaurants found' }] });
+  // try {
+  //   const restaurants = await Restaurant.find().select('-password');
+  //   if (!restaurants) {
+  //     return res
+  //       .status(400)
+  //       .json({ errors: [{ msg: 'No restaurants found' }] });
+  //   }
+  //   res.status(200).json(restaurants);
+  // } catch (err) {
+  //   console.log(err);
+  //   res.status(500).send('Server Error');
+  // }
+  kafka.make_request('allRestaurants', req.body, (err, results) => {
+    console.log('in result');
+    console.log(results);
+    if (err) {
+      console.log('Inside err');
+      res.status(500).send('System Error, Try Again.');
+    } else {
+      console.log('Inside else');
+      res.status(200).json(results);
     }
-    res.status(200).json(restaurants);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send('Server Error');
-  }
+  });
 });
 
 // @route  GET yelp/restaurant/profile
