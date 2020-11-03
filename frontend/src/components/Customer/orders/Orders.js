@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,9 +8,19 @@ import { getAllOrders } from '../../../actions/cusOrder';
 import Date from '../../../utils/Date';
 
 const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
+  const [sortType, setsortType] = useState('Acsending');
+  const [orders, setorders] = useState([]);
+
   useEffect(() => {
     getAllOrders();
   }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      setorders(allorders.reverse());
+    }
+    console.log(orders);
+  }, [loading, sortType]);
 
   const displayOrders = (orders) => {
     return orders.map((order) => {
@@ -58,8 +68,18 @@ const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
         </Link>
         <br />
         <hr />
+        <select
+          className='select-css'
+          name='orders'
+          onChange={(e) => setsortType(e.target.value)}
+        >
+          <option>Sort by...</option>
+          <option>Acsending</option>
+          <option>Descending</option>
+        </select>
+        <br />
         <h1 className={styles.title}>All Orders</h1>
-        {displayOrders(allorders)}
+        {displayOrders(orders)}
       </div>
     </Fragment>
   );

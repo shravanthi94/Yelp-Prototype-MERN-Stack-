@@ -13,7 +13,7 @@ const User = require('../../models/UserModel');
 // @access Public
 router.get('/', async (req, res) => {
   try {
-    const events = await Event.find({}).sort({ eventDate: -1 });
+    const events = await Event.find({}, null, { sort: { eventDate: -1 } });
     if (!events) {
       return res.status(400).json({ errors: [{ msg: 'No events found.' }] });
     }
@@ -71,7 +71,7 @@ router.post(
         name,
         description,
         time,
-        date,
+        eventDate: date,
         location,
         hashtags,
       });

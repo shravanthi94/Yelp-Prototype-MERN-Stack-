@@ -38,19 +38,15 @@ router.post('/:event_id', checkAuth, async (req, res) => {
 router.get('/', checkAuth, async (req, res) => {
   const customerId = req.user.id;
   try {
-    const events = await Event.find();
-    const result = events.map((event) => {
-      if (event.customer.includes(customerId)) {
-        return event;
-      }
-    });
-    if (!result) {
+    const events = await Event.find({ customer: { $all: [customerId] } });
+
+    if (!events) {
       return res
         .status(400)
         .json({ errors: [{ msg: 'Not registered for any events.' }] });
     }
 
-    res.status(200).json(result);
+    res.status(200).json(events);
   } catch (err) {
     console.log(err);
     res.status(500).send('Server Error');

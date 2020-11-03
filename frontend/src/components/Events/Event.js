@@ -12,12 +12,21 @@ const Event = ({
   getRegisteredEvents,
   history,
 }) => {
+  const [sortType, setsortType] = useState('Acsending');
+  const [allEvents, setallEvents] = useState([]);
+
   useEffect(() => {
     getAllEvents();
     if (localStorage.usertype == 'customer') {
       getRegisteredEvents();
     }
   }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      setallEvents(events.reverse());
+    }
+  }, [loading, sortType]);
 
   const [eventSearch, seteventSearch] = useState('');
 
@@ -34,7 +43,7 @@ const Event = ({
           <br /> <br />
           <p>
             <i class='fas fa-calendar-day'></i>{' '}
-            {event.date && event.date.substring(0, 10)}, {event.time}
+            {event.eventDate && event.eventDate.substring(0, 10)} {event.time}
           </p>
           <p>
             <i class='fas fa-map-marker-alt'></i> {event.location}
@@ -45,12 +54,6 @@ const Event = ({
       );
     });
   };
-
-  let miniList = [];
-
-  if (registered.length > 3) {
-    miniList = registered.splice(0, 3);
-  }
 
   return loading ? (
     spinner
@@ -78,10 +81,22 @@ const Event = ({
             </div>
           </div>
         </div>
+        {localStorage.usertype == 'customer' && (
+          <select
+            className='select-css'
+            name='allEvents'
+            onChange={(e) => setsortType(e.target.value)}
+          >
+            <option>Sort by...</option>
+            <option>Acsending</option>
+            <option>Descending</option>
+          </select>
+        )}
         <div>
           <div className={styles.rest_links}>
             {localStorage.usertype == 'restaurant' && (
               <Fragment>
+                <br />
                 <Link to='/event/create' className={styles.btn_update}>
                   Create Event
                 </Link>{' '}
@@ -92,7 +107,13 @@ const Event = ({
             )}
           </div>
         </div>
-        <br /> <br />
+        <br />
+        {localStorage.usertype == 'restaurant' && (
+          <Fragment>
+            <br />
+            <br />
+          </Fragment>
+        )}
         <div>
           {localStorage.usertype == 'restaurant' && registered.length === 0 ? (
             ''
@@ -101,25 +122,15 @@ const Event = ({
               {' '}
               <h1 className={styles.heading}>Your Registered Events</h1>
               <hr />
-              {miniList.length > 0 ? (
-                <Fragment>
-                  {listAllEvents(miniList)}{' '}
-                  <Link to='/event/registered' className={styles.view_all}>
-                    View all
-                  </Link>
-                  <br />
-                  <br />
-                  <br /> <hr />
-                </Fragment>
-              ) : (
-                listAllEvents(registered)
-              )}
+              {listAllEvents(registered)}
             </Fragment>
           )}
-          <hr />
-          <h1 className={styles.heading}>Popular Events</h1>
-          {listAllEvents(events)}
         </div>
+        <h1 className={styles.heading}>Popular Events</h1>
+        <hr />
+        {localStorage.usertype == 'customer'
+          ? listAllEvents(allEvents)
+          : listAllEvents(events)}
       </div>
     </Fragment>
   );

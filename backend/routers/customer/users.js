@@ -8,9 +8,11 @@ const User = require('../../models/UserModel');
 
 router.get('/:data', checkAuth, async (req, res) => {
   const { data } = req.params;
+  const customerId = req.user.id;
   try {
     const users = await User.find({
       $or: [{ name: data }, { 'about.nickname': data }, { 'about.city': data }],
+      _id: { $ne: customerId },
     }).select('-password');
 
     if (!users) {
@@ -31,17 +33,6 @@ router.post('/:id', checkAuth, async (req, res) => {
   const customerId = req.user.id;
   try {
     const customer = await User.findById(customerId);
-
-    // if (
-    //   customer.following.filter((each) => each.user.toString() === id).length >
-    //   0
-    // ) {
-    //   return res
-    //     .status(400)
-    //     .json({ errors: [{ msg: 'You are already following the user' }] });
-    // }
-
-    // customer.following.unshift({ customer: id });
 
     if (customer.following.includes(id)) {
       return res
