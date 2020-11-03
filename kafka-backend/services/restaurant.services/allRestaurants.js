@@ -15,6 +15,4 @@ const handle_request = async (body, callback) => {
   callback(null, restaurants);
 };
 
-// export { handle_request };
-// module.exports = handle_request;
 exports.handle_request = handle_request;
