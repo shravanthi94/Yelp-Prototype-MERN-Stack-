@@ -204,3 +204,7 @@
   border: 2px solid black;
   border-radius: 10px;
 }
+
+.page-width {
+  width: 200px;
+}

@@ -9,6 +9,7 @@ import {
 } from '../../../actions/resOrder';
 import styles from '../Dashboard-forms/form.module.css';
 import Date from '../../../utils/Date';
+import Pagination from 'react-js-pagination';
 
 const Orders = ({
   order: { allOrders, loading },
@@ -21,9 +22,20 @@ const Orders = ({
     id: '',
   });
 
+  const [activePage, setactivePage] = useState(1);
+
+  // Logic for displaying current orders
+  const indexOfLast = activePage * 1;
+  const indexOfFirst = indexOfLast - 1;
+  const currentOrders = allOrders.slice(indexOfFirst, indexOfLast);
+
   useEffect(() => {
     getAllRestaurantOrders();
   }, []);
+
+  const handlePageChange = (pageNumber) => {
+    setactivePage(pageNumber);
+  };
 
   const handleStatusChange = (e) => {
     e.preventDefault();
@@ -35,10 +47,10 @@ const Orders = ({
     cancelOrder(orderId);
   };
 
-  const displayOrders = (orders) => {
-    return orders.map((order) => {
+  const displayOrders = () => {
+    return currentOrders.map((order) => {
       return (
-        <Fragment>
+        <div>
           <div className='tile is-ancestor'>
             <div class='tile is-parent is-5'>
               <article class='tile is-child box has-background-link-light'>
@@ -114,7 +126,7 @@ const Orders = ({
               </article>
             </div>
           </div>
-        </Fragment>
+        </div>
       );
     });
   };
@@ -132,20 +144,18 @@ const Orders = ({
         <Link to='/restaurant/orders/Cancelled' className={styles.top_btn}>
           Cancelled Orders
         </Link>
-        {/* <table className={styles.orders_data}>
-          <tr>
-            <th>Customer name</th>
-            <th>Item name</th>
-            <th>Order Date</th>
-            <th>Delivery Option</th>
-            <th>Order Type</th>
-            <th>Current Order Status</th>
-            <th>Update Status</th>
-          </tr> */}
-        {displayOrders(allOrders)}
-        {/* </table> */}
+        {displayOrders()}
         <br />
         <br />
+        <div className='page-width'>
+          <Pagination
+            activePage={activePage}
+            itemsCountPerPage={1}
+            totalItemsCount={allOrders.length}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+          />
+        </div>
       </div>
     </Fragment>
   );

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
 import styles from './event.module.css';
 import { getAllEvents, getRegisteredEvents } from '../../actions/event';
+import Pagination from 'react-js-pagination';
 
 const Event = ({
   getAllEvents,
@@ -14,6 +15,18 @@ const Event = ({
 }) => {
   const [sortType, setsortType] = useState('Acsending');
   const [allEvents, setallEvents] = useState([]);
+
+  const [activePage, setactivePage] = useState(1);
+
+  // Logic for displaying current orders
+  const indexOfLast = activePage * 3;
+  const indexOfFirst = indexOfLast - 3;
+  let currentEvents = [];
+  if (localStorage.usertype === 'customer') {
+    currentEvents = allEvents.slice(indexOfFirst, indexOfLast);
+  } else {
+    currentEvents = events.slice(indexOfFirst, indexOfLast);
+  }
 
   useEffect(() => {
     getAllEvents();
@@ -26,7 +39,11 @@ const Event = ({
     if (!loading) {
       setallEvents(events.reverse());
     }
-  }, [loading, sortType]);
+  }, [loading, sortType, currentEvents]);
+
+  const handlePageChange = (pageNumber) => {
+    setactivePage(pageNumber);
+  };
 
   const [eventSearch, seteventSearch] = useState('');
 
@@ -128,9 +145,19 @@ const Event = ({
         </div>
         <h1 className={styles.heading}>Popular Events</h1>
         <hr />
-        {localStorage.usertype == 'customer'
+        {/* {localStorage.usertype == 'customer'
           ? listAllEvents(allEvents)
-          : listAllEvents(events)}
+          : listAllEvents(events)} */}
+        {listAllEvents(currentEvents)}
+        <div className='page-width'>
+          <Pagination
+            activePage={activePage}
+            itemsCountPerPage={3}
+            totalItemsCount={events.length}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+          />
+        </div>
       </div>
     </Fragment>
   );

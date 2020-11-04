@@ -6,10 +6,19 @@ import styles from '../profile-forms/form.module.css';
 import spinner from '../../layout/Spinner';
 import { getAllOrders } from '../../../actions/cusOrder';
 import Date from '../../../utils/Date';
+import Pagination from 'react-js-pagination';
+import OrdersCard from './OrdersCard';
 
 const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
   const [sortType, setsortType] = useState('Acsending');
   const [orders, setorders] = useState([]);
+
+  const [activePage, setactivePage] = useState(1);
+
+  // Logic for displaying current orders
+  const indexOfLast = activePage * 2;
+  const indexOfFirst = indexOfLast - 2;
+  const currentOrders = orders.slice(indexOfFirst, indexOfLast);
 
   useEffect(() => {
     getAllOrders();
@@ -21,6 +30,10 @@ const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
     }
     console.log(orders);
   }, [loading, sortType]);
+
+  const handlePageChange = (pageNumber) => {
+    setactivePage(pageNumber);
+  };
 
   const displayOrders = (orders) => {
     return orders.map((order) => {
@@ -79,7 +92,17 @@ const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
         </select>
         <br />
         <h1 className={styles.title}>All Orders</h1>
-        {displayOrders(orders)}
+        {/* {displayOrders(orders)} */}
+        <OrdersCard orders={currentOrders} />
+        <div className='page-width'>
+          <Pagination
+            activePage={activePage}
+            itemsCountPerPage={2}
+            totalItemsCount={orders.length}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+          />
+        </div>
       </div>
     </Fragment>
   );
