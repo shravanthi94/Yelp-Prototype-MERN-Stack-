@@ -39,7 +39,7 @@ const Event = ({
     if (!loading) {
       setallEvents(events.reverse());
     }
-  }, [loading, sortType, currentEvents]);
+  }, [loading, sortType]);
 
   const handlePageChange = (pageNumber) => {
     setactivePage(pageNumber);
@@ -145,10 +145,8 @@ const Event = ({
         </div>
         <h1 className={styles.heading}>Popular Events</h1>
         <hr />
-        {/* {localStorage.usertype == 'customer'
-          ? listAllEvents(allEvents)
-          : listAllEvents(events)} */}
         {listAllEvents(currentEvents)}
+        <hr />
         <div className='page-width'>
           <Pagination
             activePage={activePage}

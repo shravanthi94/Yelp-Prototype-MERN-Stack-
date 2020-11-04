@@ -1,10 +1,11 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
 import styles from './event.module.css';
 import { getSubmittedEvents } from '../../actions/event';
+import Pagination from 'react-js-pagination';
 
 const SubmittedEvent = ({
   getSubmittedEvents,
@@ -14,8 +15,19 @@ const SubmittedEvent = ({
     getSubmittedEvents();
   }, []);
 
+  const [activePage, setactivePage] = useState(1);
+
+  // Logic for displaying current orders
+  const indexOfLast = activePage * 2;
+  const indexOfFirst = indexOfLast - 2;
+  const currentEvents = submitted.slice(indexOfFirst, indexOfLast);
+
+  const handlePageChange = (pageNumber) => {
+    setactivePage(pageNumber);
+  };
+
   const listSubmittedEvents = () => {
-    return submitted.map((event) => {
+    return currentEvents.map((event) => {
       return (
         <div className={styles.event_card}>
           <Link to={`/event/details/${event.name}`} className={styles.title}>
@@ -51,8 +63,20 @@ const SubmittedEvent = ({
       <div className={styles.container}>
         <h1 className={styles.heading}>Your Submitted Events</h1>
         <div>{listSubmittedEvents()}</div>
+
+        <hr />
+        <div className='page-width'>
+          <Pagination
+            activePage={activePage}
+            itemsCountPerPage={2}
+            totalItemsCount={submitted.length}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+          />
+        </div>
+        <br />
       </div>
-      <Link to='/event' className={styles.btn}>
+      <Link to='/event' className='btn'>
         Back
       </Link>
     </Fragment>

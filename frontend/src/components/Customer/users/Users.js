@@ -10,6 +10,7 @@ import {
 } from '../../../actions/users';
 import styles from '../../Events/event.module.css';
 import Date from '../../../utils/Date';
+import Pagination from 'react-js-pagination';
 
 const Users = ({
   getAllCustomers,
@@ -23,6 +24,13 @@ const Users = ({
 
   const [searchData, setsearchData] = useState('');
 
+  const [activePage, setactivePage] = useState(1);
+
+  // Logic for displaying current customers
+  const indexOfLast = activePage * 1;
+  const indexOfFirst = indexOfLast - 1;
+  const currentCustomers = customers.slice(indexOfFirst, indexOfLast);
+
   const handleSearch = (e) => {
     getSearchResutls(searchData);
   };
@@ -35,8 +43,12 @@ const Users = ({
     getAllCustomers();
   };
 
+  const handlePageChange = (pageNumber) => {
+    setactivePage(pageNumber);
+  };
+
   const displayAllCustomers = () => {
-    return customers.map((customer) => {
+    return currentCustomers.map((customer) => {
       return (
         <Fragment>
           <div class='tile is-ancestor'>
@@ -105,6 +117,16 @@ const Users = ({
       </div>
 
       {displayAllCustomers()}
+
+      <div className='page-width'>
+        <Pagination
+          activePage={activePage}
+          itemsCountPerPage={1}
+          totalItemsCount={customers.length}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+        />
+      </div>
     </Fragment>
   );
 };

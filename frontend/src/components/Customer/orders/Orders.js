@@ -35,29 +35,6 @@ const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
     setactivePage(pageNumber);
   };
 
-  const displayOrders = (orders) => {
-    return orders.map((order) => {
-      return (
-        <div className='tile is-ancestor'>
-          <div class='tile is-parent is-4'>
-            <article class='tile is-child box has-background-link-light'>
-              <p class='title is-4 has-text-black'>{order.item}</p>
-              <p class='title is-5 has-text-danger-dark'>
-                {order.restaurant.name} [{order.deliveryOption}]
-              </p>
-              <p class='subtitle has-text-black'>
-                Current order status: {order.status}
-              </p>
-              <p class='date-order'>
-                Order placed on: <Date date={order.date.substring(0, 10)} />
-              </p>
-            </article>
-          </div>
-        </div>
-      );
-    });
-  };
-
   return loading ? (
     spinner
   ) : (
@@ -92,7 +69,6 @@ const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
         </select>
         <br />
         <h1 className={styles.title}>All Orders</h1>
-        {/* {displayOrders(orders)} */}
         <OrdersCard orders={currentOrders} />
         <div className='page-width'>
           <Pagination

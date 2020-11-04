@@ -1,19 +1,32 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Dashboard-forms/form.module.css';
 import ImageCard from './ImageCard';
+import Pagination from 'react-js-pagination';
 
 const Menu = ({ location }) => {
   const menu = location.state.menu;
 
+  const [activePage, setactivePage] = useState(1);
+
+  // Logic for displaying current menu items
+  const indexOfLast = activePage * 2;
+  const indexOfFirst = indexOfLast - 2;
+  const currentMenu = menu.slice(indexOfFirst, indexOfLast);
+
+  const handlePageChange = (pageNumber) => {
+    setactivePage(pageNumber);
+  };
+
   const displayCategory = (type) => {
-    const itemType = menu.filter((each) => each.category === type);
+    const itemType = currentMenu.filter((each) => each.category === type);
     if (itemType.length === 0) {
       return '';
     }
     return itemType.map((item) => {
       return (
         <Fragment>
+          <h2 className={styles['menu-subheading']}>{type}</h2>
           <div class='tile is-ancestor'>
             <div class='tile is-parent is-7'>
               <article class='tile is-child box'>
@@ -64,22 +77,21 @@ const Menu = ({ location }) => {
   return (
     <div>
       <h1 className={styles.form_title}>Menu</h1>
-      <h2 className={styles['menu-subheading']}>Appetizers</h2>
-      <hr />
       {displayCategory('Appetizer')}
-      <h2 className={styles['menu-subheading']}>Salads</h2>
-      <hr />
       {displayCategory('Salads')}
-      <h2 className={styles['menu-subheading']}>Main Course</h2>
-      <hr />
       {displayCategory('Main Course')}
-      <h2 className={styles['menu-subheading']}>Beverages</h2>
-      <hr />
       {displayCategory('Beverages')}
-      <h2 className={styles['menu-subheading']}>Desserts</h2>
-      <hr />
       {displayCategory('Desserts')}
-      <br />
+      <hr />
+      <div className='page-width'>
+        <Pagination
+          activePage={activePage}
+          itemsCountPerPage={2}
+          totalItemsCount={menu.length}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };
