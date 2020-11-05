@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import '../css/landing.css';
+import { clearResults } from '../../actions/search';
 
-const Landing = () => {
+const Landing = ({ clearResults }) => {
+  useEffect(() => {
+    clearResults();
+  }, []);
   const [query, setquery] = useState('');
 
   return (
@@ -33,4 +39,8 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+Landing.propTypes = {
+  clearResults: PropTypes.func.isRequired,
+};
+
+export default connect(null, { clearResults })(Landing);

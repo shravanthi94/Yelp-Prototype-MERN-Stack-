@@ -24,6 +24,7 @@ const Menu = ({ location }) => {
       return '';
     }
     return itemType.map((item) => {
+      console.log('here: ', item.images[0]);
       return (
         <Fragment>
           <h2 className={styles['menu-subheading']}>{type}</h2>
@@ -31,9 +32,9 @@ const Menu = ({ location }) => {
             <div class='tile is-parent is-7'>
               <article class='tile is-child box'>
                 <div className='columns'>
-                  {item.image && (
+                  {item.images.length > 0 && (
                     <div className='column is-3'>
-                      <ImageCard images={item.image} />
+                      <ImageCard images={item.images} />
                     </div>
                   )}
                   <div className='column is-9'>
@@ -61,7 +62,7 @@ const Menu = ({ location }) => {
                     style={{ marginLeft: '2%' }}
                     to={{
                       pathname: '/restaurant/item/images',
-                      state: { images: item.image },
+                      state: { images: item.images },
                     }}
                   >
                     View Images

@@ -8,9 +8,7 @@ import {
   ALL_CONVERSATION_ERROR,
 } from './types';
 
-export const RestaurantSendMessage = (text, customerId, history) => async (
-  dispatch,
-) => {
+export const RestaurantSendMessage = (text, customerId) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -27,7 +25,7 @@ export const RestaurantSendMessage = (text, customerId, history) => async (
 
     dispatch(setAlert('Message sent', 'success'));
 
-    history.push(`/customer/details/${customerId}`);
+    // history.push(`/customer/details/${customerId}`);
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

@@ -2,7 +2,7 @@ import React, { useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrentDashboard } from '../../actions/dashboard';
+import { getCurrentDashboard, getImages } from '../../actions/dashboard';
 import Reviews from './Reviews';
 import spinner from '../layout/Spinner';
 import { BACKEND_URL } from '../../utils/constants';
@@ -10,18 +10,18 @@ import '../css/dashboard.css';
 
 const Dashboard = ({
   getCurrentDashboard,
-  //   getImages,
-  dashboard: { profile, loading },
+  getImages,
+  dashboard: { profile, images, loading },
 }) => {
   useEffect(() => {
     getCurrentDashboard();
   }, []);
 
-  //   useEffect(() => {
-  //     if (profile) {
-  //       getImages(profile.restaurant_id);
-  //     }
-  //   }, [profile]);
+  useEffect(() => {
+    if (profile) {
+      getImages(profile._id);
+    }
+  }, [profile]);
 
   //   console.log(images);
   //   let allImages = [],
@@ -37,19 +37,17 @@ const Dashboard = ({
   //   splitImages();
   //   console.log(allFiles);
 
-  //   const displayImages = () => {
-  //     return allFiles.map((file) => {
-  //       if (file !== '1') {
-  //         return (
-  //           <img
-  //             className='dish_img2'
-  //             src={`http://54.183.239.208:3001/images/dish/${file}`}
-  //             alt='Dish_Image'
-  //           />
-  //         );
-  //       }
-  //     });
-  //   };
+  const displayImages = () => {
+    return images.map((file) => {
+      return (
+        <img
+          className='rest-dish-imgs'
+          src={`${BACKEND_URL}/restaurant/images/dish/${file}`}
+          alt='Dish_Image'
+        />
+      );
+    });
+  };
 
   let imgSrc;
   if (profile) {
@@ -60,7 +58,7 @@ const Dashboard = ({
     spinner
   ) : (
     <Fragment>
-      {/* <div className='top-images'>{displayImages()}</div> */}
+      <div className='top-images my-1'>{displayImages()}</div>
       <div className='container-dash'>
         <div className='left-dash'>
           {/* <h3>{profile.restaurant_name}</h3> */}
@@ -133,7 +131,7 @@ const Dashboard = ({
 Dashboard.propTypes = {
   getCurrentDashboard: PropTypes.func.isRequired,
   dashboard: PropTypes.object.isRequired,
-  //   getImages: PropTypes.func.isRequired,
+  getImages: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   dashboard: state.dashboard,
@@ -141,5 +139,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getCurrentDashboard,
-  //   getImages,
+  getImages,
 })(Dashboard);

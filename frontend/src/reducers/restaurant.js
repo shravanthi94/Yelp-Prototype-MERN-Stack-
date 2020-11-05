@@ -8,14 +8,14 @@ import {
   ADD_REVIEW_ERROR,
   GET_CUSTOMER_REVIEW,
   CUSTOMER_REVIEW_ERROR,
-  // RES_IMAGE_ERROR,
-  // GET_IMAGES,
+  RES_IMAGE_ERROR,
+  GET_IMAGES,
 } from '../actions/types';
 
 const initialState = {
   restaurant: '',
   review: '',
-  images: '',
+  images: [],
   restaurants: [],
   loading: true,
   error: {},
@@ -40,12 +40,12 @@ export default function (state = initialState, action) {
         restaurant: payload,
         loading: false,
       };
-    //   case GET_IMAGES:
-    //     return {
-    //       ...state,
-    //       images: payload,
-    //       loading: false,
-    //     };
+    case GET_IMAGES:
+      return {
+        ...state,
+        images: payload,
+        loading: false,
+      };
     case GET_CUSTOMER_REVIEW:
       return {
         ...state,
@@ -62,7 +62,7 @@ export default function (state = initialState, action) {
     case PLACEORDER_ERROR:
     case ADD_REVIEW_ERROR:
     case CUSTOMER_REVIEW_ERROR:
-      //   case RES_IMAGE_ERROR:
+    case RES_IMAGE_ERROR:
       return {
         ...state,
         error: payload,

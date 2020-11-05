@@ -16,13 +16,13 @@ const Results = ({
   search: { results, loading },
 }) => {
   const [filterData, setfilterData] = useState('');
-  const [list, setlist] = useState(results);
-
   const searchData = match.params.query;
 
   useEffect(() => {
     getQueryResults(searchData);
   }, []);
+
+  const [list, setlist] = useState(results);
 
   const handleDataChange = (e) => {
     const newResults = results.filter(
@@ -102,12 +102,13 @@ const Results = ({
 
   let mapsInput = '';
   console.log(mapsInput);
-  const displayMaps = () => {
-    if (list.length === 0) {
+
+  const displayMaps = (data) => {
+    if (data.length === 0) {
       return '';
     }
 
-    list.forEach((res) => {
+    data.forEach((res) => {
       mapsInput = mapsInput + '|' + res.location;
     });
     return (
@@ -131,18 +132,20 @@ const Results = ({
           {' '}
           <h1 className={styles.form_title1}>Search Results</h1>
           {displayFilters()}
-          <DisplayAll restaurants={list} filters={searchData} />
+          {filterData ? (
+            <DisplayAll restaurants={list} />
+          ) : (
+            <DisplayAll restaurants={results} />
+          )}
+          <br />
+          <Link to='/' className='btn'>
+            Back to Search
+          </Link>
         </div>
-        <div className='column is-5'>{displayMaps()}</div>
+        <div className='column is-5'>
+          {filterData ? displayMaps(list) : displayMaps(results)}
+        </div>
       </div>
-      <br />
-      <Link
-        to='/'
-        className={styles.back_btn}
-        style={{ marginLeft: '6%', marginBottom: '2%' }}
-      >
-        Back to Search
-      </Link>
     </Fragment>
   );
 };

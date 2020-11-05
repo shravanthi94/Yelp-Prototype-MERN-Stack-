@@ -9,7 +9,10 @@ const DisplayRestaurants = ({ restaurants, filters }) => {
       {restaurants.map((res) => {
         return (
           <Fragment>
-            <div class='box border' style={{ color: 'black' }}>
+            <div
+              class='box border has-background-info-light'
+              style={{ color: 'black' }}
+            >
               <article class='media'>
                 <div class='media-content'>
                   <div class='content'>

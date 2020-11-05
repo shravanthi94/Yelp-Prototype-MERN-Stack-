@@ -53,7 +53,7 @@ const Event = ({
         return '';
       }
       return (
-        <div className={styles.event_card}>
+        <div className={styles['event_card']}>
           <Link to={`/event/details/${event.name}`} className={styles.title}>
             {event.name}
           </Link>

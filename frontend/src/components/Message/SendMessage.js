@@ -13,24 +13,24 @@ const SendMessage = ({
   getCurrentDashboard,
   getConversation,
   RestaurantSendMessage,
-  history,
   dashboard: { profile, loading },
-  message: { conversation, mesloading },
+  message: { conversation, loading: mesloading },
 }) => {
   const customerId = match.params.id;
+
+  const [text, settext] = useState('');
 
   useEffect(() => {
     getCurrentDashboard();
     if (!loading) {
       getConversation(profile._id, customerId);
     }
-  }, [loading]);
-
-  const [text, settext] = useState('');
+  }, [loading, conversation]);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    RestaurantSendMessage(text, customerId, history);
+    RestaurantSendMessage(text, customerId);
+    settext('');
   };
 
   return !profile || loading ? (
@@ -46,9 +46,6 @@ const SendMessage = ({
           <div className={styles.form_group}>
             <label className={styles.form_label}>Message text</label>
             <br />
-            {/* <small className={styles.form_text}>
-              Tell us what you feel about our restaurant...
-            </small> */}
             <textarea
               className={styles.my_headline}
               maxlength='2000'
@@ -61,9 +58,6 @@ const SendMessage = ({
             ></textarea>
           </div>
           <input type='submit' value='Send Message' className={styles.btn} />
-          {/* <div className={styles.btn_grey}>
-            <Link to={`/restaurant/details/${resId}`}>Cancel</Link>
-          </div> */}
         </form>
       </div>
     </Fragment>

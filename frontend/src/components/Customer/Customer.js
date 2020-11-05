@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getCustomerDetails } from '../../actions/customer';
 import { followUser } from '../../actions/users';
 import spinner from '../layout/Spinner';
+import { BACKEND_URL } from '../../utils/constants';
 import Date from '../../utils/Date';
 import '../css/profile.css';
 
@@ -18,10 +19,10 @@ const Customer = ({
     getCustomerDetails(match.params.customerId);
   }, []);
 
-  //   let imgSrc;
-  //   if (profile) {
-  //     imgSrc = `http://54.183.239.208:3001/images/customer/${profile.customer_image}`;
-  //   }
+  let imgSrc;
+  if (customer) {
+    imgSrc = `${BACKEND_URL}/customer/images/${customer.image}`;
+  }
 
   const handleFollow = (e) => {
     followUser(customer._id);
@@ -33,7 +34,7 @@ const Customer = ({
     <Fragment>
       <div className='profile-container'>
         <div className='left-profile'>
-          {/* <img src={imgSrc} alt='Profile-pic' /> */}
+          <img src={imgSrc} alt='Profile-pic' />
           <h3 className='profile-title'>{customer.name}'s Profile</h3>
           <h3 className='subheading'>Contact information</h3>
           <h4 className='profile-title'>Email</h4>

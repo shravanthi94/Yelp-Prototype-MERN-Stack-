@@ -2,14 +2,13 @@ import React, { Fragment } from 'react';
 import { BACKEND_URL } from '../../utils/constants';
 
 const ImageCard = ({ images }) => {
-  let imageFile = images.slice(0, images.indexOf(','));
-  console.log(imageFile);
+  console.log(images);
 
   return (
     <Fragment>
       <img
         className='dish_img'
-        src={`${BACKEND_URL}/restaurant/images/dish/${imageFile}`}
+        src={`${BACKEND_URL}/restaurant/images/dish/${images[0]}`}
         alt='Dish_Image'
       />
     </Fragment>

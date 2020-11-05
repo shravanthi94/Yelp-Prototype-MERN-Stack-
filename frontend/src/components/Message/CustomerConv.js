@@ -19,15 +19,16 @@ const CustomerConv = ({
 }) => {
   const messageId = match.params.id;
 
+  const [text, settext] = useState('');
+
   useEffect(() => {
     getCustomerConversation(messageId);
-  }, []);
-
-  const [text, settext] = useState('');
+  }, [conversation]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     CustomerSendMessage(text, messageId, history);
+    settext('');
   };
 
   return !conversation || loading ? (

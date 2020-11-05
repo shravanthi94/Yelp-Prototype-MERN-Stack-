@@ -43,7 +43,7 @@ const Placeorder = ({
                 <div className='columns'>
                   {item.image && (
                     <div className='column is-3'>
-                      <ImageCard images={item.image} />
+                      <ImageCard images={item.images} />
                     </div>
                   )}
                   <div className='column is-9'>
@@ -65,6 +65,7 @@ const Placeorder = ({
                         onClick={(e) => setitem(item.name)}
                       />
                     </div>
+                    <br />
                     <h1 className={styles.form_label}>
                       Select mode of delivery
                     </h1>
@@ -81,7 +82,7 @@ const Placeorder = ({
                     <input
                       type='submit'
                       value='Place Order'
-                      className={styles.btn}
+                      className='place-order'
                     />
                   </div>
                 </div>

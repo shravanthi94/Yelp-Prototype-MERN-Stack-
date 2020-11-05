@@ -95,7 +95,7 @@ router.post('/dish/:dish_id', checkAuth, async (req, res) => {
         const restaurant = await Restaurant.findById(req.user.id);
         restaurant.menu.forEach((item) => {
           if (item._id.toString() === req.params.dish_id) {
-            item.image = `${req.file.filename},`;
+            item.images.push(req.file.filename);
           }
         });
         await restaurant.save();
@@ -129,4 +129,27 @@ router.get('/dish/:dish_image', (req, res) => {
     );
   }
 });
+
+// @route  GET yelp/restaurant/image/all/:res_id
+// @desc   View the restaurant dish images
+// @access Public
+router.get('/all/:res_id', async (req, res) => {
+  const resId = req.params.res_id;
+  try {
+    const results = await Restaurant.findById(resId).select('menu.images');
+    if (!results) {
+      return res.status(400).json({ errors: [{ msg: 'No images found' }] });
+    }
+    let images = [];
+    results.menu.forEach((each) => {
+      images = [...images, ...each.images];
+    });
+    // console.log(images);
+    res.status(200).json(images);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

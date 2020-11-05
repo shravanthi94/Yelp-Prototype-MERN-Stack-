@@ -150,20 +150,3 @@ export const getCustReviewByRestId = (id) => async (dispatch) => {
     });
   }
 };
-
-// //  Get all images
-// export const getImages = (resId) => async (dispatch) => {
-//   try {
-//     const res = await axios.get(`/images/restaurant/all/${resId}`);
-//     console.log(res.data);
-//     dispatch({
-//       type: GET_IMAGES,
-//       payload: res.data,
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: RES_IMAGE_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status },
-//     });
-//   }
-// };

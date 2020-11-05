@@ -8,6 +8,7 @@ const Restaurant = require('../models/RestaurantModel');
 // @access Public
 router.get('/:data', async (req, res) => {
   const searchData = req.params.data;
+  // console.log(searchData);
   try {
     const restaurants = await Restaurant.find({
       $or: [
@@ -23,6 +24,7 @@ router.get('/:data', async (req, res) => {
         .status(400)
         .json({ errors: [{ msg: 'No restaurants found.' }] });
     }
+    console.log(restaurants);
     res.status(200).json(restaurants);
   } catch (err) {
     console.log(err);

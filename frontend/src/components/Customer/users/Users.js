@@ -53,7 +53,7 @@ const Users = ({
         <Fragment>
           <div class='tile is-ancestor'>
             <div class='tile is-4 is-parent'>
-              <article class='tile is-child box has-background-warning'>
+              <article class='tile is-child box has-background-info-light'>
                 <Link
                   to={`/customer/details/${customer._id}`}
                   className={styles.title}
@@ -94,7 +94,7 @@ const Users = ({
                 onChange={(e) => setsearchData(e.target.value)}
               />
               <button
-                className={styles.btn_update}
+                className={styles['search-btn']}
                 onClick={(e) => handleSearch(e)}
               >
                 Search
@@ -103,29 +103,30 @@ const Users = ({
           </div>
         </div>
         <button
-          className={styles.btn_update}
+          className={styles['search-btn']}
           onClick={(e) => handleAllUsers(e)}
         >
           All users
         </button>
         <button
-          className={styles.btn_update}
+          className={styles['search-btn']}
           onClick={(e) => handleFollowing(e)}
         >
           Following
         </button>
-      </div>
-
-      {displayAllCustomers()}
-
-      <div className='page-width'>
-        <Pagination
-          activePage={activePage}
-          itemsCountPerPage={1}
-          totalItemsCount={customers.length}
-          pageRangeDisplayed={5}
-          onChange={handlePageChange}
-        />
+        <br />
+        <br />
+        <hr />
+        {displayAllCustomers()}
+        <div className='page-width'>
+          <Pagination
+            activePage={activePage}
+            itemsCountPerPage={1}
+            totalItemsCount={customers.length}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+          />
+        </div>
       </div>
     </Fragment>
   );

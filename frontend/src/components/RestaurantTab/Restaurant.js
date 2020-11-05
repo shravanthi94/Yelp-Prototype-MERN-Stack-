@@ -5,16 +5,15 @@ import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
 import styles from './restaurant.module.css';
 import Rating from 'react-rating';
-import {
-  getRestaurant,
-  //   getImages,
-} from '../../actions/restaurants';
+import { getRestaurant } from '../../actions/restaurants';
+import { getImages } from '../../actions/dashboard';
 import Date from '../../utils/Date';
+import { BACKEND_URL } from '../../utils/constants';
 
 const Restaurant = ({
   match,
   getRestaurant,
-  //   getImages,
+  getImages,
   restaurant: { restaurant, images, loading },
   profile: { profile },
 }) => {
@@ -24,39 +23,23 @@ const Restaurant = ({
     getRestaurant(resId);
   }, []);
 
-  /*  useEffect(() => {
+  useEffect(() => {
     if (restaurant) {
-      getImages(restaurant.restaurant_id);
+      getImages(restaurant._id);
     }
   }, [restaurant]);
 
-  console.log(images);
-  let allImages = [],
-    files,
-    allFiles;
-  const splitImages = () => {
-    if (images) {
-      allImages = images.map((img) => img.item_image);
-    }
-    files = allImages.join(',');
-    allFiles = files.split(',');
-  };
-  splitImages();
-  console.log(allFiles);
-
   const displayImages = () => {
-    return allFiles.map((file) => {
-      if (file !== '1') {
-        return (
-          <img
-            className='dish_img2'
-            src={`http://54.183.239.208:3001/images/dish/${file}`}
-            alt='Dish_Image'
-          />
-        );
-      }
+    return images.map((file) => {
+      return (
+        <img
+          className='rest-dish-imgs'
+          src={`${BACKEND_URL}/restaurant/images/dish/${file}`}
+          alt='Dish_Image'
+        />
+      );
     });
-  }; */
+  };
 
   const {
     _id,
@@ -70,40 +53,6 @@ const Restaurant = ({
     cuisine,
     menu,
   } = restaurant;
-
-  //   const displayMenuItems = () => {
-  //     return menu.map((item) => {
-  //       return (
-  //         <Fragment>
-  //           <tr>
-  //             <td>
-  //               <div>
-  //                 {item.item_name} <br />
-  //                 {item.item_description}
-  //                 <br />
-  //                 {item.item_image === '1' || !item.item_image ? (
-  //                   ''
-  //                 ) : (
-  //                   <Link
-  //                     className={styles.update_btn}
-  //                     to={{
-  //                       pathname: '/restaurant/item/images',
-  //                       state: { images: item.item_image },
-  //                     }}
-  //                   >
-  //                     View images
-  //                   </Link>
-  //                 )}
-  //               </div>
-  //             </td>
-  //             <td>{item.item_ingredients}</td>
-  //             <td>{item.item_category}</td>
-  //             <td>$ {item.item_price}</td>
-  //           </tr>
-  //         </Fragment>
-  //       );
-  //     });
-  //   };
 
   const displayReview = () => {
     return profile.reviews.map((review) => {
@@ -137,35 +86,32 @@ const Restaurant = ({
 
   let imgSrc;
   if (restaurant) {
-    imgSrc = `http://54.183.239.208:3001/images/restaurant/${restaurant.restaurant_image}`;
+    imgSrc = `${BACKEND_URL}/restaurant/images/restaurant/${restaurant.image}`;
   }
 
   return loading || !restaurant ? (
     spinner
   ) : (
     <Fragment>
-      {/* <div className='top-images'>{displayImages()}</div> */}
+      <div className='top-images my-1'>{images && displayImages()}</div>
       <div className={styles.container1}>
         <div className='columns is-vcentered'>
-          <div className='column is-10'>
+          <div className='column is-12'>
             <div className='columns'>
+              <div className='column is-3'>
+                <img src={imgSrc} alt='Restaurant_image' />
+              </div>
               <div className='column is-6'>
                 <h1 className={styles.name1}>{name}</h1>
                 <p className={styles.headers}>
                   <i class='fas fa-dollar-sign'></i>
                   <i class='fas fa-dollar-sign'></i> | {cuisine}
                 </p>
-                {/* <img
-                  src={imgSrc}
-                  alt='Restaurant_image'
-                  width='300'
-                  height='400'
-                /> */}
-                <br />
                 <p className={styles.headers}>
                   <i class='fas fa-check' style={{ color: 'green' }}></i>{' '}
                   {deliveryMethod}
                 </p>
+                <br />
                 <p className={styles.headers}>
                   <i className='far fa-envelope-open'></i> {email}
                 </p>
@@ -199,17 +145,11 @@ const Restaurant = ({
                   ''
                 )}
               </div>
-              {/* <div className='column is-6'>
-                <div>
-                  <h1 className={styles.maps}>Find us here...</h1>
-                  <img
-                    src={`https://maps.googleapis.com/maps/api/staticmap?center=${restaurant.restaurant_location}&zoom=13&size=400x400&maptype=roadmap&markers=${restaurant.restaurant_location}&key=AIzaSyCKDg7Z_A4RDYYz0Sv1qCWnXX28XyDONCk`}
-                    alt='maps api'
-                  />
-                </div>
-              </div> */}
             </div>
             <h1 className={styles.form_title}>Description</h1>
+            <hr />
+            <p className={styles.headers}>{description}</p>
+            <br />
             {menu && (
               <Link
                 className={styles.top_btn}
@@ -221,8 +161,6 @@ const Restaurant = ({
                 View Full Menu
               </Link>
             )}
-            <hr />
-            <p className={styles.headers}>{description}</p>
             {localStorage.usertype === 'customer' ? (
               <Fragment>
                 {profile && profile.reviews && (
@@ -250,7 +188,7 @@ const Restaurant = ({
 
 Restaurant.propTypes = {
   getRestaurant: PropTypes.func.isRequired,
-  //   getImages: PropTypes.func.isRequired,
+  getImages: PropTypes.func.isRequired,
   restaurant: PropTypes.object.isRequired,
 };
 
@@ -261,5 +199,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getRestaurant,
-  //   getImages,
+  getImages,
 })(Restaurant);

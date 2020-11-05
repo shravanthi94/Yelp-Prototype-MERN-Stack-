@@ -1,12 +1,9 @@
 import {
   GET_EVENTS,
   GET_EVENT,
-  // CREATE_EVENT,
   EVENT_ERROR,
   EVENT_REGISTER_SUCCESS,
   EVENT_REGISTER_ERROR,
-  // CUSTOMER_LIST_SUCCESS,
-  // LIST_ERROR,
   CLEAR_EVENT,
   REGISTERED_EVENTS,
   SUBMITTED_EVENTS,
@@ -76,19 +73,6 @@ export default function (state = initialState, action) {
         loading: false,
       };
 
-    //   case CUSTOMER_LIST_SUCCESS:
-    //     return {
-    //       ...state,
-    //       customers: payload,
-    //       loading: false,
-    //     };
-
-    //   case LIST_ERROR:
-    //     return {
-    //       ...state,
-    //       customers: [],
-    //       loading: false,
-    //     };
     case EVENT_ERROR:
     case EVENT_REGISTER_ERROR:
       return {
