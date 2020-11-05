@@ -6,6 +6,7 @@ connectDB();
 
 const auth = require('./services/authorization.services/auth');
 const restaurantProfile = require('./services/restaurant.services/profile');
+const customerProfile = require('./services/customer.services/profile');
 
 function handleTopicRequest(topic_name, fname) {
   var consumer = connection.getConsumer(topic_name);
@@ -38,3 +39,4 @@ function handleTopicRequest(topic_name, fname) {
 
 handleTopicRequest('authorization', auth);
 handleTopicRequest('restaurantProfile', restaurantProfile);
+handleTopicRequest('customerProfile', customerProfile);

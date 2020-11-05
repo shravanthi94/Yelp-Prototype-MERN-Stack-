@@ -151,13 +151,16 @@ const UpdateItem = ({
             <small className={styles.form_text}>
               We sell continental, Italian...
             </small>
-            <input
-              className={styles.my_text}
+            <textarea
+              className={styles.my_headline}
+              maxlength='1024'
+              size='30'
+              rows='6'
               type='text'
               name='description'
               value={description}
               onChange={(e) => onChange(e)}
-            />
+            ></textarea>
           </div>
           <div className={styles.form_group}>
             <label className={styles.form_label}>Category</label>

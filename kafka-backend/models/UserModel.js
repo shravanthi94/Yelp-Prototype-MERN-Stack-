@@ -27,6 +27,10 @@ const UserSchema = new mongoose.Schema({
       type: String,
       default: '',
     },
+    headline: {
+      type: String,
+      default: '',
+    },
     thingsILove: {
       type: String,
       default: '',

@@ -95,14 +95,13 @@ const Profile = ({
           </div>
           <hr />
           <h2 className='activity'>Headline</h2>
-          {!profile.headline ? (
+          {!profile.about.headline ? (
             <p>Add your headline...</p>
           ) : (
             <Fragment>
-              <h4 className='headline'>{profile.headline}</h4>
+              <h4 className='headline'>{profile.about.headline}</h4>
             </Fragment>
           )}
-          <br />
           {!profile.about.dob ? (
             ''
           ) : (

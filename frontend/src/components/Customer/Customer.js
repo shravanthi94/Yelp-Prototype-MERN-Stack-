@@ -62,14 +62,13 @@ const Customer = ({
           </div>
           <hr />
           <h2 className='activity'>Headline</h2>
-          {!customer.headline ? (
+          {!customer.about.headline ? (
             <p>Add your headline...</p>
           ) : (
             <Fragment>
-              <h4 className='headline'>{customer.headline}</h4>
+              <h4 className='headline'>{customer.about.headline}</h4>
             </Fragment>
           )}
-          <br />
           {!customer.about.dob ? (
             ''
           ) : (
