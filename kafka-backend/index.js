@@ -4,10 +4,10 @@ const connection = new require('./kafka/Connection');
 // connect databse
 connectDB();
 
-const allRestaurants = require('./services/restaurant.services/allRestaurants');
+const auth = require('./services/authorization.services/auth');
+const restaurantProfile = require('./services/restaurant.services/profile');
 
 function handleTopicRequest(topic_name, fname) {
-  //var topic_name = 'root_topic';
   var consumer = connection.getConsumer(topic_name);
   var producer = connection.getProducer();
   console.log('server is running ');
@@ -36,4 +36,5 @@ function handleTopicRequest(topic_name, fname) {
   });
 }
 
-handleTopicRequest('allRestaurants', allRestaurants);
+handleTopicRequest('authorization', auth);
+handleTopicRequest('restaurantProfile', restaurantProfile);

@@ -24,7 +24,7 @@ const Menu = ({ location }) => {
       return '';
     }
     return itemType.map((item) => {
-      console.log('here: ', item.images[0]);
+      // console.log('here: ', item.images[0]);
       return (
         <Fragment>
           <h2 className={styles['menu-subheading']}>{type}</h2>
@@ -32,7 +32,7 @@ const Menu = ({ location }) => {
             <div class='tile is-parent is-7'>
               <article class='tile is-child box'>
                 <div className='columns'>
-                  {item.images.length > 0 && (
+                  {item.images && item.images.length > 0 && (
                     <div className='column is-3'>
                       <ImageCard images={item.images} />
                     </div>

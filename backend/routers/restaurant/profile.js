@@ -7,8 +7,8 @@ const { check, validationResult } = require('express-validator');
 const { checkAuth } = require('../../middleware/resAuth');
 const checkObjectId = require('../../middleware/checkParams');
 
-const Restaurant = require('../../models/RestaurantModel');
-const User = require('../../models/UserModel');
+// const Restaurant = require('../../models/RestaurantModel');
+// const User = require('../../models/UserModel');
 
 // Connect to kafka
 const kafka = require('../../kafka/client');
@@ -29,15 +29,22 @@ router.get('/all', async (req, res) => {
   //   console.log(err);
   //   res.status(500).send('Server Error');
   // }
-  kafka.make_request('allRestaurants', req.body, (err, results) => {
+  const payload = {
+    topic: 'allRestaurants',
+  };
+  kafka.make_request('restaurantProfile', payload, (err, results) => {
     console.log('in result');
-    console.log(results);
     if (err) {
       console.log('Inside err');
       res.status(500).send('System Error, Try Again.');
     } else {
-      console.log('Inside else');
-      res.status(200).json(results);
+      if (results.status === 400) {
+        return res.status(400).json({ errors: [{ msg: results.message }] });
+      }
+      if (results.status === 500) {
+        return res.status(500).send('Server Error');
+      }
+      res.status(200).json(results.message);
     }
   });
 });
@@ -46,35 +53,73 @@ router.get('/all', async (req, res) => {
 // @desc   Get current restaurant profile details
 // @access Private
 router.get('/', checkAuth, async (req, res) => {
-  try {
-    const restaurant = await Restaurant.findById(req.user.id).select(
-      '-password',
-    );
-    if (!restaurant) {
-      return res.status(400).json({ errors: [{ msg: 'No restaurant found' }] });
+  // try {
+  //   const restaurant = await Restaurant.findById(req.user.id).select(
+  //     '-password',
+  //   );
+  //   if (!restaurant) {
+  //     return res.status(400).json({ errors: [{ msg: 'No restaurant found' }] });
+  //   }
+  //   res.status(200).json(restaurant);
+  // } catch (err) {
+  //   console.log(err);
+  //   res.status(500).send('Server Error');
+  // }
+  const payload = {
+    topic: 'getCurrentRestaurant',
+    user: req.user,
+  };
+  kafka.make_request('restaurantProfile', payload, (err, results) => {
+    console.log('in result');
+    if (err) {
+      console.log('Inside err');
+      res.status(500).send('System Error, Try Again.');
+    } else {
+      if (results.status === 400) {
+        return res.status(400).json({ errors: [{ msg: results.message }] });
+      }
+      if (results.status === 500) {
+        return res.status(500).send('Server Error');
+      }
+      res.status(200).json(results.message);
     }
-    res.status(200).json(restaurant);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send('Server Error');
-  }
+  });
 });
 
 // @route  GET yelp/restaurant/profile/res_id
 // @desc   Get restaurant profile details using restaurant id
 // @access Public
 router.get('/:res_id', checkObjectId('res_id'), async (req, res) => {
-  const resId = req.params.res_id;
-  try {
-    const restaurant = await Restaurant.findById(resId).select('-password');
-    if (!restaurant) {
-      return res.status(400).json({ errors: [{ msg: 'No restaurant found' }] });
+  // const resId = req.params.res_id;
+  // try {
+  //   const restaurant = await Restaurant.findById(resId).select('-password');
+  //   if (!restaurant) {
+  //     return res.status(400).json({ errors: [{ msg: 'No restaurant found' }] });
+  //   }
+  //   res.status(200).json(restaurant);
+  // } catch (err) {
+  //   console.log(err);
+  //   res.status(500).send('Server Error');
+  // }
+  const payload = {
+    topic: 'getRestaurantById',
+    resId: req.params.res_id,
+  };
+  kafka.make_request('restaurantProfile', payload, (err, results) => {
+    console.log('in result');
+    if (err) {
+      console.log('Inside err');
+      res.status(500).send('System Error, Try Again.');
+    } else {
+      if (results.status === 400) {
+        return res.status(400).json({ errors: [{ msg: results.message }] });
+      }
+      if (results.status === 500) {
+        return res.status(500).send('Server Error');
+      }
+      res.status(200).json(results.message);
     }
-    res.status(200).json(restaurant);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send('Server Error');
-  }
+  });
 });
 
 // @route  Update yelp/restaurant/profile/basic
@@ -95,40 +140,58 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const resId = req.user.id;
-    const {
-      name,
-      email,
-      location,
-      phone,
-      description,
-      timings,
-      delivery,
-      cuisine,
-    } = req.body;
+    // const resId = req.user.id;
+    // const {
+    //   name,
+    //   email,
+    //   location,
+    //   phone,
+    //   description,
+    //   timings,
+    //   delivery,
+    //   cuisine,
+    // } = req.body;
 
-    try {
-      const restaurant = await Restaurant.findById(resId).select('-password');
-      restaurant.name = name;
-      restaurant.email = email;
-      restaurant.location = location;
-      restaurant.phone = phone;
-      restaurant.description = description;
-      restaurant.timings = timings;
-      restaurant.deliveryMethod = delivery;
-      restaurant.cuisine = cuisine;
-      // restaurant.deliveryMethod = delivery
-      //   .split(',')
-      //   .map((each) => each.trim());
-      // restaurant.cuisine = cuisine.split(',').map((each) => each.trim());
+    // try {
+    //   const restaurant = await Restaurant.findById(resId).select('-password');
+    //   restaurant.name = name;
+    //   restaurant.email = email;
+    //   restaurant.location = location;
+    //   restaurant.phone = phone;
+    //   restaurant.description = description;
+    //   restaurant.timings = timings;
+    //   restaurant.deliveryMethod = delivery;
+    //   restaurant.cuisine = cuisine;
+    //   // restaurant.deliveryMethod = delivery
+    //   //   .split(',')
+    //   //   .map((each) => each.trim());
+    //   // restaurant.cuisine = cuisine.split(',').map((each) => each.trim());
 
-      await restaurant.save();
+    //   await restaurant.save();
 
-      res.status(200).send('Restaurant details updated');
-    } catch (err) {
-      console.log(err);
-      res.status(500).send('Server Error');
-    }
+    //   res.status(200).send('Restaurant details updated');
+    // } catch (err) {
+    //   console.log(err);
+    //   res.status(500).send('Server Error');
+    // }
+
+    const payload = {
+      topic: 'updateBasics',
+      body: req.body,
+      user: req.user,
+    };
+    kafka.make_request('restaurantProfile', payload, (err, results) => {
+      console.log('in result');
+      if (err) {
+        console.log('Inside err');
+        res.status(500).send('System Error, Try Again.');
+      } else {
+        if (results.status === 500) {
+          return res.status(500).send('Server Error');
+        }
+        res.status(200).send(results.message);
+      }
+    });
   },
 );
 
@@ -147,21 +210,39 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const resId = req.user.id;
-    const { email, phone } = req.body;
+    // const resId = req.user.id;
+    // const { email, phone } = req.body;
 
-    try {
-      const restaurant = await Restaurant.findById(resId).select('-password');
-      restaurant.email = email;
-      restaurant.phone = phone;
+    // try {
+    //   const restaurant = await Restaurant.findById(resId).select('-password');
+    //   restaurant.email = email;
+    //   restaurant.phone = phone;
 
-      await restaurant.save();
+    //   await restaurant.save();
 
-      res.status(200).send('Restaurant details updated');
-    } catch (err) {
-      console.log(err);
-      res.status(500).send('Server Error');
-    }
+    //   res.status(200).send('Restaurant details updated');
+    // } catch (err) {
+    //   console.log(err);
+    //   res.status(500).send('Server Error');
+    // }
+
+    const payload = {
+      topic: 'updateContact',
+      body: req.body,
+      user: req.user,
+    };
+    kafka.make_request('restaurantProfile', payload, (err, results) => {
+      console.log('in result');
+      if (err) {
+        console.log('Inside err');
+        res.status(500).send('System Error, Try Again.');
+      } else {
+        if (results.status === 500) {
+          return res.status(500).send('Server Error');
+        }
+        res.status(200).send(results.message);
+      }
+    });
   },
 );
 
@@ -184,20 +265,38 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const resId = req.user.id;
-    const { name, ingredients, price, description, category } = req.body;
+    // const resId = req.user.id;
+    // const { name, ingredients, price, description, category } = req.body;
 
-    try {
-      const restaurant = await Restaurant.findById(resId).select('-password');
-      const newItem = { name, ingredients, price, description, category };
-      restaurant.menu.push(newItem);
-      await restaurant.save();
+    // try {
+    //   const restaurant = await Restaurant.findById(resId).select('-password');
+    //   const newItem = { name, ingredients, price, description, category };
+    //   restaurant.menu.push(newItem);
+    //   await restaurant.save();
 
-      res.status(200).send('Menu item added.');
-    } catch (err) {
-      console.log(err);
-      res.status(500).send('Server Error');
-    }
+    //   res.status(200).send('Menu item added.');
+    // } catch (err) {
+    //   console.log(err);
+    //   res.status(500).send('Server Error');
+    // }
+
+    const payload = {
+      topic: 'addMenuItem',
+      body: req.body,
+      user: req.user,
+    };
+    kafka.make_request('restaurantProfile', payload, (err, results) => {
+      console.log('in result', payload.topic);
+      if (err) {
+        console.log('Inside err');
+        res.status(500).send('System Error, Try Again.');
+      } else {
+        if (results.status === 500) {
+          return res.status(500).send('Server Error');
+        }
+        res.status(200).send(results.message);
+      }
+    });
   },
 );
 
@@ -221,71 +320,49 @@ router.put(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const itemId = req.params.item_id;
-    const resId = req.user.id;
+    // const itemId = req.params.item_id;
+    // const resId = req.user.id;
 
-    const { name, ingredients, price, description, category } = req.body;
+    // const { name, ingredients, price, description, category } = req.body;
 
-    try {
-      const restaurant = await Restaurant.findById(resId).select('-password');
+    // try {
+    //   const restaurant = await Restaurant.findById(resId).select('-password');
 
-      restaurant.menu.forEach((item) => {
-        if (item._id.toString() === itemId) {
-          item.name = name;
-          item.ingredients = ingredients;
-          item.price = price;
-          item.description = description;
-          item.category = category;
+    //   restaurant.menu.forEach((item) => {
+    //     if (item._id.toString() === itemId) {
+    //       item.name = name;
+    //       item.ingredients = ingredients;
+    //       item.price = price;
+    //       item.description = description;
+    //       item.category = category;
+    //     }
+    //   });
+
+    //   await restaurant.save();
+
+    //   res.status(200).json(restaurant);
+    // } catch (err) {
+    //   console.log(err);
+    //   res.status(500).send('Server Error');
+    // }
+
+    const payload = {
+      topic: 'updateMenuItem',
+      body: req.body,
+      itemId: req.params.item_id,
+      resId: req.user.id,
+    };
+    kafka.make_request('restaurantProfile', payload, (err, results) => {
+      if (err) {
+        console.log('Inside err');
+        res.status(500).send('System Error, Try Again.');
+      } else {
+        if (results.status === 500) {
+          return res.status(500).send('Server Error');
         }
-      });
-
-      await restaurant.save();
-
-      res.status(200).json(restaurant);
-    } catch (err) {
-      console.log(err);
-      res.status(500).send('Server Error');
-    }
-  },
-);
-
-// @route  GET yelp/restaurant/profile/menu
-// @desc   Get all the items added by current restaurant using resId of current restaurant
-// @access Public
-router.get('/menu/display/all', checkAuth, async (req, res) => {
-  const resId = req.user.id;
-  try {
-    const menu = await Restaurant.findById(resId).select('menu');
-    if (!menu) {
-      return res.status(400).json({ errors: [{ msg: 'No menu items added' }] });
-    }
-    return res.status(200).json(menu);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send('Server Error');
-  }
-});
-
-// @route  GET yelp/restaurant/profile//menuitems/restaurant/:res_id
-// @desc   Get all the items added by current restaurant using resId
-// @access Public
-router.get(
-  '/menu/display/all/:res_id',
-  checkObjectId('res_id'),
-  async (req, res) => {
-    const resId = req.params.res_id;
-    try {
-      const menu = await Restaurant.findById(resId).select('menu');
-      if (!menu) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'No menu items added' }] });
+        res.status(200).send(results.message);
       }
-      return res.status(200).json(menu);
-    } catch (err) {
-      console.log(err);
-      res.status(500).send('Server Error');
-    }
+    });
   },
 );
 
@@ -293,19 +370,38 @@ router.get(
 // @desc   Get all reviews for a restaurant
 // @access Private
 router.get('/reviews/all/:res_id', async (req, res) => {
-  const resId = req.params.res_id;
-  try {
-    const customers = await User.find({ 'reviews.restaurant': resId }).select(
-      'name reviews',
-    );
-    if (customers.length === 0) {
-      return res.status(400).json({ errors: [{ msg: 'No reviews added' }] });
+  // const resId = req.params.res_id;
+  // try {
+  //   const customers = await User.find({ 'reviews.restaurant': resId }).select(
+  //     'name reviews',
+  //   );
+  //   if (customers.length === 0) {
+  //     return res.status(400).json({ errors: [{ msg: 'No reviews added' }] });
+  //   }
+  //   res.status(200).json(customers);
+  // } catch (err) {
+  //   console.log(err);
+  //   res.status(500).send('Server Error');
+  // }
+
+  const payload = {
+    topic: 'getRestaurantReviews',
+    resId: req.params.res_id,
+  };
+  kafka.make_request('restaurantProfile', payload, (err, results) => {
+    if (err) {
+      console.log('Inside err');
+      res.status(500).send('System Error, Try Again.');
+    } else {
+      if (results.status === 400) {
+        return res.status(400).json({ errors: [{ msg: results.message }] });
+      }
+      if (results.status === 500) {
+        return res.status(500).send('Server Error');
+      }
+      res.status(200).send(results.message);
     }
-    res.status(200).json(customers);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send('Server Error');
-  }
+  });
 });
 
 module.exports = router;

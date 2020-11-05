@@ -10,7 +10,7 @@ function make_request(queue_name, msg_payload, callback) {
   rpc.makeRequest(queue_name, msg_payload, (err, response) => {
     if (err) console.error('here 1 is the error: ', err);
     else {
-      console.log('response', response);
+      // console.log('response', response);
       callback(null, response);
     }
   });
