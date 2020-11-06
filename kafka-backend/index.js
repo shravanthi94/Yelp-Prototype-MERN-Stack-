@@ -12,6 +12,7 @@ const customerOrder = require('./services/customer.services/order');
 const restaurantEvent = require('./services/restaurant.services/event');
 const customerEvent = require('./services/customer.services/event');
 const messages = require('./services/message.services/message');
+const users = require('./services/users.services/user');
 
 function handleTopicRequest(topic_name, fname) {
   var consumer = connection.getConsumer(topic_name);
@@ -50,3 +51,4 @@ handleTopicRequest('customerOrder', customerOrder);
 handleTopicRequest('restaurantEvent', restaurantEvent);
 handleTopicRequest('customerEvent', customerEvent);
 handleTopicRequest('messages', messages);
+handleTopicRequest('users', users);

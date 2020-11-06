@@ -27,12 +27,13 @@ const Users = ({
   const [activePage, setactivePage] = useState(1);
 
   // Logic for displaying current customers
-  const indexOfLast = activePage * 1;
-  const indexOfFirst = indexOfLast - 1;
+  const indexOfLast = activePage * 3;
+  const indexOfFirst = indexOfLast - 3;
   const currentCustomers = customers.slice(indexOfFirst, indexOfLast);
 
   const handleSearch = (e) => {
     getSearchResutls(searchData);
+    setsearchData('');
   };
 
   const handleFollowing = (e) => {
@@ -121,7 +122,7 @@ const Users = ({
         <div className='page-width'>
           <Pagination
             activePage={activePage}
-            itemsCountPerPage={1}
+            itemsCountPerPage={3}
             totalItemsCount={customers.length}
             pageRangeDisplayed={5}
             onChange={handlePageChange}
