@@ -1,6 +1,5 @@
 const Restaurant = require('../../models/RestaurantModel');
 const User = require('../../models/UserModel');
-const { checkAuth } = require('../../middleware/resAuth');
 
 const response = {};
 

@@ -7,6 +7,8 @@ connectDB();
 const auth = require('./services/authorization.services/auth');
 const restaurantProfile = require('./services/restaurant.services/profile');
 const customerProfile = require('./services/customer.services/profile');
+const restaurantOrder = require('./services/restaurant.services/order');
+const customerOrder = require('./services/customer.services/order');
 
 function handleTopicRequest(topic_name, fname) {
   var consumer = connection.getConsumer(topic_name);
@@ -40,3 +42,5 @@ function handleTopicRequest(topic_name, fname) {
 handleTopicRequest('authorization', auth);
 handleTopicRequest('restaurantProfile', restaurantProfile);
 handleTopicRequest('customerProfile', customerProfile);
+handleTopicRequest('restaurantOrder', restaurantOrder);
+handleTopicRequest('customerOrder', customerOrder);

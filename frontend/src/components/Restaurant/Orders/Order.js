@@ -31,7 +31,7 @@ const Orders = ({
 
   useEffect(() => {
     getAllRestaurantOrders();
-  }, []);
+  }, [orderData]);
 
   const handlePageChange = (pageNumber) => {
     setactivePage(pageNumber);
