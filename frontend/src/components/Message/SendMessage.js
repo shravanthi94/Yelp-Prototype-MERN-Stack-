@@ -25,7 +25,7 @@ const SendMessage = ({
     if (!loading) {
       getConversation(profile._id, customerId);
     }
-  }, [loading, conversation]);
+  }, [loading]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -33,8 +33,29 @@ const SendMessage = ({
     settext('');
   };
 
-  return !profile || loading ? (
+  return loading ? (
     spinner
+  ) : !conversation ? (
+    <Fragment>
+      {' '}
+      <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
+        <div className={styles.form_group}>
+          <label className={styles.form_label}>Message text</label>
+          <br />
+          <textarea
+            className={styles.my_headline}
+            maxlength='2000'
+            size='30'
+            rows='6'
+            type='text'
+            name='text'
+            value={text}
+            onChange={(e) => settext(e.target.value)}
+          ></textarea>
+        </div>
+        <input type='submit' value='Send Message' className={styles.btn} />
+      </form>
+    </Fragment>
   ) : (
     <Fragment>
       <div className='container profile-title'>
