@@ -13,6 +13,7 @@ const restaurantEvent = require('./services/restaurant.services/event');
 const customerEvent = require('./services/customer.services/event');
 const messages = require('./services/message.services/message');
 const users = require('./services/users.services/user');
+const images = require('./services/image.services/image');
 
 function handleTopicRequest(topic_name, fname) {
   var consumer = connection.getConsumer(topic_name);
@@ -52,3 +53,4 @@ handleTopicRequest('restaurantEvent', restaurantEvent);
 handleTopicRequest('customerEvent', customerEvent);
 handleTopicRequest('messages', messages);
 handleTopicRequest('users', users);
+handleTopicRequest('images', images);

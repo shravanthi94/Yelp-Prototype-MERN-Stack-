@@ -7,6 +7,9 @@ const { checkAuth } = require('../../middleware/auth');
 // const User = require('../../models/UserModel');
 const kafka = require('../../kafka/client');
 
+// @route  GET yelp/customer/users/:data
+// @desc   Get users based on search data
+// @access Private
 router.get('/:data', checkAuth, async (req, res) => {
   // const { data } = req.params;
   // const customerId = req.user.id;
@@ -50,6 +53,9 @@ router.get('/:data', checkAuth, async (req, res) => {
   });
 });
 
+// @route  POST yelp/customer/users/:id
+// @desc   Follow an user
+// @access Private
 router.post('/:id', checkAuth, async (req, res) => {
   // const { id } = req.params;
   // const customerId = req.user.id;
@@ -93,6 +99,9 @@ router.post('/:id', checkAuth, async (req, res) => {
   });
 });
 
+// @route  GET yelp/customer/users/following/all
+// @desc   Get all following users for current customer
+// @access Private
 router.get('/following/all', checkAuth, async (req, res) => {
   // const customerId = req.user.id;
   // try {

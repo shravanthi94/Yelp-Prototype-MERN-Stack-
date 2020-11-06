@@ -6,7 +6,8 @@ const path = require('path');
 const fs = require('fs');
 const { checkAuth } = require('../../middleware/auth');
 
-const User = require('../../models/UserModel');
+// const User = require('../../models/UserModel');
+const kafka = require('../../kafka/client');
 
 const customerstorage = multer.diskStorage({
   destination: `${path.join(__dirname, '../..')}/public/uploads/customers`,
@@ -29,17 +30,34 @@ const customeruploads = multer({
 router.post('/', checkAuth, async (req, res) => {
   customeruploads(req, res, async (err) => {
     if (!err) {
-      try {
-        const customer = await User.findById(req.user.id);
-        customer.image = req.file.filename;
+      // try {
+      //   const customer = await User.findById(req.user.id);
+      //   customer.image = req.file.filename;
 
-        await customer.save();
+      //   await customer.save();
 
-        res.status(200).json(customer);
-      } catch (error) {
-        console.log(error);
-        res.status(500).send('Server Error');
-      }
+      //   res.status(200).json(customer);
+      // } catch (error) {
+      //   console.log(error);
+      //   res.status(500).send('Server Error');
+      // }
+      const payload = {
+        topic: 'uploadCustomerImage',
+        user: req.user,
+        file: req.file,
+      };
+      kafka.make_request('images', payload, (error, results) => {
+        console.log('in result');
+        if (error) {
+          console.log('Inside err');
+          res.status(500).send('System Error, Try Again.');
+        } else {
+          if (results.status === 500) {
+            return res.status(500).send('Server Error');
+          }
+          res.status(200).json(results.message);
+        }
+      });
     } else {
       console.log('Error!', err);
     }

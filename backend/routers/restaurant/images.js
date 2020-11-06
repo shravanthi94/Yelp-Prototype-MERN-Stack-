@@ -8,6 +8,7 @@ const fs = require('fs');
 const { checkAuth } = require('../../middleware/resAuth');
 
 const Restaurant = require('../../models/RestaurantModel');
+const kafka = require('../../kafka/client');
 
 const resstorage = multer.diskStorage({
   destination: `${path.join(__dirname, '../..')}/public/uploads/restaurants`,
@@ -32,17 +33,34 @@ const resuploads = multer({
 router.post('/restaurant', checkAuth, async (req, res) => {
   resuploads(req, res, async (err) => {
     if (!err) {
-      try {
-        const restaurant = await Restaurant.findById(req.user.id);
-        restaurant.image = req.file.filename;
+      // try {
+      //   const restaurant = await Restaurant.findById(req.user.id);
+      //   restaurant.image = req.file.filename;
 
-        await restaurant.save();
+      //   await restaurant.save();
 
-        res.status(200).json(restaurant);
-      } catch (error) {
-        console.log(error);
-        res.status(500).send('Server Error');
-      }
+      //   res.status(200).json(restaurant);
+      // } catch (error) {
+      //   console.log(error);
+      //   res.status(500).send('Server Error');
+      // }
+      const payload = {
+        topic: 'uploadRestaurantImage',
+        user: req.user,
+        file: req.file,
+      };
+      kafka.make_request('images', payload, (error, results) => {
+        console.log('in result');
+        if (error) {
+          console.log('Inside err');
+          res.status(500).send('System Error, Try Again.');
+        } else {
+          if (results.status === 500) {
+            return res.status(500).send('Server Error');
+          }
+          res.status(200).json(results.message);
+        }
+      });
     } else {
       console.log('Error!', err);
     }
@@ -91,20 +109,39 @@ const dishuploads = multer({
 router.post('/dish/:dish_id', checkAuth, async (req, res) => {
   dishuploads(req, res, async (err) => {
     if (!err) {
-      try {
-        const restaurant = await Restaurant.findById(req.user.id);
-        restaurant.menu.forEach((item) => {
-          if (item._id.toString() === req.params.dish_id) {
-            item.images.push(req.file.filename);
-          }
-        });
-        await restaurant.save();
+      // try {
+      //   const restaurant = await Restaurant.findById(req.user.id);
+      //   restaurant.menu.forEach((item) => {
+      //     if (item._id.toString() === req.params.dish_id) {
+      //       item.images.push(req.file.filename);
+      //     }
+      //   });
+      //   await restaurant.save();
 
-        res.status(200).json(restaurant);
-      } catch (error) {
-        console.log(error);
-        res.status(500).send('Server Error');
-      }
+      //   res.status(200).json(restaurant);
+      // } catch (error) {
+      //   console.log(error);
+      //   res.status(500).send('Server Error');
+      // }
+
+      const payload = {
+        topic: 'uploadDishImage',
+        user: req.user,
+        file: req.file,
+        params: req.params,
+      };
+      kafka.make_request('images', payload, (error, results) => {
+        console.log('in result');
+        if (error) {
+          console.log('Inside err');
+          res.status(500).send('System Error, Try Again.');
+        } else {
+          if (results.status === 500) {
+            return res.status(500).send('Server Error');
+          }
+          res.status(200).json(results.message);
+        }
+      });
     } else {
       console.log('Error!', err);
     }
@@ -144,12 +181,32 @@ router.get('/all/:res_id', async (req, res) => {
     results.menu.forEach((each) => {
       images = [...images, ...each.images];
     });
-    // console.log(images);
+
     res.status(200).json(images);
   } catch (err) {
     console.log(err);
     res.status(500).send('Server Error');
   }
+
+  // const payload = {
+  //   topic: 'getAllImages',
+  //   params: req.params,
+  // };
+  // kafka.make_request('images', payload, (err, results) => {
+  //   if (err) {
+  //     console.log('Inside err');
+  //     res.status(500).send('System Error, Try Again.');
+  //   } else {
+  //     if (results.status === 400) {
+  //       return res.status(400).json({ errors: [{ msg: results.message }] });
+  //     }
+  //     if (results.status === 500) {
+  //       return res.status(500).send('Server Error');
+  //     }
+  //     console.log(results.message);
+  //     res.status(200).json(results.message);
+  //   }
+  // });
 });
 
 module.exports = router;
