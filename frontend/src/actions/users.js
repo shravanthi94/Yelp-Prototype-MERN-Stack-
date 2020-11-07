@@ -51,7 +51,7 @@ export const getSearchResutls = (data) => async (dispatch) => {
 
 export const followUser = (id) => async (dispatch) => {
   try {
-    const res = await axios.post(`/customer/users/${id}`);
+    await axios.post(`/customer/users/${id}`);
     dispatch({
       type: FOLLOW_SUCCESS,
     });

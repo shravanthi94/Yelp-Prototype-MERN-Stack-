@@ -9,12 +9,8 @@ import {
   PLACEORDER_ERROR,
   ADD_REVIEW,
   ADD_REVIEW_ERROR,
-  //   GET_RES_MENU,
-  //   GET_RES_MENU_ERROR,
   GET_CUSTOMER_REVIEW,
   CUSTOMER_REVIEW_ERROR,
-  //   GET_IMAGES,
-  //   RES_IMAGE_ERROR,
 } from './types';
 
 export const getAllRestaurants = () => async (dispatch) => {
@@ -102,11 +98,7 @@ export const writeReview = (resId, formData, history) => async (dispatch) => {
         'Content-Type': 'application/json',
       },
     };
-    const res = await axios.post(
-      `/customer/profile/reviews/${resId}`,
-      formData,
-      config,
-    );
+    await axios.post(`/customer/profile/reviews/${resId}`, formData, config);
 
     dispatch(setAlert('Review added', 'success'));
 

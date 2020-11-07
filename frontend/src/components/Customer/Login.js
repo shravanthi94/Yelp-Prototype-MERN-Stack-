@@ -26,7 +26,7 @@ const Login = ({ login, isAuthenticated }) => {
   }
   return (
     <div className='columns'>
-      <div className='form-flow' className='column is-two-fifths'>
+      <div className='column is-two-fifths'>
         <h2 className='form-title'>Log in to Yelp</h2>
         <small className='restaurant'>
           Restaurant Owner? <Link to='/restaurant/login'>Login here</Link>
@@ -57,7 +57,7 @@ const Login = ({ login, isAuthenticated }) => {
               onChange={(e) => onChange(e)}
               required
             />
-            <button type='submit' value='login' className='btn'>
+            <button type='submit' value='login' className='btn-auth'>
               Log In
             </button>
           </form>

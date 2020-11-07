@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import styles from '../profile-forms/form.module.css';
 import spinner from '../../layout/Spinner';
 import { getAllOrders } from '../../../actions/cusOrder';
-import Date from '../../../utils/Date';
 import Pagination from 'react-js-pagination';
 import OrdersCard from './OrdersCard';
 
@@ -28,7 +27,6 @@ const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
     if (!loading) {
       setorders(allorders.reverse());
     }
-    console.log(orders);
   }, [loading, sortType]);
 
   const handlePageChange = (pageNumber) => {

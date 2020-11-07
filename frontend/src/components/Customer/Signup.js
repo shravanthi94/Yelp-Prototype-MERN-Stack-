@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { setAlert } from '../../actions/alert';
 import { signup } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import '../css/form.css';
 
-const Signup = ({ setAlert, signup, isAuthenticated }) => {
+const Signup = ({ signup, isAuthenticated }) => {
   const [formData, setformData] = useState({
     name: '',
     email: '',
@@ -29,7 +28,7 @@ const Signup = ({ setAlert, signup, isAuthenticated }) => {
 
   return (
     <div className='columns'>
-      <div className='form-flow' className='column is-two-fifths'>
+      <div className='column is-two-fifths'>
         <h2 className='form-title'>Sign Up for Yelp</h2>
         <small className='restaurant'>
           Are you a Restaurant Owner?{' '}
@@ -80,7 +79,7 @@ const Signup = ({ setAlert, signup, isAuthenticated }) => {
               Yelp’s products, services, and local events. You can unsubscribe
               at any time.
             </p>
-            <button type='submit' value='Signup' className='btn'>
+            <button type='submit' value='Signup' className='btn-auth'>
               Sign Up
             </button>
           </form>
@@ -105,7 +104,6 @@ const Signup = ({ setAlert, signup, isAuthenticated }) => {
 };
 
 Signup.propTypes = {
-  setAlert: PropTypes.func.isRequired,
   signup: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
@@ -113,4 +111,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { setAlert, signup })(Signup);
+export default connect(mapStateToProps, { signup })(Signup);

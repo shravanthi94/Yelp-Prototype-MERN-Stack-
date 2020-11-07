@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
@@ -11,7 +11,7 @@ const Event = ({
   getAllEvents,
   event: { events, registered, loading },
   getRegisteredEvents,
-  history,
+  // history,
 }) => {
   const [sortType, setsortType] = useState('Acsending');
   const [allEvents, setallEvents] = useState([]);
@@ -30,7 +30,7 @@ const Event = ({
 
   useEffect(() => {
     getAllEvents();
-    if (localStorage.usertype == 'customer') {
+    if (localStorage.usertype === 'customer') {
       getRegisteredEvents();
     }
   }, []);
@@ -98,7 +98,7 @@ const Event = ({
             </div>
           </div>
         </div>
-        {localStorage.usertype == 'customer' && (
+        {localStorage.usertype === 'customer' && (
           <select
             className='select-css'
             name='allEvents'
@@ -111,7 +111,7 @@ const Event = ({
         )}
         <div>
           <div className={styles.rest_links}>
-            {localStorage.usertype == 'restaurant' && (
+            {localStorage.usertype === 'restaurant' && (
               <Fragment>
                 <br />
                 <Link to='/event/create' className={styles.btn_update}>
@@ -125,14 +125,14 @@ const Event = ({
           </div>
         </div>
         <br />
-        {localStorage.usertype == 'restaurant' && (
+        {localStorage.usertype === 'restaurant' && (
           <Fragment>
             <br />
             <br />
           </Fragment>
         )}
         <div>
-          {localStorage.usertype == 'restaurant' && registered.length === 0 ? (
+          {localStorage.usertype === 'restaurant' && registered.length === 0 ? (
             ''
           ) : (
             <Fragment>

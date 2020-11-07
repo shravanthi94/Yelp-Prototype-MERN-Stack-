@@ -27,7 +27,7 @@ const Signup = ({ loginRestaurant, isAuthenticated }) => {
 
   return (
     <div className='columns'>
-      <div className='form-flow' className='column is-two-fifths'>
+      <div className='column is-two-fifths'>
         <h2 className='form-title'>Log In for Yelp</h2>
         <div>
           <form className='yform' onSubmit={(e) => onSubmit(e)}>
@@ -57,7 +57,7 @@ const Signup = ({ loginRestaurant, isAuthenticated }) => {
               minLength='4'
             />
             <br />
-            <button type='submit' value='Signup' className='btn'>
+            <button type='submit' value='Signup' className='btn-auth'>
               Log In
             </button>
           </form>

@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';

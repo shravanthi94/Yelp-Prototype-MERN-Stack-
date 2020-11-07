@@ -17,11 +17,7 @@ export const RestaurantSendMessage = (text, customerId) => async (dispatch) => {
     };
 
     const body = JSON.stringify({ text });
-    const res = await axios.post(
-      `/restaurant/message/${customerId}`,
-      body,
-      config,
-    );
+    await axios.post(`/restaurant/message/${customerId}`, body, config);
 
     dispatch(setAlert('Message sent', 'success'));
 
@@ -115,7 +111,7 @@ export const CustomerSendMessage = (text, id, history) => async (dispatch) => {
     };
 
     const body = JSON.stringify({ text });
-    const res = await axios.post(`/customer/message/${id}`, body, config);
+    await axios.post(`/customer/message/${id}`, body, config);
 
     dispatch(setAlert('Message sent', 'success'));
 

@@ -7,17 +7,17 @@ import spinner from '../layout/Spinner';
 import Date from '../../utils/Date';
 import '../css/profile.css';
 import { BACKEND_URL } from '../../utils/constants';
-// import { getRegisteredEvents } from '../../actions/event';
+import { getRegisteredEvents } from '../../actions/event';
 
 const Profile = ({
   getCurrentProfile,
   profile: { profile, loading },
-  //   getRegisteredEvents,
-  //   event: { registered, loading: loading_event },
+  getRegisteredEvents,
+  event: { registered, loading: loading_event },
 }) => {
   useEffect(() => {
     getCurrentProfile();
-    // getRegisteredEvents();
+    getRegisteredEvents();
   }, []);
 
   let imgSrc;
@@ -25,42 +25,42 @@ const Profile = ({
     imgSrc = `${BACKEND_URL}/customer/images/${profile.image}`;
   }
 
-  //   const displayEvents = () => {
-  //     return registered.map((event) => {
-  //       return (
-  //         <Fragment>
-  //           <div class='box' style={{ color: 'black' }}>
-  //             <article class='media'>
-  //               <div class='media-content'>
-  //                 <div class='content'>
-  //                   <p>
-  //                     You registered for{' '}
-  //                     <strong className={styles.title1}>
-  //                       <Link
-  //                         to={`/event/details/${event.event_name}`}
-  //                         className={styles.title1}
-  //                       >
-  //                         {event.event_name}
-  //                       </Link>
-  //                     </strong>{' '}
-  //                     <small>@{event.event_location}</small>
-  //                     <br />
-  //                     <small>
-  //                       {event.event_date && event.event_date.substring(0, 10)} ,{' '}
-  //                       {event.event_time}{' '}
-  //                     </small>
-  //                     <br />
-  //                     {event.event_description}
-  //                   </p>
-  //                 </div>
-  //               </div>
-  //             </article>
-  //           </div>
-  //           <hr />
-  //         </Fragment>
-  //       );
-  //     });
-  //   };
+  const displayEvents = () => {
+    return registered.map((event) => {
+      return (
+        <Fragment>
+          <div class='box' style={{ color: 'black' }}>
+            <article class='media'>
+              <div class='media-content'>
+                <div class='content'>
+                  <p>
+                    You registered for{' '}
+                    <strong>
+                      <Link
+                        to={`/event/details/${event.name}`}
+                        // className={styles.title1}
+                      >
+                        {event.name}
+                      </Link>
+                    </strong>{' '}
+                    <small>@{event.location}</small>
+                    <br />
+                    <small>
+                      {event.date && event.date.substring(0, 10)} , {event.time}{' '}
+                    </small>
+                    <br />
+                    {event.description}
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+          <hr />
+        </Fragment>
+      );
+    });
+  };
+
   return loading || profile === null ? (
     spinner
   ) : (
@@ -96,7 +96,10 @@ const Profile = ({
           <hr />
           <h2 className='activity'>Headline</h2>
           {!profile.about.headline ? (
-            <p>Add your headline...</p>
+            <Fragment>
+              <p>Add your headline...</p>
+              <br />
+            </Fragment>
           ) : (
             <Fragment>
               <h4 className='headline'>{profile.about.headline}</h4>
@@ -115,7 +118,7 @@ const Profile = ({
             </Fragment>
           )}
           <h2 className='activity'>Recent Activity</h2>
-          {/* {displayEvents()} */}
+          {displayEvents()}
         </div>
         <div className='right-profile'>
           <div className='update-links'>
@@ -190,18 +193,18 @@ const Profile = ({
 
 Profile.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  //   getRegisteredEvents: PropTypes.func.isRequired,
+  getRegisteredEvents: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  //   event: PropTypes.object.isRequired,
+  event: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
-  //   event: state.event,
+  event: state.event,
 });
 
 export default connect(mapStateToProps, {
   getCurrentProfile,
-  //   getRegisteredEvents,
+  getRegisteredEvents,
 })(Profile);

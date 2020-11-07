@@ -27,9 +27,9 @@ const Results = ({
   const handleDataChange = (e) => {
     const newResults = results.filter(
       (res) =>
-        res.deliveryMethod == filterData || res.location.includes(filterData),
+        res.deliveryMethod === filterData || res.location.includes(filterData),
     );
-    if (newResults.length == 0) {
+    if (newResults.length === 0) {
       setAlert('No results for the query', 'danger');
     }
     setlist(newResults);
