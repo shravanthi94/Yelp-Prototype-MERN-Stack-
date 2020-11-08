@@ -9,7 +9,7 @@ import Pagination from 'react-js-pagination';
 import OrdersCard from './OrdersCard';
 
 const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
-  const [sortType, setsortType] = useState('Acsending');
+  const [sortType, setsortType] = useState('Ascending');
   const [orders, setorders] = useState([]);
 
   const [activePage, setactivePage] = useState(1);
@@ -62,7 +62,7 @@ const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
           onChange={(e) => setsortType(e.target.value)}
         >
           <option>Sort by...</option>
-          <option>Acsending</option>
+          <option>Ascending</option>
           <option>Descending</option>
         </select>
         <br />

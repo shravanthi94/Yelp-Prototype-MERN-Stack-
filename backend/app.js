@@ -14,13 +14,13 @@ app.use(bodyParser.json({ extended: false }));
 //  Allow cross origin resourse sharing
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://54.177.171.160:3000',
     credentials: true,
   }),
 );
 
 app.use((request, response, next) => {
-  response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  response.setHeader('Access-Control-Allow-Origin', 'http://54.177.171.160:3000');
   response.setHeader('Access-Control-Allow-Credentials', 'true');
   response.setHeader(
     'Access-Control-Allow-Methods',
