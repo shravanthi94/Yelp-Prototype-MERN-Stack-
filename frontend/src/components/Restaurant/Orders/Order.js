@@ -24,14 +24,9 @@ const Orders = ({
 
   const [activePage, setactivePage] = useState(1);
 
-  // Logic for displaying current orders
-  const indexOfLast = activePage * 1;
-  const indexOfFirst = indexOfLast - 1;
-  const currentOrders = allOrders.slice(indexOfFirst, indexOfLast);
-
   useEffect(() => {
     getAllRestaurantOrders();
-  }, [orderData]);
+  }, [allOrders]);
 
   const handlePageChange = (pageNumber) => {
     setactivePage(pageNumber);
@@ -48,6 +43,10 @@ const Orders = ({
   };
 
   const displayOrders = () => {
+    // // Logic for displaying current orders
+    const indexOfLast = activePage * 3;
+    const indexOfFirst = indexOfLast - 3;
+    const currentOrders = allOrders.slice(indexOfFirst, indexOfLast);
     return currentOrders.map((order) => {
       return (
         <div>
@@ -80,7 +79,7 @@ const Orders = ({
                 )}
                 <Fragment>
                   <select
-                    className='select-css select-css-width'
+                    className='select-css select-css-width select-orders'
                     name='status'
                     onChange={(e) =>
                       setorderData({
@@ -150,7 +149,7 @@ const Orders = ({
         <div className='page-width'>
           <Pagination
             activePage={activePage}
-            itemsCountPerPage={1}
+            itemsCountPerPage={3}
             totalItemsCount={allOrders.length}
             pageRangeDisplayed={5}
             onChange={handlePageChange}

@@ -22,17 +22,18 @@ const Event = ({
   const indexOfLast = activePage * 3;
   const indexOfFirst = indexOfLast - 3;
   let currentEvents = [];
-  if (localStorage.usertype === 'customer') {
-    currentEvents = allEvents.slice(indexOfFirst, indexOfLast);
-  } else {
-    currentEvents = events.slice(indexOfFirst, indexOfLast);
-  }
+  // if (localStorage.usertype === 'customer') {
+  // currentEvents = allEvents.slice(indexOfFirst, indexOfLast);
+  // } else {
+  currentEvents = events.slice(indexOfFirst, indexOfLast);
+  // }
 
   useEffect(() => {
     getAllEvents();
     if (localStorage.usertype === 'customer') {
       getRegisteredEvents();
     }
+    setallEvents(events);
   }, []);
 
   useEffect(() => {

@@ -30,6 +30,9 @@ const Restaurant = ({
   }, [restaurant]);
 
   const displayImages = () => {
+    if (images.length > 5) {
+      images = images.slice(0, 5);
+    }
     return images.map((file) => {
       return (
         <img

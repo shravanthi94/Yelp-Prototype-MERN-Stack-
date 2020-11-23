@@ -10,8 +10,8 @@ const Menu = ({ location }) => {
   const [activePage, setactivePage] = useState(1);
 
   // Logic for displaying current menu items
-  const indexOfLast = activePage * 2;
-  const indexOfFirst = indexOfLast - 2;
+  const indexOfLast = activePage * 3;
+  const indexOfFirst = indexOfLast - 3;
   const currentMenu = menu.slice(indexOfFirst, indexOfLast);
 
   const handlePageChange = (pageNumber) => {
@@ -56,7 +56,7 @@ const Menu = ({ location }) => {
                     Update item
                   </Link>
                 )}
-                {item.image && (
+                {item.images.length > 1 && (
                   <Link
                     className={styles['update-btn']}
                     style={{ marginLeft: '2%' }}
@@ -87,9 +87,9 @@ const Menu = ({ location }) => {
       <div className='page-width'>
         <Pagination
           activePage={activePage}
-          itemsCountPerPage={2}
+          itemsCountPerPage={3}
           totalItemsCount={menu.length}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={10}
           onChange={handlePageChange}
         />
       </div>

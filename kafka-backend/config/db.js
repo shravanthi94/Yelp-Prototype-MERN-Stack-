@@ -9,6 +9,7 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      poolSize: 10,
     });
 
     console.log('Connected to mongoDB');

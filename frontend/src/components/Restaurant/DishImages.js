@@ -2,8 +2,12 @@ import React, { Fragment } from 'react';
 import styles from './Dashboard-forms/form.module.css';
 import { BACKEND_URL } from '../../utils/constants';
 
-const Images = ({ location, setAlert }) => {
-  const images = location.state.images;
+const Images = ({ location }) => {
+  let images = location.state.images;
+
+  if (images.length > 5) {
+    images = images.slice(0, 5);
+  }
 
   const displayImages = () => {
     return images.map((file) => {

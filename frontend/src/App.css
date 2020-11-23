@@ -261,6 +261,10 @@
   background-size: 0.65em auto, 100%;
 }
 
+.select-orders {
+  width: 40%;
+}
+
 .select-css-width {
   width: 40%;
   margin-left: 40px;

@@ -109,39 +109,39 @@ const dishuploads = multer({
 router.post('/dish/:dish_id', checkAuth, async (req, res) => {
   dishuploads(req, res, async (err) => {
     if (!err) {
-      // try {
-      //   const restaurant = await Restaurant.findById(req.user.id);
-      //   restaurant.menu.forEach((item) => {
-      //     if (item._id.toString() === req.params.dish_id) {
-      //       item.images.push(req.file.filename);
-      //     }
-      //   });
-      //   await restaurant.save();
-
-      //   res.status(200).json(restaurant);
-      // } catch (error) {
-      //   console.log(error);
-      //   res.status(500).send('Server Error');
-      // }
-
-      const payload = {
-        topic: 'uploadDishImage',
-        user: req.user,
-        file: req.file,
-        params: req.params,
-      };
-      kafka.make_request('images', payload, (error, results) => {
-        console.log('in result');
-        if (error) {
-          console.log('Inside err');
-          res.status(500).send('System Error, Try Again.');
-        } else {
-          if (results.status === 500) {
-            return res.status(500).send('Server Error');
+      try {
+        const restaurant = await Restaurant.findById(req.user.id);
+        restaurant.menu.forEach((item) => {
+          if (item._id.toString() === req.params.dish_id) {
+            item.images.push(req.file.filename);
           }
-          res.status(200).json(results.message);
-        }
-      });
+        });
+        await restaurant.save();
+
+        res.status(200).json(restaurant);
+      } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+      }
+
+      // const payload = {
+      //   topic: 'uploadDishImage',
+      //   user: req.user,
+      //   file: req.file,
+      //   params: req.params,
+      // };
+      // kafka.make_request('images', payload, (error, results) => {
+      //   console.log('in result');
+      //   if (error) {
+      //     console.log('Inside err');
+      //     res.status(500).send('System Error, Try Again.');
+      //   } else {
+      //     if (results.status === 500) {
+      //       return res.status(500).send('Server Error');
+      //     }
+      //     res.status(200).json(results.message);
+      //   }
+      // });
     } else {
       console.log('Error!', err);
     }

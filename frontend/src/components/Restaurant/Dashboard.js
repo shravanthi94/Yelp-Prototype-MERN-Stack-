@@ -23,21 +23,10 @@ const Dashboard = ({
     }
   }, [profile]);
 
-  //   console.log(images);
-  //   let allImages = [],
-  //     files,
-  //     allFiles;
-  //   const splitImages = () => {
-  //     if (images) {
-  //       allImages = images.map((img) => img.item_image);
-  //     }
-  //     files = allImages.join(',');
-  //     allFiles = files.split(',');
-  //   };
-  //   splitImages();
-  //   console.log(allFiles);
-
   const displayImages = () => {
+    if (images.length > 5) {
+      images = images.slice(0, 5);
+    }
     return images.map((file) => {
       return (
         <img

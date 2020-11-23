@@ -17,16 +17,20 @@ const SubmittedEvent = ({
 
   const [activePage, setactivePage] = useState(1);
 
-  // Logic for displaying current orders
-  const indexOfLast = activePage * 2;
-  const indexOfFirst = indexOfLast - 2;
-  const currentEvents = submitted.slice(indexOfFirst, indexOfLast);
+  // // Logic for displaying current orders
+  // const indexOfLast = activePage * 2;
+  // const indexOfFirst = indexOfLast - 2;
+  // const currentEvents = submitted.slice(indexOfFirst, indexOfLast);
 
   const handlePageChange = (pageNumber) => {
     setactivePage(pageNumber);
   };
 
   const listSubmittedEvents = () => {
+    // Logic for displaying current orders
+    const indexOfLast = activePage * 2;
+    const indexOfFirst = indexOfLast - 2;
+    const currentEvents = submitted.slice(indexOfFirst, indexOfLast);
     return currentEvents.map((event) => {
       return (
         <div className={styles.event_card}>

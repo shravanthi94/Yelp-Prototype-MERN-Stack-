@@ -15,18 +15,20 @@ const AttendeeList = ({ location, setAlert }) => {
     }
     return customers.map((customer) => {
       return (
-        <td>
-          <div>
-            <h1>
-              <Link
-                className={styles.cust_name}
-                to={`/customer/details/${customer._id}`}
-              >
-                {customer.name}
-              </Link>
-            </h1>
-          </div>
-        </td>
+        <tr>
+          <td>
+            <div>
+              <h1>
+                <Link
+                  className={styles.cust_name}
+                  to={`/customer/details/${customer._id}`}
+                >
+                  {customer.name}
+                </Link>
+              </h1>
+            </div>
+          </td>
+        </tr>
       );
     });
   };
@@ -40,9 +42,8 @@ const AttendeeList = ({ location, setAlert }) => {
           <tr>
             <th>Customer Names</th>
           </tr>
-          <tr>{listCustomers()}</tr>
+          {listCustomers()}
         </table>
-        {/* <div className={styles.left}>{listCustomers()}</div> */}
       </div>
       <Link to='/event/submitted' className='btn'>
         Go Back

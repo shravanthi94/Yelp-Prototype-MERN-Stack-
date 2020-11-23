@@ -13,14 +13,18 @@ const handle_request = async (payload, callback) => {
       return eventByName(payload, callback);
     case 'createEvent':
       return createEvent(payload, callback);
-    case 'submittedEvent':
-      return submittedEvent(payload, calback);
+    case 'submittedEvents':
+      return submittedEvents(payload, callback);
   }
 };
 
 async function allEvents(payload, callback) {
   try {
-    const events = await Event.find({}, null, { sort: { eventDate: -1 } });
+    // const events = await Event.find().sort([['eventDate', -1]]);
+    const events = await Event.find({
+      $query: {},
+      $orderby: { eventDate: -1 },
+    });
     if (!events) {
       response.status = 400;
       response.message = 'No events found.';
@@ -88,9 +92,10 @@ async function createEvent(payload, callback) {
   }
 }
 
-async function submittedEvent(payload, callback) {
+async function submittedEvents(payload, callback) {
   try {
-    const events = await Event.find({ restaurant: req.user.id }).populate({
+    console.log('here');
+    const events = await Event.find({ restaurant: payload.user.id }).populate({
       path: 'customer',
       select: 'name',
       model: User,
